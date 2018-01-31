@@ -1,9 +1,68 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Marvel");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
+/* xs < 576; sm > 576; md > 768; lg > 992; xl > 1200 */
 
 // Variables
 @import "variables";
+@import "menu";
+@import "gallery";
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Generic
+
+html, body
+{
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+html
+{
+  overflow: -moz-scrollbars-vertical; 
+  overflow-y: scroll;
+}
+
+p, span, div, b, h1, h2, h3, h4, h5, ul, li, i, a
+{
+  font-family: 'Lato', sans-serif;
+}
+
+button:hover
+{
+  cursor: pointer;
+}
+
+.art-float-left
+{
+  float: left;
+}
+
+.fs-22
+{
+  font-size: 22px;
+}
+
+.visibility-hidden
+{
+  visibility: hidden;
+}
+
+.uppercase
+{
+  text-transform: uppercase;
+}
+
+.text-underline
+{
+  text-decoration: underline;
+}
+
+.marvel
+{
+  font-family: 'Marvel', sans-serif;
+}

@@ -1,0 +1,19 @@
+.gallery-title
+{
+    text-align: center;
+
+    h1
+    {
+        font-size: 110px;
+    }
+
+}
+
+
+@media (max-width: 576px)
+{
+    .gallery-title h1
+    {
+        font-size: 70px;
+    }
+}
