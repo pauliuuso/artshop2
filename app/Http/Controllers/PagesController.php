@@ -8,7 +8,8 @@ class PagesController extends Controller
 {
     public function index()
     {
-        return view("gallery/index");
+        $title = "Gallery";
+        return view("gallery/index")->with("title", $title);
     }
 
     public function artists()
