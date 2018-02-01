@@ -19,6 +19,12 @@ Route::get("/artwork/edit/{id}", "ArtworksController@edit");
 Route::put("/artwork/update/{id}", "ArtworksController@update");
 Route::delete("/artwork/delete/{id}", "ArtworksController@destroy");
 
+Route::get("/categories", "CategoriesController@index");
+Route::post("/categories/store", "CategoriesController@store");
+Route::get("/category/edit/{id}", "CategoriesController@edit");
+Route::put("/category/update/{id}", "CategoriesController@update");
+Route::delete("/category/delete/{id}", "CategoriesController@destroy");
+
 Route::get("/contacts", "PagesController@contacts");
 Route::get("/about", "PagesController@about");
 Route::get("/artists", "PagesController@artists");

@@ -88,7 +88,7 @@ class ArtworksController extends Controller
             $artwork->picture_name = $pictureNameToStore;
         }
         $artwork->save();
-
+        return redirect("/")->with("success", "Artwork added!");
     }
 
     /**

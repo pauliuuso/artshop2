@@ -50,6 +50,17 @@
   }
 }
 
+.category {
+  padding: 10px;
+  color: white;
+}
+
+.category a {
+  float: right;
+  cursor: pointer;
+  color: white;
+}
+
 html,
 body {
   padding: 0;
