@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Artwork;
+use App\Category;
+use App\User;
 
 class ArtworksController extends Controller
 {
@@ -16,7 +18,13 @@ class ArtworksController extends Controller
     public function index()
     {
         $artworks = Artwork::orderBy("created_at", "asc")->paginate(12);
-        return view("gallery/index")->with("artworks", $artworks);
+        $authors = User::all()->where("role", "author");
+        $authorNamesAndIds = array();
+        foreach($authors as $a)
+        {
+            $authorNamesAndIds[$a->id] = $a->name . " " . $a->surname;
+        }
+        return view("gallery/index")->with(["artworks" => $artworks, "authors" => $authorNamesAndIds]);
     }
 
     /**
@@ -112,7 +120,24 @@ class ArtworksController extends Controller
     public function edit($id)
     {
         $artwork = Artwork::find($id);
-        return view("gallery/edit")->with("artwork", $artwork);
+        $category = $artwork->getOneCategory->id;
+        $author = $artwork->getAuthor->id;
+        $authors = User::all()->where("role", "author");
+        $authorNamesAndIds = array();
+        foreach($authors as $a)
+        {
+            $authorNamesAndIds[$a->id] = $a->name . " " . $a->surname;
+        }
+        $categories = Category::all();
+        $categories = $categories->pluck("name", "id");
+        return view("gallery/edit")->with(
+        [
+            "artwork" => $artwork,
+            "categories" => $categories,
+            "category" => $category, 
+            "author" => $author, 
+            "authors" => $authorNamesAndIds
+        ]);
     }
 
     /**

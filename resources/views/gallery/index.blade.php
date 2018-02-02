@@ -16,7 +16,7 @@
                 </div>
                 <div class="art-info pt-4 text-center mb-5">
                     <h3 class="text-uppercase">{{$artwork->title}}</h3>
-                    <p class="text-uppercase">Author name</p>
+                    <p class="text-uppercase">{{ $authors[$artwork->author_id] }}</p>
                 </div>
             </a>
         @endforeach

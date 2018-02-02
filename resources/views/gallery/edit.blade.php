@@ -16,11 +16,11 @@
         </div>
         <div class="form-group">
             {{Form::label("category", "Category:")}}
-            {{Form::select("category", ["1" => "Oil", "2" => "Watercolor"], null, ["class" => "form-control"])}}
+            {{Form::select("category", $categories, $category, ["class" => "form-control"])}}
         </div>
         <div class="form-group">
             {{Form::label("author", "Author:")}}
-            {{Form::select("author", ["1" => "Paulius", "2" => "Urte"], null, ["class" => "form-control"])}}
+            {{Form::select("author", $authors, $author, ["class" => "form-control"])}}
         </div>
         <div class="form-group">
             {{Form::label("description", "Description:")}}
