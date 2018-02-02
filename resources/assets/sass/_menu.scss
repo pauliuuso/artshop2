@@ -17,3 +17,17 @@
   display: inline;
   font-size: 25px;
 }
+
+.login-buttons
+{
+  float: right;
+  text-decoration: none;
+  list-style: none;
+
+  a
+  {
+    color: black;
+    float: right;
+  }
+
+}

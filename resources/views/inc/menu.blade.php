@@ -6,5 +6,26 @@
             <a href="/about"><li>About | </li></a>
             <a href="/contacts"><li>Contacts </li></a>
         </ul>
+
+        @if(Auth::guest())
+            <ul class="login-buttons">
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            </ul>
+        @else
+            <ul class="login-buttons">
+                <li>{{ Auth::user()->email }}</li>
+                <li>
+                    <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                </li>
+                <form id="logout-form" action="/logout" method="POST">
+                    {{ csrf_field() }}
+                </form>
+            </ul>
+        @endif
+
+
     </div>
 </div>

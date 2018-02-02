@@ -36,6 +36,17 @@
   font-size: 25px;
 }
 
+.login-buttons {
+  float: right;
+  text-decoration: none;
+  list-style: none;
+}
+
+.login-buttons a {
+  color: black;
+  float: right;
+}
+
 .gallery-title {
   text-align: center;
 }

@@ -29,5 +29,17 @@ Route::get("/contacts", "PagesController@contacts");
 Route::get("/about", "PagesController@about");
 Route::get("/artists", "PagesController@artists");
 
-Route::get("/artworks", "ArtworksController@index");
-//Route::resource("artworks", "ArtworksController");
+
+Route::get("/login", "Auth\LoginController@showLoginForm");
+Route::post("/login", "Auth\LoginController@login");
+Route::post("/logout", "Auth\LoginController@logout");
+Route::get("/register", "Auth\RegisterController@showRegistrationForm");
+Route::post("/register", "Auth\RegisterController@register");
+Route::get("/password/reset", "Auth\ForgotPasswordController@showLinkRequestForm");
+Route::post("/password/email", "Auth\ForgotPasswordController@sendResetLinkEmail");
+Route::post("/password/reset", "Auth\ResetPasswordController@reset");
+Route::get("/password/reset/{token}", "Auth\ResetPasswordController@showResetForm")->name("password.reset");
+
+//Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
