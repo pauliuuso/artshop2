@@ -17,14 +17,11 @@ class ArtworksController extends Controller
      */
     public function index()
     {
-        $artworks = Artwork::orderBy("created_at", "asc")->paginate(12);
-        $authors = User::all()->where("role", "author");
-        $authorNamesAndIds = array();
-        foreach($authors as $a)
+        $artworks = Artwork::with(["getAuthor" => function($query)
         {
-            $authorNamesAndIds[$a->id] = $a->name . " " . $a->surname;
-        }
-        return view("gallery/index")->with(["artworks" => $artworks, "authors" => $authorNamesAndIds]);
+            $query->select('id', 'name', 'surname');
+        }])->orderBy("created_at", "asc")->paginate(12);
+        return view("gallery/index")->with("artworks", $artworks);
     }
 
     /**

@@ -15,8 +15,8 @@
                     <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="p-0 m-0 art-image"/>
                 </div>
                 <div class="art-info pt-4 text-center mb-5">
-                    <h3 class="text-uppercase">{{$artwork->title}}</h3>
-                    <p class="text-uppercase">{{ $authors[$artwork->author_id] }}</p>
+                    <h3 class="text-uppercase">{{ $artwork->title }}</h3>
+                    <p class="text-uppercase">{{ $artwork->getAuthor->name . " " . $artwork->getAuthor->surname }}</p>
                 </div>
             </a>
         @endforeach
