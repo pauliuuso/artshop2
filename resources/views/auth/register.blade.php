@@ -16,7 +16,7 @@
                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
                 </div>
 
-                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                <div class="form-group {{ $errors->has('surname') ? 'has-error' : '' }}">
                     <label for="surname" >Surname:</label>
                     <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surname') }}" required autofocus>
                 </div>

@@ -17,6 +17,10 @@
   font-size: 32px;
 }
 
+.manage-image {
+  width: 100px;
+}
+
 .art-link .art-info {
   width: 100%;
   height: 100px;

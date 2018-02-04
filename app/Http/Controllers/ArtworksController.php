@@ -263,4 +263,19 @@ class ArtworksController extends Controller
         return redirect("/")->with("success", "Artwork removed!");
     }
 
+    public function manage()
+    {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+        $artworks = Artwork::with(["getAuthor" => function($query)
+        {
+            $query->select('id', 'name', 'surname');
+        }])->orderBy("created_at", "asc")->get();
+        return view("gallery/manage")->with("artworks", $artworks);
+    }
+
 }
