@@ -10,6 +10,12 @@ use App\User;
 
 class ArtworksController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("auth", ["except" => ["index", "show"]]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +37,22 @@ class ArtworksController extends Controller
      */
     public function create()
     {
-        return view("gallery/add");
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+        $authors = User::all()->where("role", "author");
+        $authorNamesAndIds = array();
+        foreach($authors as $a)
+        {
+            $authorNamesAndIds[$a->id] = $a->name . " " . $a->surname;
+        }
+        $categories = Category::all();
+        $categories = $categories->pluck("name", "id");
+
+        return view("gallery/add")->with(["categories" => $categories, "authors" => $authorNamesAndIds]);
     }
 
     /**
@@ -42,6 +63,12 @@ class ArtworksController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
         $this->validate($request,
         [
             "title" => "required",
@@ -117,6 +144,12 @@ class ArtworksController extends Controller
     public function edit($id)
     {
         $artwork = Artwork::find($id);
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
         $category = $artwork->getOneCategory->id;
         $author = $artwork->getAuthor->id;
         $authors = User::all()->where("role", "author");
@@ -127,6 +160,7 @@ class ArtworksController extends Controller
         }
         $categories = Category::all();
         $categories = $categories->pluck("name", "id");
+
         return view("gallery/edit")->with(
         [
             "artwork" => $artwork,
@@ -146,6 +180,12 @@ class ArtworksController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
         $this->validate($request,
         [
             "title" => "required",
@@ -210,6 +250,12 @@ class ArtworksController extends Controller
      */
     public function destroy($id)
     {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
         $artwork = Artwork::find($id);
         Storage::delete("public/artworks/" . $artwork->thumbnail_name);
         Storage::delete("public/artworks/" . $artwork->picture_name);

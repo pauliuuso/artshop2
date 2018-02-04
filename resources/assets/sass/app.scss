@@ -7,6 +7,7 @@
 /* xs < 576; sm > 576; md > 768; lg > 992; xl > 1200 */
 
 // Variables
+@import "admin";
 @import "artwork";
 @import "variables";
 @import "menu";
@@ -31,6 +32,19 @@ html
 p, span, div, b, h1, h2, h3, h4, h5, ul, li, i, a
 {
   font-family: 'Lato', sans-serif;
+}
+
+a
+{
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+a:hover, a:visited, a:focus
+{
+  text-decoration: none;
+  outline: none;
 }
 
 button:hover

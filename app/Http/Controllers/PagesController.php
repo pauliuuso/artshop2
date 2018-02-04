@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("auth", ["except" => ["index", "artists", "about", "contacts"]]);
+    }
+
     public function index()
     {
         $title = "Gallery";
@@ -25,6 +31,16 @@ class PagesController extends Controller
     public function contacts()
     {
         return view("menu/contacts");
+    }
+
+    public function admin()
+    {
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+        return view("menu/admin");
     }
 
 }

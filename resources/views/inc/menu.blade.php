@@ -5,6 +5,9 @@
             <a href="/artists"><li>Artists | </li></a>
             <a href="/about"><li>About | </li></a>
             <a href="/contacts"><li>Contacts </li></a>
+            @if(!Auth::guest() && Auth::user()->role == "admin")
+                <a href="/admin"><li>| Admin</li></a>
+            @endif
         </ul>
 
         @if(Auth::guest())

@@ -28,6 +28,7 @@ Route::delete("/category/delete/{id}", "CategoriesController@destroy");
 Route::get("/contacts", "PagesController@contacts");
 Route::get("/about", "PagesController@about");
 Route::get("/artists", "PagesController@artists");
+Route::get("/admin", "PagesController@admin");
 
 
 Route::get("/login", "Auth\LoginController@showLoginForm");

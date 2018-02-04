@@ -1,0 +1,20 @@
+.admin-option
+{
+    height: 200px;
+    cursor: pointer;
+    background-clip: content-box;
+
+    p
+    {
+        text-transform: capitalize;
+        color: white;
+        font-size: 20px;
+    }
+
+    svg
+    {
+        color: white;
+        font-size: 32px;
+    }
+
+}

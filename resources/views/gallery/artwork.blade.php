@@ -5,11 +5,13 @@
 <div class="row mt-5">
 
     <div class="col-12">
-        {!! Form::open(["action" => ["ArtworksController@destroy", $artwork->id], "method" => "POST"]) !!}
-            <a href="/artwork/edit/{{$artwork->id}}" class="btn btn-success">Edit</a>
-            {{Form::hidden("_method", "DELETE")}}
-            {{Form::submit("Delete", ["class" => "btn btn-danger"])}}
-        {!! Form::close() !!}
+        @if(!Auth::guest() && Auth::user()->role == "admin")
+            {!! Form::open(["action" => ["ArtworksController@destroy", $artwork->id], "method" => "POST"]) !!}
+                <a href="/artwork/edit/{{$artwork->id}}" class="btn btn-success">Edit</a>
+                {{Form::hidden("_method", "DELETE")}}
+                {{Form::submit("Delete", ["class" => "btn btn-danger"])}}
+            {!! Form::close() !!}
+        @endif
     </div>
 
     <div class="col-12 gallery-title mb-5">
