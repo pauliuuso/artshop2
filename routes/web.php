@@ -12,6 +12,7 @@
 */
 
 Route::get("/", "ArtworksController@index");
+Route::get("/gallery/{filter}/{id}", "ArtworksController@index");
 Route::get("/artwork/show/{id}", "ArtworksController@show");
 Route::get("/artwork/add", "ArtworksController@create");
 Route::post("/artwork/store", "ArtworksController@store");

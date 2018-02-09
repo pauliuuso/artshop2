@@ -7,6 +7,46 @@
         <h1 class="marvel">GALLERY</h1>
     </div>
 
+    <div class="col-12 sort">
+        <div class="row">
+            <div class="col-12 mb-2">
+                <div class="sort-option">SORT BY:</div>
+                <a href="/" class="sort-option">
+                    <div @if ($filter == "") class="text-underline" @endif>ALL</div>
+                </a>
+                <a href="/gallery/kind/{{$firstCategory->id}}" class="sort-option">
+                    <div @if ($filter == "kind") class="text-underline" @endif>KIND</div>
+                </a>
+                <a href="/gallery/artist/{{$firstArtist->id}}" class="sort-option">
+                    <div @if ($filter == "artist") class="text-underline" @endif>ARTIST</div>
+                </a>
+                <div class="sort-option">YEAR</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-5 sort">
+    @if($categories != null)
+
+            @foreach($categories as $category)
+                    <a href="/gallery/kind/{{$category->id}}" class="sort-option-secondary">
+                        <div class="text-uppercase @if($category->id == $sortId) text-underline @endif"><p>{{$category->name}}</p></div>
+                    </a>
+            @endforeach
+
+    @endif
+
+    @if($authors != null)
+
+            @foreach($authors as $author)
+                    <a href="/gallery/artist/{{$author->id}}" class="sort-option-secondary">
+                        <div class="text-uppercase @if($author->id == $sortId) text-underline @endif"><p>{{$author->name}} {{$author->surname}}</p></div>
+                    </a>
+            @endforeach
+
+    @endif
+    </div>
+
     @if(count($artworks) > 0)
 
         @foreach($artworks as $artwork)
@@ -24,7 +64,9 @@
         {{$artworks->links()}}
 
     @else
-            <p>Nothing found!</p>
+            <div class="col-12">
+                <p>Nothing found!</p>
+            </div>
     @endif
 
 

@@ -9,6 +9,41 @@
 
 }
 
+.sort
+{
+    .sort-option:first-child
+    {
+        background: black;
+        color: white;
+        cursor: default;
+    }
+
+    .sort-option:last-child
+    {
+        border-right: none;
+    }
+
+    .sort-option
+    {
+        text-align: center;
+        padding: 5px;
+        font-size: 22px;
+        float: left;
+        min-width: 120px;
+        border-right: 1px solid black;
+        cursor: pointer;
+    }
+
+    .sort-option-secondary
+    {
+        padding: 5px 20px 5px 0;
+        font-size: 22px;
+        float: left;
+        cursor: pointer;
+    }
+
+}
+
 
 @media (max-width: 576px)
 {

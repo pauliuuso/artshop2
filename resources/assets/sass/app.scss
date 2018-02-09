@@ -39,12 +39,14 @@ a
     text-decoration: none;
     outline: none;
     cursor: pointer;
+    color: black;
 }
 
 a:hover, a:visited, a:focus
 {
   text-decoration: none;
   outline: none;
+  color: black;
 }
 
 button:hover

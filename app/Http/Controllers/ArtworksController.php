@@ -21,13 +21,40 @@ class ArtworksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($filter = "", $id = "")
     {
-        $artworks = Artwork::with(["getAuthor" => function($query)
+        $artworksPerPage = 12;
+        $firstCategory = Category::orderBy("name")->select("id")->first();
+        $firstArtist = User::orderBy("name")->select("id")->first();
+        $categories = "";
+        $authors = "";
+        $artworks = "";
+
+        if($filter == "")
         {
-            $query->select('id', 'name', 'surname');
-        }])->orderBy("created_at", "asc")->paginate(12);
-        return view("gallery/index")->with("artworks", $artworks);
+            $artworks = Artwork::with(["getAuthor" => function($query)
+            {
+                $query->select('id', 'name', 'surname');
+            }])->orderBy("created_at", "asc")->paginate($artworksPerPage);
+        }
+        else if($filter == "kind")
+        {
+            $categories = Category::orderBy("name")->get();
+            $artworks = Artwork::with(["getAuthor" => function($query)
+            {
+                $query->select('id', 'name', 'surname');
+            }])->where("category", $id)->orderBy("created_at", "asc")->paginate($artworksPerPage);
+        }
+        else if($filter == "artist")
+        {
+            $authors = User::orderBy("name")->select("id", "name", "surname")->get();
+            $artworks = Artwork::with(["getAuthor" => function($query)
+            {
+                $query->select('id', 'name', 'surname');
+            }])->where("author_id", $id)->orderBy("created_at", "asc")->paginate($artworksPerPage);
+        }
+
+        return view("gallery/index")->with(["artworks" => $artworks, "filter" => $filter, "firstCategory" => $firstCategory, "firstArtist" => $firstArtist, "categories" => $categories, "authors" => $authors, "sortId" => $id]);
     }
 
     /**
