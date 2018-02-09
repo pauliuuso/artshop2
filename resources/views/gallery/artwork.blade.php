@@ -22,9 +22,9 @@
     </div>
     <div class="col-12 col-md-6 text-justify">
         <p class="text-uppercase text-underline">DESCRIPTION</p>
-        <p>{{$artwork->description}}</p>
+        {!!$artwork->description!!}
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-6 right-left text-justify">
                 <p class="text-uppercase text-underline">ATHOR BIO</p>
                 <p>{{$artwork->getAuthor->description}}</p>

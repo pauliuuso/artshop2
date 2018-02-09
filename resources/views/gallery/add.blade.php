@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
             {{Form::label("description", "Description:")}}
-            {{Form::textarea("description", "", ["class" => "form-control"])}}
+            {{Form::textarea("description", "", ["class" => "form-control ckeditor"])}}
         </div>
         <div class="form-group">
             {{Form::label("year", "Year:")}}
