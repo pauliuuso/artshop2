@@ -47,12 +47,12 @@
     @endif
     </div>
 
-    @if(count($artworks) > 0)
+    @if(count($artworks) > 0 && $artworks != null)
 
         @foreach($artworks as $artwork)
-            <a class="col-12 col-md-6 col-lg-4 col-xl-3 art-link" href="/artwork/show/{{$artwork->id}}">
+            <a class="col-12 col-md-6 col-lg-4 art-link" href="/artwork/show/{{$artwork->id}}">
                 <div class="art-wrapper">
-                    <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="p-0 m-0 art-image"/>
+                    <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)" window:onresize="CenterImage(this)"/>
                 </div>
                 <div class="art-info pt-4 text-center mb-5">
                     <h3 class="text-uppercase">{{ $artwork->title }}</h3>

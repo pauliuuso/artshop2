@@ -10,7 +10,6 @@
 require("./scripts");
 require("./artwork-center");
 
-
 // window.Vue = require('vue');
 
 // /**

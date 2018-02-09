@@ -18,12 +18,21 @@
         <h2 class="text-uppercase">{{$artwork->title}}</h2>
     </div>
     <div class="col-12 col-md-6 mb-3">
-        <img class="img-fluid" src="/storage/artworks/{{$artwork->picture_name}}"/>
+        <img class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ImageLoaded(this)"/>
     </div>
     <div class="col-12 col-md-6 text-justify">
         <p class="text-uppercase text-underline">DESCRIPTION</p>
         <p>{{$artwork->description}}</p>
+
+        <div class="row">
+            <div class="col-12 col-md-6 right-left text-justify">
+                <p class="text-uppercase text-underline">ATHOR BIO</p>
+                <p>{{$artwork->getAuthor->description}}</p>
+            </div>
+        </div>
+
     </div>
+
 
 </div>
 

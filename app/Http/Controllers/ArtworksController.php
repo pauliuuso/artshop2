@@ -25,7 +25,7 @@ class ArtworksController extends Controller
     {
         $artworksPerPage = 12;
         $firstCategory = Category::orderBy("name")->select("id")->first();
-        $firstArtist = User::orderBy("name")->select("id")->first();
+        $firstArtist = User::orderBy("name")->select("id")->where("role", "author")->first();
         $categories = "";
         $authors = "";
         $artworks = "";
@@ -47,7 +47,7 @@ class ArtworksController extends Controller
         }
         else if($filter == "artist")
         {
-            $authors = User::orderBy("name")->select("id", "name", "surname")->get();
+            $authors = User::orderBy("name")->select("id", "name", "surname")->where("role", "author")->get();
             $artworks = Artwork::with(["getAuthor" => function($query)
             {
                 $query->select('id', 'name', 'surname');
@@ -158,7 +158,11 @@ class ArtworksController extends Controller
      */
     public function show($id)
     {
-        $artwork = Artwork::find($id);
+        $artwork = Artwork::with(["getAuthor" => function($query)
+        {
+            $query->select("id", "name", "surname", "description");
+        }])->find($id);
+
         return view("gallery/artwork")->with("artwork", $artwork);
     }
 
