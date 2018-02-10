@@ -120,6 +120,29 @@
   color: white;
 }
 
+.art-pagination {
+  margin-bottom: 150px;
+}
+
+.art-pagination p {
+  padding: 10px;
+  line-height: 15px;
+  font-size: 22px;
+  display: inline;
+  padding: 0 10px;
+}
+
+.art-pagination a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  border-right: 1px solid black;
+}
+
+.art-pagination a:last-child {
+  border-right: none;
+}
+
 html,
 body {
   padding: 0;

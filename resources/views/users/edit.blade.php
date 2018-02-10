@@ -13,12 +13,17 @@
 
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     <label for="name" >Name:</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autofocus>
+                    <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required>
                 </div>
 
                 <div class="form-group {{ $errors->has('surname') ? 'has-error' : '' }}">
                     <label for="surname" >Surname:</label>
-                    <input id="surname" type="text" class="form-control" name="surname" value="{{ $user->surname }}" required autofocus>
+                    <input id="surname" type="text" class="form-control" name="surname" value="{{ $user->surname }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" >Description:</label>
+                    <textarea id="description" class="form-control ckeditor" name="description">{{ $user->description }}</textarea>
                 </div>
 
                 <div class="form-group {{ $errors->has('role') ? 'has-error' : '' }}">

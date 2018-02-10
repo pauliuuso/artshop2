@@ -64,9 +64,9 @@
         {{$artworks->links()}}
 
     @else
-            <div class="col-12">
-                <p>Nothing found!</p>
-            </div>
+        <div class="col-12">
+            <p>Nothing found!</p>
+        </div>
     @endif
 
 

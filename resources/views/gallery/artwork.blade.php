@@ -25,9 +25,9 @@
         {!!$artwork->description!!}
 
         <div class="row mt-2">
-            <div class="col-12 col-md-6 right-left text-justify">
-                <p class="text-uppercase text-underline">ATHOR BIO</p>
-                <p>{{$artwork->getAuthor->description}}</p>
+            <div class="col-12 text-justify">
+                <p class="text-uppercase text-underline">AUTHOR BIO</p>
+                <p>{!! $artwork->getAuthor->description !!}</p>
             </div>
         </div>
 

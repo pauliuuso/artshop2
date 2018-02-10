@@ -1,21 +1,48 @@
-
-function CenterImage()
+function ImageLoaded(image) 
 {
-    console.log("center");
-    if(this.imageWidth > this.wrapperWidth)
+
+    var wrapper = image.parentElement;
+    $(image).removeClass("visibility-hidden");
+    $(image).addClass("animated fadeIn");
+
+    if(image.offsetWidth > wrapper.offsetWidth)
     {
-    this.smallerThanWrapper = false;
-    this.picture.nativeElement.style.left = "-" + (this.picture.nativeElement.width - this.wrapperWidth)/2 + "px";
+        image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
     }
     else
     {
-    this.smallerThanWrapper = true;
-    this.picture.nativeElement.style.left = 0;
-    this.picture.nativeElement.style.width = this.wrapperWidth + "px";
+        image.style.left = 0;
+        image.style.width = wrapper.offsetWidth + "px";
     }
 
-    if(this.picture.nativeElement.height > this.wrapperHeight)
+    if(image.offsetHeight > wrapper.offsetHeight)
     {
-    this.picture.nativeElement.style.top = "-" + (this.picture.nativeElement.height - this.wrapperHeight)/2 + "px";
+        image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
     }
+}
+
+function OnResizeGallery()
+{
+
+    $(".art-image").each(function(index)
+    {
+        var wrapper = $(".art-image")[index].parentElement;
+        var image = $(".art-image")[index];
+
+        if(image.offsetWidth > wrapper.offsetWidth)
+        {
+            image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
+        }
+        else
+        {
+            image.style.left = 0;
+            image.style.width = wrapper.offsetWidth + "px";
+        }
+
+        if(image.offsetHeight > wrapper.offsetHeight)
+        {
+            image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
+        }
+
+    });
 }
