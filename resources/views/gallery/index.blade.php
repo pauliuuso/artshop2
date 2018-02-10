@@ -14,10 +14,10 @@
                 <a href="/" class="sort-option">
                     <div @if ($filter == "") class="text-underline" @endif>ALL</div>
                 </a>
-                <a href="/gallery/kind/{{$firstCategory->id}}" class="sort-option">
+                <a href="/gallery/kind/@if($firstCategory != null){{$firstCategory->id}}@endif" class="sort-option">
                     <div @if ($filter == "kind") class="text-underline" @endif>KIND</div>
                 </a>
-                <a href="/gallery/artist/{{$firstArtist->id}}" class="sort-option">
+                <a href="/gallery/artist/@if($firstArtist != null){{$firstArtist->id}}@endif" class="sort-option">
                     <div @if ($filter == "artist") class="text-underline" @endif>ARTIST</div>
                 </a>
                 <div class="sort-option">YEAR</div>
