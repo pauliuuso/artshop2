@@ -1,6 +1,5 @@
 function ImageLoaded(image) 
 {
-
     var wrapper = image.parentElement;
     $(image).removeClass("visibility-hidden");
     $(image).addClass("animated fadeIn");
@@ -23,7 +22,6 @@ function ImageLoaded(image)
 
 function OnResizeGallery()
 {
-
     $(".art-image").each(function(index)
     {
         var wrapper = $(".art-image")[index].parentElement;
@@ -43,6 +41,5 @@ function OnResizeGallery()
         {
             image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
         }
-
     });
 }
