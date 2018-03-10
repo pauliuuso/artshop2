@@ -100,6 +100,8 @@ class ArtworksController extends Controller
         [
             "title" => "required",
             "description" => "required",
+            "width" => "required",
+            "height" => "required",
             "year" => "required",
             "smallprice" => "required",
             "mediumprice" => "required",
@@ -128,13 +130,15 @@ class ArtworksController extends Controller
             $pictureNameToStore = $pictureName . "-" . substr(md5(openssl_random_pseudo_bytes(20)),-20) . "." . $extension;
             $path = $request->file("picture")->storeAs("public/artworks", $pictureNameToStore);
 
-            // Generate preview with interior
+            //////////////// Generate preview with interior background //////////////////
             $artworksPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/artworks/";
             $imagesPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/images/";
             $uploadedImage = $artworksPath . $pictureNameToStore;
             $previewBackground = $imagesPath . "/preview_background.jpg";
             $backgroundDimensions = getimagesize($previewBackground);
+            $assumedBackgroundWidthRatio = $backgroundDimensions[0]/250;
             $artworkDimensions = getimagesize($uploadedImage);
+            $assumedArtworkDimensions = array($request->input("width") * $assumedBackgroundWidthRatio, $request->input("height") * $assumedBackgroundWidthRatio);
 
             $previewImage = imagecreatetruecolor($backgroundDimensions[0], $backgroundDimensions[1]);
 
@@ -151,7 +155,7 @@ class ArtworksController extends Controller
 
             $background = imagecreatefromjpeg($previewBackground);
             imagecopyresampled($previewImage, $background, 0, 0, 0, 0, $backgroundDimensions[0], $backgroundDimensions[1], $backgroundDimensions[0], $backgroundDimensions[1]);
-            imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $artworkDimensions[0]/2, $backgroundDimensions[1]/2 - $artworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $artworkDimensions[0], $artworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
+            imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $assumedArtworkDimensions[0]/2, $backgroundDimensions[1]/2 - $assumedArtworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $assumedArtworkDimensions[0], $assumedArtworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
 
             if(strcasecmp($extension, "png") == 0)
             {
@@ -161,6 +165,7 @@ class ArtworksController extends Controller
             {
                 imagejpeg($previewImage, $artworksPath . "/preview-" . $pictureNameToStore);
             }
+            ///////////////////////////////////////////////////////////////////////////////////////////////
 
         }
 
@@ -169,6 +174,8 @@ class ArtworksController extends Controller
         $artwork->category = $request->input("category");
         $artwork->author_id = $request->input("author");
         $artwork->description = $request->input("description");
+        $artwork->width = $request->input("width");
+        $artwork->height = $request->input("height");
         $artwork->year = $request->input("year");
         $artwork->smallprice = $request->input("smallprice");
         $artwork->mediumprice = $request->input("mediumprice");

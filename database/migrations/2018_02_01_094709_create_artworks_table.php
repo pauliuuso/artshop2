@@ -23,6 +23,8 @@ class CreateArtworksTable extends Migration
             $table->smallInteger("category");
             $table->integer("year");
             $table->text("description")->nullable();
+            $table->decimal("width", 10, 0);
+            $table->decimal("height", 10, 0);
             $table->decimal("smallprice", 10, 0);
             $table->decimal("mediumprice", 10, 0);
             $table->decimal("bigprice", 10, 0);

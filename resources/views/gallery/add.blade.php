@@ -27,6 +27,14 @@
             {{Form::textarea("description", "", ["class" => "form-control ckeditor"])}}
         </div>
         <div class="form-group">
+            {{Form::label("width", "Width (cm):")}}
+            {{Form::text("width", "", ["class" => "form-control"])}}
+        </div>
+        <div class="form-group">
+            {{Form::label("height", "Height (cm):")}}
+            {{Form::text("height", "", ["class" => "form-control"])}}
+        </div>
+        <div class="form-group">
             {{Form::label("year", "Year:")}}
             {{Form::number("year", "", ["class" => "form-control", "placeholder" => ""])}}
         </div>
