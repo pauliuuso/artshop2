@@ -43,7 +43,3 @@ function OnResizeGallery()
         }
     });
 }
-function hi()
-{
-    
-}

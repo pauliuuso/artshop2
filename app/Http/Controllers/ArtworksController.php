@@ -127,6 +127,41 @@ class ArtworksController extends Controller
             $extension = $request->file("picture")->getClientOriginalExtension();
             $pictureNameToStore = $pictureName . "-" . substr(md5(openssl_random_pseudo_bytes(20)),-20) . "." . $extension;
             $path = $request->file("picture")->storeAs("public/artworks", $pictureNameToStore);
+
+            // Generate preview with interior
+            $artworksPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/artworks/";
+            $imagesPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/images/";
+            $uploadedImage = $artworksPath . $pictureNameToStore;
+            $previewBackground = $imagesPath . "/preview_background.jpg";
+            $backgroundDimensions = getimagesize($previewBackground);
+            $artworkDimensions = getimagesize($uploadedImage);
+
+            $previewImage = imagecreatetruecolor($backgroundDimensions[0], $backgroundDimensions[1]);
+
+            $image;
+
+            if(strcasecmp($extension, "png") == 0)
+            {
+                $image = imagecreatefrompng($uploadedImage);
+            }
+            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
+            {
+                $image = imagecreatefromjpeg($uploadedImage);
+            }
+
+            $background = imagecreatefromjpeg($previewBackground);
+            imagecopyresampled($previewImage, $background, 0, 0, 0, 0, $backgroundDimensions[0], $backgroundDimensions[1], $backgroundDimensions[0], $backgroundDimensions[1]);
+            imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $artworkDimensions[0]/2, $backgroundDimensions[1]/2 - $artworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $artworkDimensions[0], $artworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
+
+            if(strcasecmp($extension, "png") == 0)
+            {
+                imagepng($previewImage, $artworksPath . "/preview-" . $pictureNameToStore);
+            }
+            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
+            {
+                imagejpeg($previewImage, $artworksPath . "/preview-" . $pictureNameToStore);
+            }
+
         }
 
         $artwork = new Artwork;
