@@ -4,8 +4,21 @@
 
 <div class="row mt-5">
 
+    <div class="col-12">
+        @if(!Auth::guest() && Auth::user()->role == "admin")
+            {!! Form::open(["action" => ["BackgroundsController@destroy", $background->id], "method" => "POST"]) !!}
+                {{Form::hidden("_method", "DELETE")}}
+                {{Form::submit("Delete", ["class" => "btn btn-danger"])}}
+            {!! Form::close() !!}
+        @endif
+    </div>
+
     <div class="col-12 text-center mb-5">
         <h2 class="text-uppercase">Edit background:</h2>
+    </div>
+
+    <div class="col-12 mb-5">
+        <img src="/storage/backgrounds/{{$background->background_name}}" class="p-0 m-0 img-fluid"/>
     </div>
 
     <div class="col-12 col-xl-6 mb-5">

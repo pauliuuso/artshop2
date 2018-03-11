@@ -58,6 +58,17 @@
             {{Form::label("picture", "Picture:")}}
             {{Form::file("picture", ["class" => "form-control"])}}
         </div>
+        <div class="form-group">
+            {{Form::label("background", "Background:")}}
+            {{Form::select("background", $backgroundIdsAndTitles, "", ["class" => "form-control", "placeholder" => "Select Background"])}}
+        </div>
+        <div class="row mb-4">
+            @foreach($backgrounds as $background)
+                <div class="col-12 col-md-6 col-xl-4">
+                    <img class="img-fluid" src="/storage/backgrounds/{{$background->background_name}}">
+                </div>
+            @endforeach
+        </div>
         {{Form::hidden("_method", "PUT")}}
         {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
         {!! Form::close() !!}

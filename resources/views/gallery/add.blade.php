@@ -58,6 +58,10 @@
             {{Form::label("picture", "Picture:")}}
             {{Form::file("picture", ["class" => "form-control"])}}
         </div>
+        <div class="form-group">
+            {{Form::label("background", "Background:")}}
+            {{Form::select("background", $backgrounds, "", ["class" => "form-control", "placeholder" => "Select Background"])}}
+        </div>
         {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
         {!! Form::close() !!}
     </div>

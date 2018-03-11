@@ -38,6 +38,7 @@
 
             @foreach($backgrounds as $background)
                 <a class="col-12 col-xl-6 art-link" href="/backgrounds/edit/{{$background->id}}">
+                    <i class="fas fa-edit background-edit-button"></i>
                     <div class="background-wrapper">
                         <img src="/storage/backgrounds/{{$background->background_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)" window:onresize="CenterImage(this)"/>
                     </div>

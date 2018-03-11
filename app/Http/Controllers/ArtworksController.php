@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Artwork;
 use App\Category;
+use App\Background;
 use App\User;
 
 class ArtworksController extends Controller
@@ -180,6 +181,7 @@ class ArtworksController extends Controller
         $artwork->smallprice = $request->input("smallprice");
         $artwork->mediumprice = $request->input("mediumprice");
         $artwork->bigprice = $request->input("bigprice");
+        $artwork->background_id = $request->input("background");
         if($thumbnailNameToStore != "")
         {
             $artwork->thumbnail_name = $thumbnailNameToStore;
@@ -217,6 +219,8 @@ class ArtworksController extends Controller
     public function edit($id)
     {
         $artwork = Artwork::find($id);
+        $backgrounds = Background::select("title", "id", "background_name")->get();
+        $backgroundIdsAndTitles = $backgrounds->pluck("title", "id");
 
         if(auth()->user()->role != "admin")
         {
@@ -237,6 +241,8 @@ class ArtworksController extends Controller
         return view("gallery/edit")->with(
         [
             "artwork" => $artwork,
+            "backgroundIdsAndTitles" => $backgroundIdsAndTitles,
+            "backgrounds" => $backgrounds,
             "categories" => $categories,
             "category" => $category, 
             "author" => $author, 
@@ -307,6 +313,7 @@ class ArtworksController extends Controller
         $artwork->smallprice = $request->input("smallprice");
         $artwork->mediumprice = $request->input("mediumprice");
         $artwork->bigprice = $request->input("bigprice");
+        $artwork->background_id = $request->input("background");
         if($thumbnailNameToStore != "")
         {
             $artwork->thumbnail_name = $thumbnailNameToStore;

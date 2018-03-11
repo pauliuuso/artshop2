@@ -119,4 +119,18 @@ class BackgroundsController extends Controller
         return redirect("backgrounds/manage")->with("success", "Background updated!");
     }
 
+    public function destroy($id)
+    {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+        $background = Background::find($id);
+        Storage::delete("public/backgrounds/" . $background->background_name);
+        $background->delete();
+        return redirect("backgrounds/manage")->with("success", "Background removed!");
+    }
+
 }

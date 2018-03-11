@@ -25,6 +25,7 @@ Route::get("/backgrounds/manage", "BackgroundsController@index");
 Route::post("/backgrounds/store", "BackgroundsController@store");
 Route::get("/backgrounds/edit/{id}", "BackgroundsController@edit");
 Route::put("/backgrounds/update/{id}", "BackgroundsController@update");
+Route::delete("/backgrounds/delete/{id}", "BackgroundsController@destroy");
 
 Route::get("/categories", "CategoriesController@index");
 Route::post("/categories/store", "CategoriesController@store");
