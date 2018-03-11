@@ -21,6 +21,11 @@ Route::put("/artwork/update/{id}", "ArtworksController@update");
 Route::delete("/artwork/delete/{id}", "ArtworksController@destroy");
 Route::get("/artworks/manage", "ArtworksController@manage");
 
+Route::get("/backgrounds/manage", "BackgroundsController@index");
+Route::post("/backgrounds/store", "BackgroundsController@store");
+Route::get("/backgrounds/edit/{id}", "BackgroundsController@edit");
+Route::put("/backgrounds/update/{id}", "BackgroundsController@update");
+
 Route::get("/categories", "CategoriesController@index");
 Route::post("/categories/store", "CategoriesController@store");
 Route::get("/category/edit/{id}", "CategoriesController@edit");

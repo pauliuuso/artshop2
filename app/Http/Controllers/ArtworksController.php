@@ -263,6 +263,8 @@ class ArtworksController extends Controller
         [
             "title" => "required",
             "description" => "required",
+            "width" => "required",
+            "height" => "required",
             "year" => "required",
             "smallprice" => "required",
             "mediumprice" => "required",
@@ -299,6 +301,8 @@ class ArtworksController extends Controller
         $artwork->category = $request->input("category");
         $artwork->author_id = $request->input("author");
         $artwork->description = $request->input("description");
+        $artwork->width = $request->input("width");
+        $artwork->height = $request->input("height");
         $artwork->year = $request->input("year");
         $artwork->smallprice = $request->input("smallprice");
         $artwork->mediumprice = $request->input("mediumprice");

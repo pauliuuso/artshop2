@@ -36,6 +36,13 @@
         </div>
     </a>
 
+    <a href="/backgrounds/manage" class="col-12 col-sm-6 col-md-4 col-xl-3 mb-4">
+        <div class="admin-option bg-success text-center">
+            <p class="pt-5">MANAGE BACKGROUNDS</p>
+            <i class="fas fa-user"></i>   
+        </div>
+    </a>
+
 </div>
 
 @endsection

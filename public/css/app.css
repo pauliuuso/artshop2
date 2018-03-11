@@ -143,6 +143,18 @@
   border-right: none;
 }
 
+.background-wrapper {
+  height: 450px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.background-wrapper .art-image {
+  position: absolute;
+  margin: auto;
+}
+
 html,
 body {
   padding: 0;
