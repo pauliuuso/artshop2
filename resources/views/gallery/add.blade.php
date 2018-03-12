@@ -60,7 +60,15 @@
         </div>
         <div class="form-group">
             {{Form::label("background", "Background:")}}
-            {{Form::select("background", $backgrounds, "", ["class" => "form-control", "placeholder" => "Select Background"])}}
+            {{Form::select("background", $backgroundIdsAndTitles, "", ["class" => "form-control", "placeholder" => "Select Background"])}}
+        </div>
+        <div class="row mb-4">
+            @foreach($backgrounds as $background)
+                <div class="col-12 col-md-6 col-xl-4">
+                    <img class="img-fluid" src="/storage/backgrounds/{{$background->background_name}}">
+                    <p class="text-center">{{ $background->title }}</p>
+                </div>
+            @endforeach
         </div>
         {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
         {!! Form::close() !!}

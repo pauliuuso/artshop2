@@ -60,11 +60,11 @@
         </div>
         <div class="form-group">
             {{Form::label("background", "Background:")}}
-            {{Form::select("background", $backgroundIdsAndTitles, "", ["class" => "form-control", "placeholder" => "Select Background"])}}
+            {{Form::select("background", $backgroundIdsAndTitles, $selectedBackground, ["class" => "form-control", "id" => "background-selector", "placeholder" => "Select Background"])}}
         </div>
-        <div class="row mb-4">
+        <div class="row mb-4" id="background-list">
             @foreach($backgrounds as $background)
-                <div class="col-12 col-md-6 col-xl-4">
+                <div id="background-{{$background->id}}" class="col-12 col-md-6 col-xl-4">
                     <img class="img-fluid" src="/storage/backgrounds/{{$background->background_name}}">
                 </div>
             @endforeach

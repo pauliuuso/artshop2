@@ -31,7 +31,8 @@ class CreateArtworksTable extends Migration
             $table->boolean("active")->default(true);
             $table->string("thumbnail_name", 190);
             $table->string("picture_name", 190);
-            $table->decimal("background_id", 10, 0);
+            $table->string("preview_name", 190)->nullable();
+            $table->decimal("background_id", 10, 0)->nullable();
             $table->timestamps();
         });
     }

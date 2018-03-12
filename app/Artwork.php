@@ -18,4 +18,9 @@ class Artwork extends Model
         return $this->hasOne("App\User", "id", "author_id");
     }
 
+    public function getBackground()
+    {
+        return $this->hasOne("App\Background", "id", "background_id");
+    }
+
 }
