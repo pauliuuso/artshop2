@@ -62,9 +62,9 @@
             {{Form::label("background", "Background:")}}
             {{Form::select("background", $backgroundIdsAndTitles, $selectedBackground, ["class" => "form-control", "id" => "background-selector", "placeholder" => "Select Background"])}}
         </div>
-        <div class="row mb-4" id="background-list">
+        <div class="row mb-4" id="background-list" >
             @foreach($backgrounds as $background)
-                <div id="background-{{$background->id}}" class="col-12 col-md-6 col-xl-4">
+                <div id="background-{{$background->id}}" class="col-12 background">
                     <img class="img-fluid" src="/storage/backgrounds/{{$background->background_name}}">
                 </div>
             @endforeach
@@ -75,5 +75,9 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    ShowSelectedBackground();
+</script>
 
 @endsection

@@ -1,10 +1,17 @@
 .gallery-title
 {
     text-align: center;
+    margin-bottom: 100px;
 
     h1
     {
         font-size: 110px;
+    }
+
+    .gallery-title-author
+    {
+        font-size: 32px;
+        font-weight: 300;
     }
 
 }
