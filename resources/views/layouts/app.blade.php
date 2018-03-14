@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" href="{{asset('css/bootstrap_4.0.0-alpha.6.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/animate.css_3.5.2.css')}}">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <script src="{{asset('js/jquery-3.1.1.slim.min.js')}}"></script>
@@ -16,7 +16,7 @@
         <script src="{{asset('js/app.js')}}"></script>
         <title>{{config("app.name", "Artshop")}}</title>
     </head>
-    <body onresize="OnResizeGallery()">
+    <body>
         <div class="container-fluid">
             <div class="row">
                 <div class="hidden-lg-down col-xl-1">

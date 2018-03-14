@@ -40,7 +40,7 @@
                 <a class="col-12 col-xl-6 art-link" href="/backgrounds/edit/{{$background->id}}">
                     <i class="fas fa-edit background-edit-button"></i>
                     <div class="background-wrapper">
-                        <img src="/storage/backgrounds/{{$background->background_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)" window:onresize="CenterImage(this)"/>
+                        <img src="/storage/backgrounds/{{$background->background_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)"/>
                     </div>
                     <div class="art-info pt-4 text-center mb-5">
                         <h3 class="text-uppercase">{{ $background->title }}</h3>

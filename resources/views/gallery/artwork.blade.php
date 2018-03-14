@@ -19,11 +19,11 @@
         <h4 class="text-uppercase gallery-title-author">BY {{$artwork->getAuthor->name}} {{$artwork->getAuthor->surname}}</h4>
     </div>
 
-    <div class="col-12 col-md-6 mb-3">
-        <img class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ImageLoaded(this)"/>
+    <div class="col-12 col-md-6 mb-4 order-10 artwork-image-wrapper">
+        <img id="artwork-image" class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ArtworkPreviewLoaded(this)"/>
     </div>
 
-    <div class="col-12 col-md-6 text-justify">
+    <div class="col-12 col-md-6 text-justify order-12 order-md-11">
         <p class="text-uppercase text-underline">DESCRIPTION</p>
         {!!$artwork->description!!}
 
@@ -35,16 +35,16 @@
         </div>
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 order-11 order-md-12">
         <div class="row">
-            <a class="col-12 col-md-6 col-lg-4 art-link mb-3">
+            <a class="col-6 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->picture_name}}', this)">
                 <div class="art-wrapper">
-                    <img src="/storage/artworks/{{$artwork->picture_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)" window:onresize="CenterImage(this)"/>
+                    <img src="/storage/artworks/{{$artwork->picture_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
                 </div>
             </a>
-            <a class="col-12 col-md-6 col-lg-4 art-link mb-3">
+            <a class="col-6 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->preview_name}}', this)">
                 <div class="art-wrapper">
-                    <img src="/storage/artworks/{{$artwork->preview_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)" window:onresize="CenterImage(this)"/>
+                    <img src="/storage/artworks/{{$artwork->preview_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
                 </div>
             </a>
         </div>
@@ -52,5 +52,27 @@
 
 
 </div>
+
+<script>
+
+    $(".artwork-selector").addClass("artwork-selector-inactive");
+    $(".artwork-selector").first().removeClass("artwork-selector-inactive");
+
+    function ArtworkPreviewLoaded(image)
+    {
+        $(image).removeClass("visibility-hidden animated fadeIn");
+        $(image).addClass("animated fadeIn");
+        var wrapper = image.parentElement;
+        $(wrapper).height($(image).height());
+    }
+
+    function SelectPreview(pictureName, element)
+    {
+        $("#artwork-image").attr("src", "/storage/artworks/" + pictureName);
+        $(".artwork-selector").addClass("artwork-selector-inactive");
+        $(element).removeClass("artwork-selector-inactive");
+    }
+
+</script>
 
 @endsection
