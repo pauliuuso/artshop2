@@ -49,3 +49,47 @@
     transition: opacity 1s;
 }
 
+.purchase-beam
+{
+    border-bottom: 3px solid black;
+}
+
+.customization-option
+{
+    background: black;
+    color: white;
+    cursor: default;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+}
+
+.customization-select-option
+{
+    display: inline-block;
+    padding: 20px;
+    border: 1px solid black;
+    margin-right: -4px;
+    height: auto;
+}
+
+.artwork-frame
+{
+    border: 10px solid brown;
+    height: auto;
+
+    img
+    {
+        display: block;
+        position: relative;
+    }
+}
+
+.artwork-selected-option
+{
+    p
+    {
+        text-decoration: underline;
+    }
+}
+

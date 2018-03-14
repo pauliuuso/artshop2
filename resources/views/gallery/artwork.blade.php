@@ -2,7 +2,7 @@
 
 @section("content")
 
-<div class="row mt-5">
+<div class="row mt-5 mb-5">
 
     <div class="col-12">
         @if(!Auth::guest() && Auth::user()->role == "admin")
@@ -50,28 +50,60 @@
         </div>
     </div>
 
+</div>
 
+<div class="row mb-5">
+    <div class="col-12 mb-5">
+        <h2 class="text-uppercase">PURCHASE</h2>
+        <div class="col-12 purchase-beam"></div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-5">
+        <div class="artwork-frame">
+            <img id="artwork-image" class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="DisplayImage(this)"/>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-5">
+
+        <div class="mb-5">
+            <p class="text-underline">CUSTOMIZING OPTIONS</p>
+            <p>You can choose frame, material and print size.</p>
+        </div>
+
+        <div class="customization-option">PRINT SIZE:</div>
+        <div class="mb-5">
+            <a class="customization-select-option artwork-selected-option" onclick="SelectArtworkSize('{{ $artwork->width }} x {{ $artwork->height }}', this, 'small')"><p class="p-0 m-0">{{ $artwork->width }} x {{ $artwork->height }}</p></a>
+            <a class="customization-select-option" onclick="SelectArtworkSize('{{ $artwork->width * 2 }} x {{ $artwork->height * 2 }}', this, 'medium')"><p class="p-0 m-0">{{ $artwork->width * 2 }} x {{ $artwork->height * 2 }}</p></a>
+            <a class="customization-select-option" onclick="SelectArtworkSize('{{ $artwork->width * 3 }} x {{ $artwork->height * 3}}', this, 'big')"><p class="p-0 m-0">{{ $artwork->width * 3 }} x {{ $artwork->height * 3 }}</p></a>
+        </div>
+
+        <div class="customization-option">MATERIAL:</div>
+        <div class="mb-5">
+            <a class="customization-select-option artwork-selected-option" onclick="SelectPaperMaterial('QUALITY PAPER', this)"><p class="p-0 m-0">QUALITY PAPER</p></a>
+            <a class="customization-select-option" onclick="SelectPaperMaterial('FOAM BOARD', this)"><p class="p-0 m-0">FOAM BOARD</p></a>
+        </div>
+
+        <div class="mb-5">
+            <p class="text-underline">SUMMARY</p>
+            <p>SIZE: <span id="selected-artwork-size">{{ $artwork->width }} x {{ $artwork->height }}</span></p>
+            <p>MATERIAL: <span id="selected-material">QUALITY PAPER</span></p>
+            <p>FRAME: </p>
+            <p>TOTAL PRICE: <span id="total-price"></span> €</p>
+        </div>
+
+        <input type="hidden" value="{{ csrf_token() }}" id="_token" name="_token" />
+        <input type="hidden" value="small" id="artwork-size" name="artwork-size" />
+        <input type="hidden" value="{{ $artwork->id }}" id="artwork-id" name="artwork-id"
+
+    </div>
 </div>
 
 <script>
 
     $(".artwork-selector").addClass("artwork-selector-inactive");
     $(".artwork-selector").first().removeClass("artwork-selector-inactive");
-
-    function ArtworkPreviewLoaded(image)
-    {
-        $(image).removeClass("visibility-hidden animated fadeIn");
-        $(image).addClass("animated fadeIn");
-        var wrapper = image.parentElement;
-        $(wrapper).height($(image).height());
-    }
-
-    function SelectPreview(pictureName, element)
-    {
-        $("#artwork-image").attr("src", "/storage/artworks/" + pictureName);
-        $(".artwork-selector").addClass("artwork-selector-inactive");
-        $(element).removeClass("artwork-selector-inactive");
-    }
+    GetArtworkPrice();
 
 </script>
 

@@ -14,7 +14,7 @@ class ArtworksController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show"]]);
+        $this->middleware("auth", ["except" => ["index", "show", "getprice"]]);
     }
 
     /**
@@ -447,6 +447,28 @@ class ArtworksController extends Controller
             $query->select('id', 'name', 'surname');
         }])->orderBy("created_at", "asc")->get();
         return view("gallery/manage")->with("artworks", $artworks);
+    }
+
+    public function getprice()
+    {
+        $artwork = Artwork::find(request("id"));
+        $size = request("size");
+        $price;
+
+        if($size == "small")
+        {
+            $price = $artwork->smallprice;
+        }
+        else if($size == "medium")
+        {
+            $price = $artwork->mediumprice;
+        }
+        else if($size === "big")
+        {
+            $price = $artwork->bigprice;
+        }
+
+        return $price;
     }
 
 }

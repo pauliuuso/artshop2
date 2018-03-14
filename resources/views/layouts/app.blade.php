@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/animate.css_3.5.2.css')}}">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
-        <script src="{{asset('js/jquery-3.1.1.slim.min.js')}}"></script>
+        <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
         <script src="{{asset('js/tether_1.4.0.min.js')}}"></script>
         <script src="{{asset('js/bootstrap_4.0.0-alpha.6.min.js')}}"></script>
         <script src="{{asset('js/fontawesome_v5.0.6.js')}}"></script>

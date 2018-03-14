@@ -28,11 +28,11 @@
     <div class="col-12 mb-5 sort">
     @if($categories != null)
 
-            @foreach($categories as $category)
-                    <a href="/gallery/kind/{{$category->id}}" class="sort-option-secondary">
-                        <div class="text-uppercase @if($category->id == $sortId) text-underline @endif"><p>{{$category->name}}</p></div>
-                    </a>
-            @endforeach
+        @foreach($categories as $category)
+                <a href="/gallery/kind/{{$category->id}}" class="sort-option-secondary">
+                    <div class="text-uppercase @if($category->id == $sortId) text-underline @endif"><p>{{$category->name}}</p></div>
+                </a>
+        @endforeach
 
     @endif
 
