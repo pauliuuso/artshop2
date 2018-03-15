@@ -299,3 +299,7 @@ button:hover {
   font-family: 'Marvel', sans-serif;
 }
 
+.pointer {
+  cursor: pointer;
+}
+

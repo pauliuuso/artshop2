@@ -90,6 +90,10 @@ function SelectPreview(pictureName, element)
     $("#artwork-image").attr("src", "/storage/artworks/" + pictureName);
     $(".artwork-selector").addClass("artwork-selector-inactive");
     $(element).removeClass("artwork-selector-inactive");
+
+    $('html, body').animate({
+        scrollTop: $("#artwork-image").offset().top - 20
+    }, 500);
 }
 
 function SelectArtworkSize(size, element, alias)
@@ -101,29 +105,55 @@ function SelectArtworkSize(size, element, alias)
     GetArtworkPrice();
 }
 
-function SelectPaperMaterial(size, element)
+function SelectPaperMaterial(material, element)
 {
-    $("#selected-material").html(size);
+    $("#selected-material").html(material);
     $(element).parent().find(".customization-select-option").removeClass("artwork-selected-option");
     $(element).addClass("artwork-selected-option");
 }
 
+function SelectFrame(frame, element)
+{
+    $("#frame").html(frame);
+    $(element).parent().find(".customization-select-option").removeClass("artwork-selected-option");
+    $(element).addClass("artwork-selected-option");
+    $("#frame").val(frame);
+}
+
+function QuantityChanged()
+{
+
+    $("#quantity-error").html("");
+    if(!$.isNumeric($("#quantity-input").val()))
+    {
+        $("#quantity-error").html("Please enter a number");
+        return;
+    }
+
+    var quantity = $("#quantity-input").val();
+    $("#quantity").html(quantity);
+    GetArtworkPrice();
+}
+
+
+/// HTTP CALLS ///
 function GetArtworkPrice()
 {
     $.ajax({
         type: "POST",
         url: "/artwork/getprice",
-        data: {_token: $('#_token').val(), size: $("#artwork-size").val(), id: $("#artwork-id").val()},
+        data: {_token: $('#_token').val(), size: $("#artwork-size").val(), id: $("#artwork-id").val(), quantity: $("#quantity-input").val()},
         success: function(data)
         {
             $("#total-price").html(data);
         },
         error: function(data)
         {
-
+            $("#total-price").html("Something went wrong, try again.");
         }
     });
 }
+////////////////////
 
 
 

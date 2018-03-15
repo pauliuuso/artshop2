@@ -84,17 +84,35 @@
             <a class="customization-select-option" onclick="SelectPaperMaterial('FOAM BOARD', this)"><p class="p-0 m-0">FOAM BOARD</p></a>
         </div>
 
+        <div class="customization-option">Frame:</div>
+        <div class="mb-5">
+            <a class="customization-select-option artwork-selected-option" onclick="SelectFrame('NO FRAME', this)"><p class="p-0 m-0">NO FRAME</p></a>
+            <a class="customization-select-option" onclick="SelectFrame('FRAME', this)"><p class="p-0 m-0">FRAME</p></a>
+        </div>
+
+        <div class="customization-option">Quantity:</div>
+        <div class="mb-5">
+            <div class="customization-select-option">
+                <input id="quantity-input" type="text" value="1" onchange="QuantityChanged()">
+                <div class="customization-option pointer p-1" onclick="QuantityChanged()">OK</div>
+                <p id="quantity-error" class="text-danger p-0 m-0"></p>
+            </div>
+        </div>
+
         <div class="mb-5">
             <p class="text-underline">SUMMARY</p>
+            <p>NAME: <span>{{$artwork->title}}</span></p>
             <p>SIZE: <span id="selected-artwork-size">{{ $artwork->width }} x {{ $artwork->height }}</span></p>
             <p>MATERIAL: <span id="selected-material">QUALITY PAPER</span></p>
-            <p>FRAME: </p>
+            <p>FRAME: <span id="frame">NO FRAME</span></p>
+            <p>QUANTITY: <span id="quantity">1</span></p>
             <p>TOTAL PRICE: <span id="total-price"></span> €</p>
         </div>
 
         <input type="hidden" value="{{ csrf_token() }}" id="_token" name="_token" />
         <input type="hidden" value="small" id="artwork-size" name="artwork-size" />
-        <input type="hidden" value="{{ $artwork->id }}" id="artwork-id" name="artwork-id"
+        <input type="hidden" value="{{ $artwork->id }}" id="artwork-id" name="artwork-id" />
+        <input type="hidden" value="NO FRAME" id="frame" name="frame" />
 
     </div>
 </div>

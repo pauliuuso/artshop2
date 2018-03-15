@@ -468,6 +468,8 @@ class ArtworksController extends Controller
             $price = $artwork->bigprice;
         }
 
+        $price *= request("quantity");
+
         return $price;
     }
 
