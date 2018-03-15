@@ -108,11 +108,16 @@
             <p>QUANTITY: <span id="quantity">1</span></p>
             <p>TOTAL PRICE: <span id="total-price"></span> €</p>
         </div>
+        
+        <form class="form-horizontal" method="GET" action="/add-to-cart">
+            <input type="hidden" value="{{ csrf_token() }}" id="_token" name="_token" />
+            <input type="hidden" value="small" id="artwork-size" name="artwork-size" />
+            <input type="hidden" value="{{ $artwork->id }}" id="artwork-id" name="artwork-id" />
+            <input type="hidden" value="NO FRAME" id="frame" name="frame" />
+            <input type="hidden" value="1" id="count" name="count" />
 
-        <input type="hidden" value="{{ csrf_token() }}" id="_token" name="_token" />
-        <input type="hidden" value="small" id="artwork-size" name="artwork-size" />
-        <input type="hidden" value="{{ $artwork->id }}" id="artwork-id" name="artwork-id" />
-        <input type="hidden" value="NO FRAME" id="frame" name="frame" />
+            <button type="submit" class="customization-option button p-2">ADD TO CART</button>
+        </form>
 
     </div>
 </div>

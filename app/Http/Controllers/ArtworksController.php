@@ -8,6 +8,8 @@ use App\Artwork;
 use App\Category;
 use App\Background;
 use App\User;
+use App\Cart;
+use Session;
 
 class ArtworksController extends Controller
 {
@@ -471,6 +473,33 @@ class ArtworksController extends Controller
         $price *= request("quantity");
 
         return $price;
+    }
+
+    public function addtocart(Request $request)
+    {
+        $id = $request->input("artwork-id");
+        $size = $request->input("artwork-size");
+        $count = $request->input("count");
+
+        $artwork = Artwork::find($id);
+        $oldCart = Session::has("cart") ? Session::get("cart") : null;
+        $cart = new Cart($oldCart);
+        $cart->add($artwork, $id, $size, $count);
+
+        $request->session()->put("cart", $cart);
+        // dd($request->session()->get("cart"));
+        return redirect("/")->with("success", "Artwork added to cart!");
+    }
+
+    public function getcart()
+    {
+        if(!Session::has("cart"))
+        {
+            return view("cart/index")->with(["artworks" => null]);
+        }
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
+        return view("cart/index")->with(["artworks" => $cart->artworks, "totalPrice" => $cart->totalPrice]);
     }
 
 }

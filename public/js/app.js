@@ -132,6 +132,7 @@ function QuantityChanged()
 
     var quantity = $("#quantity-input").val();
     $("#quantity").html(quantity);
+    $("#count").val(quantity);
     GetArtworkPrice();
 }
 

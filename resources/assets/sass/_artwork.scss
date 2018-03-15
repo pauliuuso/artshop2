@@ -62,6 +62,12 @@
     padding-left: 10px;
     padding-right: 10px;
     display: inline-block;
+
+    &.button
+    {
+        outline: 0;
+        border: none;
+    }
 }
 
 .customization-select-option

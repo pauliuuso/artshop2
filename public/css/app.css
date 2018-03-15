@@ -85,6 +85,11 @@
   display: inline-block;
 }
 
+.customization-option.button {
+  outline: 0;
+  border: none;
+}
+
 .customization-select-option {
   display: inline-block;
   padding: 20px;

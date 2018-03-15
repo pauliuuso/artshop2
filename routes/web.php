@@ -21,6 +21,8 @@ Route::put("/artwork/update/{id}", "ArtworksController@update");
 Route::delete("/artwork/delete/{id}", "ArtworksController@destroy");
 Route::get("/artworks/manage", "ArtworksController@manage");
 Route::post("/artwork/getprice", "ArtworksController@getprice");
+Route::get("/add-to-cart", "ArtworksController@addtocart");
+Route::get("/get-cart", "ArtworksController@getcart");
 
 Route::get("/backgrounds/manage", "BackgroundsController@index");
 Route::post("/backgrounds/store", "BackgroundsController@store");
