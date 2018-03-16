@@ -36,6 +36,7 @@
 
             <div class="col-12 mb-5">
                 <p>Total price: {{ $totalPrice }} €</p>
+                <a class="button-a p-2" href="/checkout"><p>CHECKOUT</p></a>
             </div>
 
         </div>

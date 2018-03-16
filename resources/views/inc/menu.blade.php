@@ -31,7 +31,7 @@
 
         <div>
             <p>Shopping cart: </p>
-            <a href="get-cart">Items: {{ Session::has("cart") ? Session::get("cart")->totalCount : "" }}</a>
+            <a href="/get-cart">Items: {{ Session::has("cart") ? Session::get("cart")->totalCount : "" }}</a>
         </div>
 
 

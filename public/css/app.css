@@ -308,3 +308,19 @@ button:hover {
   cursor: pointer;
 }
 
+.button-a {
+  background: black;
+  color: white;
+  display: inline-block;
+}
+
+.button-a p {
+  margin: 0;
+  padding: 0;
+}
+
+.button-a:hover,
+.button-a:visited {
+  color: white;
+}
+

@@ -23,6 +23,8 @@ Route::get("/artworks/manage", "ArtworksController@manage");
 Route::post("/artwork/getprice", "ArtworksController@getprice");
 Route::get("/add-to-cart", "ArtworksController@addtocart");
 Route::get("/get-cart", "ArtworksController@getcart");
+Route::get("/checkout", "ArtworksController@checkout");
+Route::post("/checkout", "ArtworksController@postcheckout");
 
 Route::get("/backgrounds/manage", "BackgroundsController@index");
 Route::post("/backgrounds/store", "BackgroundsController@store");

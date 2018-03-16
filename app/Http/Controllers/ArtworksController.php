@@ -16,7 +16,7 @@ class ArtworksController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show", "getprice"]]);
+        $this->middleware("auth", ["except" => ["index", "show", "getprice", "addtocart", "getcart"]]);
     }
 
     /**
@@ -495,11 +495,31 @@ class ArtworksController extends Controller
     {
         if(!Session::has("cart"))
         {
-            return view("cart/index")->with(["artworks" => null]);
+            return view("cart/index");
         }
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
         return view("cart/index")->with(["artworks" => $cart->artworks, "totalPrice" => $cart->totalPrice]);
+    }
+
+    public function checkout()
+    {
+        if(!Session::has("cart"))
+        {
+            return view("cart/index");
+        }
+
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
+        $totalPrice = $cart->totalPrice;
+
+        return view("cart/checkout")->with(["totalPrice" => $totalPrice]);
+
+    }
+
+    public function postcheckout()
+    {
+        
     }
 
 }
