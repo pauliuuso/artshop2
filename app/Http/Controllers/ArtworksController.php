@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Auth;
 use App\Artwork;
 use App\Category;
 use App\Background;
 use App\User;
 use App\Cart;
+use App\Order;
+use Stripe\Stripe;
+use Stripe\Charge;
 use Session;
 
 class ArtworksController extends Controller
@@ -16,7 +20,7 @@ class ArtworksController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show", "getprice", "addtocart", "getcart"]]);
+        $this->middleware("auth", ["except" => ["index", "show", "getprice", "addtocart", "getcart", "checkout", "postcheckout"]]);
     }
 
     /**
@@ -517,9 +521,54 @@ class ArtworksController extends Controller
 
     }
 
-    public function postcheckout()
+    public function postcheckout(Request $request)
     {
-        
+        if(!Session::has("cart"))
+        {
+            return view("cart/index");
+        }
+
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
+
+        Stripe::setApiKey("sk_test_JJ7cu8Hrdi0wda1MHgvBSi3i");
+
+        try
+        {
+
+            $charge = Charge::create(
+            array(
+                "amount" => $cart->totalPrice * 100,
+                "currency" => "eur",
+                "source" => $request->input("stripeToken"),
+                "description" => "Testing charges"
+            ));
+
+            $order = new Order();
+            $order->cart = serialize($cart);
+            $order->address = $request->input("address");
+            $order->name = $request->input("name");
+            $order->surname = $request->input("surname");
+            $order->payment_id = $charge->id;
+
+            if(Auth::user())
+            {
+                Auth::user()->orders()->save($order);
+            }
+            else
+            {
+                $order->save();
+            }
+
+        }
+        catch(\Exception $exception)
+        {
+            return redirect("/checkout")->with(["error" => $exception->getMessage()]);
+        }
+
+        Session::forget("cart");
+        return redirect("/get-cart")->with(["success" => "Purchace succesfull!"]);
+
     }
 
 }

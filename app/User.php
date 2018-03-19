@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordMail($token));
     }
+
+    public function orders()
+    {
+        return $this->hasMany("App\Order");
+    }
 }

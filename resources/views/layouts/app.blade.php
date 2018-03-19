@@ -13,6 +13,7 @@
         <script src="{{asset('js/tether_1.4.0.min.js')}}"></script>
         <script src="{{asset('js/bootstrap_4.0.0-alpha.6.min.js')}}"></script>
         <script src="{{asset('js/fontawesome_v5.0.6.js')}}"></script>
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
         <script src="{{asset('js/app.js')}}"></script>
         <title>{{config("app.name", "Artshop")}}</title>
     </head>
