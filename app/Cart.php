@@ -46,4 +46,20 @@ class Cart
 
     }
 
+    public function remove($index)
+    {
+        $count = $this->artworks[$index]["count"];
+        $price = $this->artworks[$index]["price"];
+        $this->totalPrice -= $price * $count;
+        $this->totalCount -= $count;
+        unset($this->artworks[$index]);
+    }
+
+    public function removeall()
+    {
+        $this->artworks = array();
+        $this->totalCount = 0;
+        $this->totalPrice = 0;
+    }
+
 }

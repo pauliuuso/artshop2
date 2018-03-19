@@ -30,6 +30,10 @@
   font-size: 30px;
 }
 
+.order {
+  border: 1px solid black;
+}
+
 .art-link .art-info {
   width: 100%;
   height: 100px;
@@ -231,6 +235,11 @@
 .background-wrapper .art-image {
   position: absolute;
   margin: auto;
+}
+
+.cart-remove-item {
+  color: black;
+  float: right;
 }
 
 html,

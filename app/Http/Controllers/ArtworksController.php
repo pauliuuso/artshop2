@@ -20,7 +20,7 @@ class ArtworksController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show", "getprice", "addtocart", "getcart", "checkout", "postcheckout"]]);
+        $this->middleware("auth", ["except" => ["index", "show", "getprice", "addtocart", "getcart", "checkout", "postcheckout", "removefromcart", "removeallfromcart"]]);
     }
 
     /**
@@ -42,7 +42,7 @@ class ArtworksController extends Controller
             $artworks = Artwork::with(["getAuthor" => function($query)
             {
                 $query->select('id', 'name', 'surname');
-            }])->orderBy("created_at", "asc")->paginate($artworksPerPage);
+            }])->orderBy("created_at", "desc")->paginate($artworksPerPage);
         }
         else if($filter == "kind")
         {
@@ -50,7 +50,7 @@ class ArtworksController extends Controller
             $artworks = Artwork::with(["getAuthor" => function($query)
             {
                 $query->select('id', 'name', 'surname');
-            }])->where("category", $id)->orderBy("created_at", "asc")->paginate($artworksPerPage);
+            }])->where("category", $id)->orderBy("created_at", "desc")->paginate($artworksPerPage);
         }
         else if($filter == "artist")
         {
@@ -58,7 +58,7 @@ class ArtworksController extends Controller
             $artworks = Artwork::with(["getAuthor" => function($query)
             {
                 $query->select('id', 'name', 'surname');
-            }])->where("author_id", $id)->orderBy("created_at", "asc")->paginate($artworksPerPage);
+            }])->where("author_id", $id)->orderBy("created_at", "desc")->paginate($artworksPerPage);
         }
 
         return view("gallery/index")->with(["artworks" => $artworks, "filter" => $filter, "firstCategory" => $firstCategory, "firstArtist" => $firstArtist, "categories" => $categories, "authors" => $authors, "sortId" => $id]);
@@ -495,6 +495,42 @@ class ArtworksController extends Controller
         return redirect("/")->with("success", "Artwork added to cart!");
     }
 
+    public function removefromcart($index)
+    {
+        if(!Session::has("cart"))
+        {
+            return view("cart/index");
+        }
+
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
+        $cart->remove($index);
+        if(count($cart->artworks) > 0)
+        {
+            Session::put("cart", $cart);
+        }
+        else
+        {
+            Session::forget("cart");
+        }
+
+        return redirect("/get-cart")->with(["success" => "Removed from your basket!"]);
+    }
+
+    public function removeallfromcart()
+    {
+        if(!Session::has("cart"))
+        {
+            return view("cart/index");
+        }
+
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
+        $cart->removeall();
+        Session::forget("cart");
+        return redirect("/get-cart")->with(["success" => "Removed from your basket!"]);
+    }
+
     public function getcart()
     {
         if(!Session::has("cart"))
@@ -541,7 +577,7 @@ class ArtworksController extends Controller
                 "amount" => $cart->totalPrice * 100,
                 "currency" => "eur",
                 "source" => $request->input("stripeToken"),
-                "description" => "Testing charges"
+                "description" => "Payment"
             ));
 
             $order = new Order();
@@ -569,6 +605,18 @@ class ArtworksController extends Controller
         Session::forget("cart");
         return redirect("/get-cart")->with(["success" => "Purchace succesfull!"]);
 
+    }
+
+    public function orders()
+    {
+        $orders = Order::orderBy("created_at", "desc")->paginate(24);
+        $orders->transform(function($order, $key)
+        {
+            $order->cart = unserialize($order->cart);
+            return $order;
+        });
+
+        return view("cart/orders")->with(["orders" => $orders]);
     }
 
 }

@@ -22,9 +22,12 @@ Route::delete("/artwork/delete/{id}", "ArtworksController@destroy");
 Route::get("/artworks/manage", "ArtworksController@manage");
 Route::post("/artwork/getprice", "ArtworksController@getprice");
 Route::get("/add-to-cart", "ArtworksController@addtocart");
+Route::get("/remove-from-cart/{index}", "ArtworksController@removefromcart");
+Route::get("/remove-all-from-cart", "ArtworksController@removeallfromcart");
 Route::get("/get-cart", "ArtworksController@getcart");
 Route::get("/checkout", "ArtworksController@checkout");
 Route::post("/checkout", "ArtworksController@postcheckout");
+Route::get("/orders", "ArtworksController@orders");
 
 Route::get("/backgrounds/manage", "BackgroundsController@index");
 Route::post("/backgrounds/store", "BackgroundsController@store");
