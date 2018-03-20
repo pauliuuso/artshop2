@@ -120,6 +120,11 @@ function SelectFrame(frame, element)
     $("#frame").val(frame);
 }
 
+$('#quantity-input').bind('DOMAttrModified textInput input change keypress paste focus', function () 
+{
+    QuantityChanged();
+});
+
 function QuantityChanged()
 {
 
@@ -136,6 +141,11 @@ function QuantityChanged()
     GetArtworkPrice();
 }
 
+function QuantityAdd(number)
+{
+    $('#quantity-input').val(parseInt($('#quantity-input').val()) + number);
+    QuantityChanged();
+}
 
 /// HTTP CALLS ///
 function GetArtworkPrice()
@@ -155,9 +165,6 @@ function GetArtworkPrice()
     });
 }
 ////////////////////
-
-
-
 
 
 OnResizeGallery();

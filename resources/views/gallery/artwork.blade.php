@@ -93,8 +93,8 @@
         <div class="customization-option">Quantity:</div>
         <div class="mb-5">
             <div class="customization-select-option">
-                <input id="quantity-input" type="text" value="1" onchange="QuantityChanged()">
-                <div class="customization-option pointer p-1" onclick="QuantityChanged()">OK</div>
+                <input id="quantity-input" type="text" value="1">
+                <a class="fas fa-plus ml-2 pointer" href="#" onclick="QuantityAdd(1)"></a>
                 <p id="quantity-error" class="text-danger p-0 m-0"></p>
             </div>
         </div>
