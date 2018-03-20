@@ -11,6 +11,7 @@ use App\Background;
 use App\User;
 use App\Cart;
 use App\Order;
+use App\Size;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Session;
@@ -118,9 +119,7 @@ class ArtworksController extends Controller
             "width" => "required",
             "height" => "required",
             "year" => "required",
-            "smallprice" => "required",
-            "mediumprice" => "required",
-            "bigprice" => "required",
+            "price" => "required",
             "thumbnail" => "required|image|max:10000",
             "picture" => "required|image|max:10000"
         ]);
@@ -172,7 +171,7 @@ class ArtworksController extends Controller
                 }
     
                 $background = imagecreatefromjpeg($previewBackground);
-                $previewNameToStore = "/preview-" . $pictureNameToStore;
+                $previewNameToStore = "preview-" . $pictureNameToStore;
                 imagecopyresampled($previewImage, $background, 0, 0, 0, 0, $backgroundDimensions[0], $backgroundDimensions[1], $backgroundDimensions[0], $backgroundDimensions[1]);
                 imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $assumedArtworkDimensions[0]/2, $backgroundDimensions[1]/2 - $assumedArtworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $assumedArtworkDimensions[0], $assumedArtworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
     
@@ -194,12 +193,8 @@ class ArtworksController extends Controller
         $artwork->category = $request->input("category");
         $artwork->author_id = $request->input("author");
         $artwork->description = $request->input("description");
-        $artwork->width = $request->input("width");
-        $artwork->height = $request->input("height");
         $artwork->year = $request->input("year");
-        $artwork->smallprice = $request->input("smallprice");
-        $artwork->mediumprice = $request->input("mediumprice");
-        $artwork->bigprice = $request->input("bigprice");
+
         if($thumbnailNameToStore != "")
         {
             $artwork->thumbnail_name = $thumbnailNameToStore;
@@ -208,12 +203,22 @@ class ArtworksController extends Controller
         {
             $artwork->picture_name = $pictureNameToStore;
         }
+        $artwork->save();
+
+        $size = new Size();
+        $size->width = $request->input("width");
+        $size->height = $request->input("height");
+        $size->price = $request->input("price");
+        $size->artwork_id = $artwork->id;
+
         if($request->input("background") != null && $previewNameToStore != "")
         {
-            $artwork->preview_name = $previewNameToStore;
+            $size->preview_name = $previewNameToStore;
         }
-        $artwork->background_id = $request->input("background");
-        $artwork->save();
+        $size->background_id = $request->input("background");
+
+        $size->save();
+
         return redirect("/")->with("success", "Artwork added!");
     }
 
@@ -228,7 +233,7 @@ class ArtworksController extends Controller
         $artwork = Artwork::with(["getAuthor" => function($query)
         {
             $query->select("id", "name", "surname", "description");
-        }])->find($id);
+        }])->with("getSizes")->find($id);
 
         return view("gallery/artwork")->with("artwork", $artwork);
     }
@@ -241,9 +246,7 @@ class ArtworksController extends Controller
      */
     public function edit($id)
     {
-        $artwork = Artwork::find($id);
-        $backgrounds = Background::select("title", "id", "background_name")->get();
-        $backgroundIdsAndTitles = $backgrounds->pluck("title", "id");
+        $artwork = Artwork::with("getSizes")->find($id);
 
         if(auth()->user()->role != "admin")
         {
@@ -252,11 +255,6 @@ class ArtworksController extends Controller
 
         $category = $artwork->getOneCategory->id;
         $author = $artwork->getAuthor->id;
-        $selectedBackground = 0;
-        if($artwork->background_id != null)
-        {
-            $selectedBackground = $artwork->getBackground->id;
-        }
         $authors = User::all()->where("role", "author");
         $authorNamesAndIds = array();
         foreach($authors as $a)
@@ -269,9 +267,6 @@ class ArtworksController extends Controller
         return view("gallery/edit")->with(
         [
             "artwork" => $artwork,
-            "backgroundIdsAndTitles" => $backgroundIdsAndTitles,
-            "backgrounds" => $backgrounds,
-            "selectedBackground" => $selectedBackground,
             "categories" => $categories,
             "category" => $category, 
             "author" => $author, 
@@ -298,12 +293,7 @@ class ArtworksController extends Controller
         [
             "title" => "required",
             "description" => "required",
-            "width" => "required",
-            "height" => "required",
             "year" => "required",
-            "smallprice" => "required",
-            "mediumprice" => "required",
-            "bigprice" => "required",
             "thumbnail" => "image|max:10000",
             "picture" => "image|max:10000"
         ]);
@@ -333,75 +323,16 @@ class ArtworksController extends Controller
             Storage::delete("public/artworks/" . $artwork->picture_name);
         }
 
-        //////////////// Generate preview with interior background //////////////////
-        if($request->input("background"))
-        {
-            $picture = Artwork::find($id);
-            $background = Background::find($request->input("background"));
-            if(is_null($request->input("background")))
-            {
-                $background = Background::find($picture->background_id);
-            }
-            $artworksPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/artworks/";
-            $backgroundsPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/backgrounds/";
-            $uploadedImage = $artworksPath . $artwork->picture_name;
-            $extension = pathinfo($artwork->picture_name, PATHINFO_EXTENSION);
-            $pictureName = $picture->picture_name;
-            $previewBackground = $backgroundsPath . "/" . $background->background_name;
-            $backgroundDimensions = getimagesize($previewBackground);
-            $assumedBackgroundWidthRatio = $backgroundDimensions[0]/$background->width;
-            $artworkDimensions = getimagesize($uploadedImage);
-            $assumedArtworkDimensions = array($request->input("width") * $assumedBackgroundWidthRatio, $request->input("height") * $assumedBackgroundWidthRatio);
-
-            $previewImage = imagecreatetruecolor($backgroundDimensions[0], $backgroundDimensions[1]);
-
-            $image;
-
-            if(strcasecmp($extension, "png") == 0)
-            {
-                $image = imagecreatefrompng($uploadedImage);
-            }
-            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
-            {
-                $image = imagecreatefromjpeg($uploadedImage);
-            }
-
-            $background = imagecreatefromjpeg($previewBackground);
-            $previewNameToStore = "preview-" . $pictureName;
-            imagecopyresampled($previewImage, $background, 0, 0, 0, 0, $backgroundDimensions[0], $backgroundDimensions[1], $backgroundDimensions[0], $backgroundDimensions[1]);
-            imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $assumedArtworkDimensions[0]/2, $backgroundDimensions[1]/2 - $assumedArtworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $assumedArtworkDimensions[0], $assumedArtworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
-
-            if(strcasecmp($extension, "png") == 0)
-            {
-                imagepng($previewImage, $artworksPath . $previewNameToStore);
-            }
-            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
-            {
-                imagejpeg($previewImage, $artworksPath . $previewNameToStore);
-            }
-        }
-        else
-        {
-            Storage::delete("public/artworks/" . $artwork->preview_name);
-            $artwork->background_id = null;
-            $artwork->preview_name = "";
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-
         $artwork->title = $request->input("title");
         $artwork->category = $request->input("category");
         $artwork->author_id = $request->input("author");
         $artwork->description = $request->input("description");
-        $artwork->width = $request->input("width");
-        $artwork->height = $request->input("height");
         $artwork->year = $request->input("year");
-        $artwork->smallprice = $request->input("smallprice");
-        $artwork->mediumprice = $request->input("mediumprice");
-        $artwork->bigprice = $request->input("bigprice");
-        if($request->input("background") != null)
-        {
-            $artwork->background_id = $request->input("background");
-        }
+
+        // if($request->input("background") != null)
+        // {
+        //     $artwork->background_id = $request->input("background");
+        // }
         if($thumbnailNameToStore != "")
         {
             $artwork->thumbnail_name = $thumbnailNameToStore;
@@ -410,10 +341,10 @@ class ArtworksController extends Controller
         {
             $artwork->picture_name = $pictureNameToStore;
         }
-        if($request->input("background") != null && $previewNameToStore != "")
-        {
-            $artwork->preview_name = $previewNameToStore;
-        }
+        // if($request->input("background") != null && $previewNameToStore != "")
+        // {
+        //     $artwork->preview_name = $previewNameToStore;
+        // }
         $artwork->save();
         return redirect("/")->with("success", "Artwork updated!");
     }
@@ -457,25 +388,9 @@ class ArtworksController extends Controller
 
     public function getprice()
     {
-        $artwork = Artwork::find(request("id"));
-        $size = request("size");
-        $price;
-
-        if($size == "small")
-        {
-            $price = $artwork->smallprice;
-        }
-        else if($size == "medium")
-        {
-            $price = $artwork->mediumprice;
-        }
-        else if($size === "big")
-        {
-            $price = $artwork->bigprice;
-        }
-
+        $sizeId = request("sizeId");
+        $price = Size::select("price")->find($sizeId)["price"];
         $price *= request("quantity");
-
         return $price;
     }
 
@@ -617,6 +532,204 @@ class ArtworksController extends Controller
         });
 
         return view("cart/orders")->with(["orders" => $orders]);
+    }
+
+    public function editsize($id)
+    {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+
+        $size = Size::find($id);
+        $backgrounds = Background::select("title", "id", "background_name")->get();
+        $backgroundIdsAndTitles = $backgrounds->pluck("title", "id");
+        $selectedBackground = 0;
+        if($size->background_id != null)
+        {
+            $selectedBackground = $size->background_id;
+        }
+        return view("sizes/edit")->with(["backgrounds" => $backgrounds, "backgroundIdsAndTitles" => $backgroundIdsAndTitles, "selectedBackground" => $selectedBackground, "size" => $size]);
+    }
+
+    public function newsize($id)
+    {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+        $backgrounds = Background::select("title", "id", "background_name")->get();
+        $backgroundIdsAndTitles = $backgrounds->pluck("title", "id");
+        return view("sizes/index")->with(["backgrounds" => $backgrounds, "backgroundIdsAndTitles" => $backgroundIdsAndTitles, "artworkId" => $id]);
+    }
+
+    public function createsize(Request $request, $id)
+    {
+
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+        $this->validate($request,
+        [
+            "width" => "required",
+            "height" => "required",
+            "price" => "required"
+        ]);
+
+        $size = new Size();
+        $artwork = Artwork::find($id);
+
+        //////////////// Generate preview with interior background //////////////////
+        if($request->input("background"))
+        {
+            $background = Background::find($request->input("background"));
+            if(is_null($request->input("background")))
+            {
+                $background = Background::find($size->background_id);
+            }
+            $artworksPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/artworks/";
+            $backgroundsPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/backgrounds/";
+            $uploadedImage = $artworksPath . $artwork->picture_name;
+            $extension = pathinfo($artwork->picture_name, PATHINFO_EXTENSION);
+            $pictureName = $artwork->picture_name;
+            $previewBackground = $backgroundsPath . "/" . $background->background_name;
+            $backgroundDimensions = getimagesize($previewBackground);
+            $assumedBackgroundWidthRatio = $backgroundDimensions[0]/$background->width;
+            $artworkDimensions = getimagesize($uploadedImage);
+            $assumedArtworkDimensions = array($request->input("width") * $assumedBackgroundWidthRatio, $request->input("height") * $assumedBackgroundWidthRatio);
+
+            $previewImage = imagecreatetruecolor($backgroundDimensions[0], $backgroundDimensions[1]);
+
+            $image;
+
+            if(strcasecmp($extension, "png") == 0)
+            {
+                $image = imagecreatefrompng($uploadedImage);
+            }
+            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
+            {
+                $image = imagecreatefromjpeg($uploadedImage);
+            }
+
+            $background = imagecreatefromjpeg($previewBackground);
+            $previewNameToStore = "preview-" . substr(md5(openssl_random_pseudo_bytes(5)),-5) . $pictureName;
+            imagecopyresampled($previewImage, $background, 0, 0, 0, 0, $backgroundDimensions[0], $backgroundDimensions[1], $backgroundDimensions[0], $backgroundDimensions[1]);
+            imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $assumedArtworkDimensions[0]/2, $backgroundDimensions[1]/2 - $assumedArtworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $assumedArtworkDimensions[0], $assumedArtworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
+
+            if(strcasecmp($extension, "png") == 0)
+            {
+                imagepng($previewImage, $artworksPath . $previewNameToStore);
+            }
+            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
+            {
+                imagejpeg($previewImage, $artworksPath . $previewNameToStore);
+            }
+
+            $size->preview_name = $previewNameToStore;
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
+        $size->width = $request->input("width");
+        $size->height = $request->input("height");
+        $size->price = $request->input("price");
+        $size->artwork_id = $id;
+        $size->background_id = $request->input("background");
+        $size->save();
+        return redirect("/artwork/edit/" . $artwork->id)->with(["success" => "Updated successfully!"]);
+    }
+
+    public function updatesize(Request $request, $id)
+    {
+        if(auth()->user()->role != "admin")
+        {
+            return redirect("/")->with("error", "Unauthorized");
+        }
+
+        $this->validate($request,
+        [
+            "width" => "required",
+            "height" => "required",
+            "price" => "required"
+        ]);
+
+        $size = Size::find($id);
+        $artwork = Artwork::find($size->artwork_id);
+
+        //////////////// Generate preview with interior background //////////////////
+        if($request->input("background"))
+        {
+            $background = Background::find($request->input("background"));
+            if(is_null($request->input("background")))
+            {
+                $background = Background::find($size->background_id);
+            }
+            $artworksPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/artworks/";
+            $backgroundsPath = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix() . "/public/backgrounds/";
+            $uploadedImage = $artworksPath . $artwork->picture_name;
+            $extension = pathinfo($artwork->picture_name, PATHINFO_EXTENSION);
+            $pictureName = $artwork->picture_name;
+            $previewBackground = $backgroundsPath . "/" . $background->background_name;
+            $backgroundDimensions = getimagesize($previewBackground);
+            $assumedBackgroundWidthRatio = $backgroundDimensions[0]/$background->width;
+            $artworkDimensions = getimagesize($uploadedImage);
+            $assumedArtworkDimensions = array($request->input("width") * $assumedBackgroundWidthRatio, $request->input("height") * $assumedBackgroundWidthRatio);
+
+            $previewImage = imagecreatetruecolor($backgroundDimensions[0], $backgroundDimensions[1]);
+
+            $image;
+
+            if(strcasecmp($extension, "png") == 0)
+            {
+                $image = imagecreatefrompng($uploadedImage);
+            }
+            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
+            {
+                $image = imagecreatefromjpeg($uploadedImage);
+            }
+
+            $background = imagecreatefromjpeg($previewBackground);
+            $previewNameToStore = $size->preview_name;
+            imagecopyresampled($previewImage, $background, 0, 0, 0, 0, $backgroundDimensions[0], $backgroundDimensions[1], $backgroundDimensions[0], $backgroundDimensions[1]);
+            imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $assumedArtworkDimensions[0]/2, $backgroundDimensions[1]/2 - $assumedArtworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $assumedArtworkDimensions[0], $assumedArtworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
+
+            if(strcasecmp($extension, "png") == 0)
+            {
+                imagepng($previewImage, $artworksPath . $previewNameToStore);
+            }
+            else if(strcasecmp($extension, "jpg") == 0 || strcasecmp($extension, "jpeg"))
+            {
+                imagejpeg($previewImage, $artworksPath . $previewNameToStore);
+            }
+
+            $size->preview_name = $previewNameToStore;
+            $size->background_id = $request->input("background");
+        }
+        else
+        {
+            Storage::delete("public/artworks/" . $size->preview_name);
+            $size->background_id = null;
+            $size->preview_name = "";
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        $size->width = $request->input("width");
+        $size->height = $request->input("height");
+        $size->price = $request->input("price");
+        $size->save();
+        return redirect("/artwork/edit/" . $artwork->id)->with(["success" => "Updated successfully!"]);
+    }
+
+    public function destroySize($id)
+    {
+        $size = Size::find($id);
+        Storage::delete("public/artworks/" . $size->preview_name);
     }
 
 }

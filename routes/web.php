@@ -28,6 +28,10 @@ Route::get("/get-cart", "ArtworksController@getcart");
 Route::get("/checkout", "ArtworksController@checkout");
 Route::post("/checkout", "ArtworksController@postcheckout");
 Route::get("/orders", "ArtworksController@orders");
+Route::get("/edit-size/{id}", "ArtworksController@editsize");
+Route::put("/update-size/{id}", "ArtworksController@updatesize");
+Route::get("/new-size/{id}", "ArtworksController@newsize");
+Route::post("/create-size/{id}", "ArtworksController@createsize");
 
 Route::get("/backgrounds/manage", "BackgroundsController@index");
 Route::post("/backgrounds/store", "BackgroundsController@store");

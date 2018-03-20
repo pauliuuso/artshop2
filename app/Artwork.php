@@ -23,4 +23,9 @@ class Artwork extends Model
         return $this->hasOne("App\Background", "id", "background_id");
     }
 
+    public function getSizes()
+    {
+        return $this->hasMany("App\Size");
+    }
+
 }

@@ -37,16 +37,18 @@
 
     <div class="col-12 col-md-6 order-11 order-md-12">
         <div class="row">
-            <a class="col-6 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->picture_name}}', this)">
-                <div class="art-wrapper">
+            <a class="col-4 col-lg-3 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->picture_name}}', this)">
+                <div class="art-wrapper art-selector-wrapper">
                     <img src="/storage/artworks/{{$artwork->picture_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
                 </div>
             </a>
-            <a class="col-6 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->preview_name}}', this)">
-                <div class="art-wrapper">
-                    <img src="/storage/artworks/{{$artwork->preview_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
+            @foreach($artwork->getSizes as $index => $size)
+            <a class="col-4 col-lg-3 art-link artwork-selector artwork-selector-inactive mb-3" onclick="SelectPreview('{{$size->preview_name}}', this)">
+                <div class="art-wrapper art-selector-wrapper">
+                    <img src="/storage/artworks/{{$size->preview_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
                 </div>
             </a>
+            @endforeach
         </div>
     </div>
 
@@ -73,9 +75,9 @@
 
         <div class="customization-option">PRINT SIZE:</div>
         <div class="mb-5">
-            <a class="customization-select-option artwork-selected-option" onclick="SelectArtworkSize('{{ $artwork->width }} x {{ $artwork->height }}', this, 'small')"><p class="p-0 m-0">{{ $artwork->width }} x {{ $artwork->height }}</p></a>
-            <a class="customization-select-option" onclick="SelectArtworkSize('{{ $artwork->width * 2 }} x {{ $artwork->height * 2 }}', this, 'medium')"><p class="p-0 m-0">{{ $artwork->width * 2 }} x {{ $artwork->height * 2 }}</p></a>
-            <a class="customization-select-option" onclick="SelectArtworkSize('{{ $artwork->width * 3 }} x {{ $artwork->height * 3}}', this, 'big')"><p class="p-0 m-0">{{ $artwork->width * 3 }} x {{ $artwork->height * 3 }}</p></a>
+            @foreach($artwork->getSizes as $index => $size)
+            <a class="customization-select-option {{ ($index == 0) ? 'artwork-selected-option' : '' }}" onclick="SelectArtworkSize('{{ $size->width }} x {{ $size->height }}', this, {{$size->id}})"><p class="p-0 m-0">{{ $size->width }} x {{ $size->height }}</p></a>
+            @endforeach
         </div>
 
         <div class="customization-option">MATERIAL:</div>
@@ -102,7 +104,7 @@
         <div class="mb-5">
             <p class="text-underline">SUMMARY</p>
             <p>NAME: <span>{{$artwork->title}}</span></p>
-            <p>SIZE: <span id="selected-artwork-size">{{ $artwork->width }} x {{ $artwork->height }}</span></p>
+            <p>SIZE: <span id="selected-artwork-size">{{ $artwork->getSizes[0]->width }} x {{ $artwork->getSizes[0]->height }}</span></p>
             <p>MATERIAL: <span id="selected-material">QUALITY PAPER</span></p>
             <p>FRAME: <span id="frame">NO FRAME</span></p>
             <p>QUANTITY: <span id="quantity">1</span></p>
@@ -111,7 +113,7 @@
         
         <form class="form-horizontal" method="GET" action="/add-to-cart">
             <input type="hidden" value="{{ csrf_token() }}" id="_token" name="_token" />
-            <input type="hidden" value="small" id="artwork-size" name="artwork-size" />
+            <input type="hidden" value="{{ $artwork->getSizes[0]->id }}" id="artwork-size" name="artwork-size" />
             <input type="hidden" value="{{ $artwork->id }}" id="artwork-id" name="artwork-id" />
             <input type="hidden" value="NO FRAME" id="frame" name="frame" />
             <input type="hidden" value="1" id="count" name="count" />
@@ -123,9 +125,7 @@
 </div>
 
 <script>
-
-    $(".artwork-selector").addClass("artwork-selector-inactive");
-    $(".artwork-selector").first().removeClass("artwork-selector-inactive");
+    
     GetArtworkPrice();
 
 </script>

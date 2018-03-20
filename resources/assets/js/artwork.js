@@ -96,12 +96,12 @@ function SelectPreview(pictureName, element)
     }, 500);
 }
 
-function SelectArtworkSize(size, element, alias)
+function SelectArtworkSize(size, element, id)
 {
     $("#selected-artwork-size").html(size);
     $(element).parent().find(".customization-select-option").removeClass("artwork-selected-option");
     $(element).addClass("artwork-selected-option");
-    $("#artwork-size").val(alias);
+    $("#artwork-size").val(id);
     GetArtworkPrice();
 }
 
@@ -153,7 +153,7 @@ function GetArtworkPrice()
     $.ajax({
         type: "POST",
         url: "/artwork/getprice",
-        data: {_token: $('#_token').val(), size: $("#artwork-size").val(), id: $("#artwork-id").val(), quantity: $("#quantity-input").val()},
+        data: {_token: $('#_token').val(), sizeId: $("#artwork-size").val(), quantity: $("#quantity-input").val()},
         success: function(data)
         {
             $("#total-price").html(data);
@@ -179,4 +179,5 @@ $(window).on("window:resize", function (e)
 {
     OnResizeGallery();
     CenterPreviewSelectors();
+    $(".artwork-image-wrapper").height($(".artwork-image-wrapper img").height());
 });

@@ -30,6 +30,11 @@
     }
 }
 
+.art-selector-wrapper
+{
+    height: 150px;
+}
+
 .artwork-image-wrapper
 {
     height: 400px;
@@ -77,6 +82,13 @@
     border: 1px solid black;
     margin-right: -4px;
     height: auto;
+    text-align: center;
+
+    p
+    {
+        padding: 0;
+        margin: 0;
+    }
 }
 
 .artwork-frame

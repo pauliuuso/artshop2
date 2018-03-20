@@ -39,16 +39,8 @@
             {{Form::number("year", "", ["class" => "form-control", "placeholder" => ""])}}
         </div>
         <div class="form-group">
-            {{Form::label("smallprice", "Small price:")}}
-            {{Form::number("smallprice", "", ["class" => "form-control", "placeholder" => ""])}}
-        </div>
-        <div class="form-group">
-            {{Form::label("mediumprice", "Medium price:")}}
-            {{Form::number("mediumprice", "", ["class" => "form-control", "placeholder" => ""])}}
-        </div>
-        <div class="form-group">
-            {{Form::label("bigprice", "Big price:")}}
-            {{Form::number("bigprice", "", ["class" => "form-control", "placeholder" => ""])}}
+            {{Form::label("price", "Price:")}}
+            {{Form::number("price", "", ["class" => "form-control", "placeholder" => ""])}}
         </div>
         <div class="form-group">
             {{Form::label("thumbnail", "Thumbnail:")}}

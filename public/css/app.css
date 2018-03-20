@@ -58,6 +58,10 @@
   margin: auto;
 }
 
+.art-selector-wrapper {
+  height: 150px;
+}
+
 .artwork-image-wrapper {
   height: 400px;
   -webkit-transition: height 0.5s ease-out;
@@ -100,6 +104,12 @@
   border: 1px solid black;
   margin-right: -4px;
   height: auto;
+  text-align: center;
+}
+
+.customization-select-option p {
+  padding: 0;
+  margin: 0;
 }
 
 .artwork-frame {
@@ -331,5 +341,13 @@ button:hover {
 .button-a:hover,
 .button-a:visited {
   color: white;
+}
+
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-40 {
+  font-size: 40px;
 }
 
