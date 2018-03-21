@@ -48,7 +48,15 @@ function CenterPreviewSelectors()
         }
         else
         {
+            var ratio = wrapper.offsetWidth/image.offsetWidth;
             image.style.left = 0;
+            image.style.width = 100 + "%";
+            image.style.height = "auto";
+        }
+
+        if(image.offsetHeight < wrapper.offsetHeight)
+        {
+            image.style.height = "auto";
         }
     });
 }
