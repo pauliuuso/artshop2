@@ -23,25 +23,21 @@ class Cart
         $storedArtwork = ["count" => $count, "price" => 0, "size" => "", "artwork" => $artwork];
 
         $storedArtwork["count"] = $count;
-
-        if($size == "small")
-        {
-            $storedArtwork["price"] = $artwork->smallprice * $count;
-            $storedArtwork["size"] = $artwork->width . "x" . $artwork->height;
-        }
-        else if($size == "medium")
-        {
-            $storedArtwork["price"] = $artwork->mediumprice * $count;
-            $storedArtwork["size"] = ($artwork->width * 2) . "x" . ($artwork->height * 2);
-        }
-        else if($size === "big")
-        {
-            $storedArtwork["price"] = $artwork->bigprice * $count;
-            $storedArtwork["size"] = ($artwork->width * 3) . "x" . ($artwork->height * 3);
-        }
+        $storedArtwork["price"] = $size->price * $count;
+        $storedArtwork["size"] = $size->width . "x" . $size->height;
 
         $this->totalCount += $count;
         $this->totalPrice += $storedArtwork["price"];
+
+        foreach($this->artworks as $index => $artwork)
+        {
+            if($artwork["size"] == $storedArtwork["size"] && $artwork["artwork"]->id == $id)
+            {
+                $this->artworks[$index]["count"] += $count;
+                return;
+            }
+        }
+
         array_push($this->artworks, $storedArtwork);
 
     }

@@ -363,10 +363,16 @@ class ArtworksController extends Controller
             return redirect("/")->with("error", "Unauthorized");
         }
 
-        $artwork = Artwork::find($id);
+        $artwork = Artwork::with("getSizes")->find($id);
+        $sizes = $artwork->getSizes;
+
+        foreach($sizes as $size)
+        {
+            $this->deletesize($size->id);
+        }
+
         Storage::delete("public/artworks/" . $artwork->thumbnail_name);
         Storage::delete("public/artworks/" . $artwork->picture_name);
-        Storage::delete("public/artworks/" . $artwork->preview_name);
         $artwork->delete();
         return redirect("/")->with("success", "Artwork removed!");
     }
@@ -397,7 +403,7 @@ class ArtworksController extends Controller
     public function addtocart(Request $request)
     {
         $id = $request->input("artwork-id");
-        $size = $request->input("artwork-size");
+        $size = Size::find($request->input("artwork-size"));
         $count = $request->input("count");
 
         $artwork = Artwork::find($id);
@@ -726,10 +732,13 @@ class ArtworksController extends Controller
         return redirect("/artwork/edit/" . $artwork->id)->with(["success" => "Updated successfully!"]);
     }
 
-    public function destroySize($id)
+    public function deletesize($id)
     {
         $size = Size::find($id);
+        $artwork = Artwork::select("id")->find($size->artwork_id);
         Storage::delete("public/artworks/" . $size->preview_name);
+        $size->delete();
+        return redirect("/artwork/edit/" . $artwork->id)->with(["success" => "Size deleted!"]);
     }
 
 }

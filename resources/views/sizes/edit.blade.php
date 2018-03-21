@@ -36,6 +36,14 @@
         {{Form::hidden("_method", "PUT")}}
         {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
         {!! Form::close() !!}
+
+        @if(!Auth::guest() && Auth::user()->role == "admin")
+            {!! Form::open(["action" => ["ArtworksController@deletesize", $size->id], "method" => "POST"]) !!}
+                {{Form::hidden("_method", "DELETE")}}
+                {{Form::submit("Delete", ["class" => "btn btn-danger mt-2"])}}
+            {!! Form::close() !!}
+        @endif
+
     </div>
 
     <div class="col-12 col-xl-6 mb-5 mt-2 text-center">

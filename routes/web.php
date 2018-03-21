@@ -32,6 +32,7 @@ Route::get("/edit-size/{id}", "ArtworksController@editsize");
 Route::put("/update-size/{id}", "ArtworksController@updatesize");
 Route::get("/new-size/{id}", "ArtworksController@newsize");
 Route::post("/create-size/{id}", "ArtworksController@createsize");
+Route::delete("/delete-size/{id}", "ArtworksController@deletesize");
 
 Route::get("/backgrounds/manage", "BackgroundsController@index");
 Route::post("/backgrounds/store", "BackgroundsController@store");
