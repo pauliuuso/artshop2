@@ -120,7 +120,7 @@ function SelectFrame(frame, element)
     $("#frame").val(frame);
 }
 
-$('#quantity-input').bind('DOMAttrModified textInput input change keypress paste focus', function () 
+$('#quantity-input').bind('DOMAttrModified textInput input keypress paste focus', function () 
 {
     QuantityChanged();
 });
