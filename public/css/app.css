@@ -105,9 +105,25 @@
   margin-right: -4px;
   height: auto;
   text-align: center;
+  background: white;
 }
 
 .customization-select-option p {
+  padding: 0;
+  margin: 0;
+}
+
+.customization-select-option-low {
+  display: inline-block;
+  padding: 10px 30px;
+  border: 1px solid black;
+  margin-right: -4px;
+  height: auto;
+  text-align: center;
+  background: white;
+}
+
+.customization-select-option-low p {
   padding: 0;
   margin: 0;
 }
@@ -141,12 +157,17 @@
 .art-menu a li {
   display: inline;
   font-size: 25px;
+  letter-spacing: 4px;
 }
 
 .login-buttons {
-  float: right;
   text-decoration: none;
   list-style: none;
+  float: right;
+}
+
+.login-buttons li {
+  display: inline;
 }
 
 .login-buttons a {
@@ -154,18 +175,20 @@
   float: right;
 }
 
-.gallery-title {
+.main-title {
   text-align: center;
   margin-bottom: 100px;
 }
 
-.gallery-title h1 {
-  font-size: 110px;
+.main-title h1 {
+  font-size: 135px;
+  letter-spacing: 20px;
 }
 
-.gallery-title .gallery-title-author {
+.main-title-sub {
   font-size: 32px;
   font-weight: 300;
+  letter-spacing: 12px;
 }
 
 .sort .sort-option:first-child {
@@ -195,9 +218,13 @@
   cursor: pointer;
 }
 
-@media (max-width: 576px) {
-  .gallery-title h1 {
+@media (max-width: 575.98px) {
+  .main-title h1 {
     font-size: 70px;
+  }
+
+  .main-title-sub {
+    font-size: 20px;
   }
 }
 
@@ -250,6 +277,49 @@
 .cart-remove-item {
   color: black;
   float: right;
+}
+
+.cart-wrapper {
+  margin-top: 200px;
+}
+
+.cart-wrapper .cart {
+  float: left;
+}
+
+.cart-wrapper .total {
+  float: right;
+}
+
+.cart-orders-underline {
+  border-bottom: 2px solid black;
+}
+
+.cart-orders-item p {
+  padding-bottom: 8px;
+  margin: 0;
+}
+
+.cart-item-first .size-half {
+  float: left;
+}
+
+.cart-item-first p {
+  line-height: 14px;
+}
+
+@media (max-width: 767.98px) {
+  .cart-wrapper {
+    margin-top: 50px;
+  }
+
+  .cart-wrapper .total {
+    float: left;
+  }
+
+  .cart-wrapper p {
+    text-align: left;
+  }
 }
 
 html,
@@ -349,5 +419,13 @@ button:hover {
 
 .fs-40 {
   font-size: 40px;
+}
+
+.size-half {
+  width: 50%;
+}
+
+.size-full {
+  width: 100%;
 }
 

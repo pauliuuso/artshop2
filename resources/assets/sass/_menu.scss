@@ -16,13 +16,19 @@
 {
   display: inline;
   font-size: 25px;
+  letter-spacing: 4px;
 }
 
 .login-buttons
 {
-  float: right;
   text-decoration: none;
   list-style: none;
+  float: right;
+
+  li
+  {
+    display: inline;
+  }
 
   a
   {

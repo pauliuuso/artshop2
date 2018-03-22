@@ -14,9 +14,9 @@
         @endif
     </div>
 
-    <div class="col-12 gallery-title">
+    <div class="col-12 main-title">
         <h1 class="marvel text-uppercase">{{$artwork->title}}</h1>
-        <h4 class="text-uppercase gallery-title-author">BY {{$artwork->getAuthor->name}} {{$artwork->getAuthor->surname}}</h4>
+        <h4 class="text-uppercase main-title-sub">BY {{$artwork->getAuthor->name}} {{$artwork->getAuthor->surname}}</h4>
     </div>
 
     <div class="col-12 col-md-6 mb-4 order-10 artwork-image-wrapper">
@@ -118,7 +118,7 @@
             <input type="hidden" value="NO FRAME" id="frame" name="frame" />
             <input type="hidden" value="1" id="count" name="count" />
 
-            <button type="submit" class="customization-option button p-2">ADD TO CART</button>
+            <button type="submit" class="customization-select-option-low">ADD TO CART</button>
         </form>
 
     </div>

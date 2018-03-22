@@ -1,19 +1,20 @@
-.gallery-title
+.main-title
 {
     text-align: center;
     margin-bottom: 100px;
 
     h1
     {
-        font-size: 110px;
+        font-size: 135px;
+        letter-spacing: 20px;
     }
+}
 
-    .gallery-title-author
-    {
-        font-size: 32px;
-        font-weight: 300;
-    }
-
+.main-title-sub
+{
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 12px;
 }
 
 .sort
@@ -52,10 +53,21 @@
 }
 
 
-@media (max-width: 576px)
+@media (max-width: 575.98px)
 {
-    .gallery-title h1
+    .main-title
     {
-        font-size: 70px;
+
+        h1
+        {
+            font-size: 70px;
+        }
+
     }
+
+    .main-title-sub
+    {
+        font-size: 20px;
+    }
+
 }

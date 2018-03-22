@@ -3,3 +3,66 @@
     color: black;
     float: right;
 }
+
+.cart-wrapper
+{
+    margin-top: 200px;
+
+    .cart
+    {
+        float: left;
+    }
+
+    .total
+    {
+        float: right;
+    }
+
+}
+
+.cart-orders-underline
+{
+    border-bottom: 2px solid black;
+}
+
+.cart-orders-item
+{
+    p
+    {
+        padding-bottom: 8px;
+        margin: 0;
+    }
+}
+
+.cart-item-first
+{
+    .size-half
+    {
+        float: left;
+    }
+    
+    p
+    {
+        line-height: 14px;
+    }
+}
+
+
+@media (max-width: 767.98px)
+{
+    .cart-wrapper
+    {
+        margin-top: 50px;
+
+        .total
+        {
+            float: left;
+        }
+
+        p
+        {
+            text-align: left;
+        }
+    
+    }
+}

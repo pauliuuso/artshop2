@@ -406,7 +406,11 @@ class ArtworksController extends Controller
         $size = Size::find($request->input("artwork-size"));
         $count = $request->input("count");
 
-        $artwork = Artwork::find($id);
+        $artwork = Artwork::with(["getAuthor" => function($query)
+        {
+            $query->select('id', 'name', 'surname');
+        }])->find($id);
+        
         $oldCart = Session::has("cart") ? Session::get("cart") : null;
         $cart = new Cart($oldCart);
         $cart->add($artwork, $id, $size, $count);
@@ -460,7 +464,7 @@ class ArtworksController extends Controller
         }
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
-        return view("cart/index")->with(["artworks" => $cart->artworks, "totalPrice" => $cart->totalPrice]);
+        return view("cart/index")->with(["artworks" => $cart->artworks, "totalPrice" => $cart->totalPrice, "totalCount" => $cart->totalCount]);
     }
 
     public function checkout()
