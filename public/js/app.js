@@ -31,6 +31,7 @@ function PreviewSelectorLoaded(image)
     var wrapper = image.parentElement;
     $(image).removeClass("visibility-hidden");
     $(image).addClass("animated fadeIn");
+    CenterPreviewSelector(image);
 }
 
 function CenterPreviewSelectors()
@@ -38,27 +39,31 @@ function CenterPreviewSelectors()
 
     $(".preview-selector-image").each(function(index)
     {
-        var image = $(".preview-selector-image")[index];
-        var wrapper = image.parentElement;
-
-        image.style.height = wrapper.offsetHeight + "px";
-        if(image.offsetWidth > wrapper.offsetWidth)
-        {
-            image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
-        }
-        else
-        {
-            var ratio = wrapper.offsetWidth/image.offsetWidth;
-            image.style.left = 0;
-            image.style.width = 100 + "%";
-            image.style.height = "auto";
-        }
-
-        if(image.offsetHeight < wrapper.offsetHeight)
-        {
-            image.style.height = "auto";
-        }
+        CenterPreviewSelector($(".preview-selector-image")[index]);
     });
+}
+
+function CenterPreviewSelector(image)
+{
+    var wrapper = image.parentElement;
+
+    image.style.height = wrapper.offsetHeight + "px";
+    if(image.offsetWidth > wrapper.offsetWidth)
+    {
+        image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
+    }
+    else
+    {
+        var ratio = wrapper.offsetWidth/image.offsetWidth;
+        image.style.left = 0;
+        image.style.width = 100 + "%";
+        image.style.height = "auto";
+    }
+
+    if(image.offsetHeight < wrapper.offsetHeight)
+    {
+        image.style.height = "auto";
+    }
 }
 
 function OnResizeGallery()
@@ -176,7 +181,6 @@ function GetArtworkPrice()
 
 
 OnResizeGallery();
-CenterPreviewSelectors();
 
 $(window).resize(function () 
 {

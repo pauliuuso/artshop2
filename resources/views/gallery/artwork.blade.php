@@ -19,9 +19,30 @@
         <h4 class="text-uppercase main-title-sub">BY {{$artwork->getAuthor->name}} {{$artwork->getAuthor->surname}}</h4>
     </div>
 
-    <div class="col-12 col-md-6 mb-4 order-10 artwork-image-wrapper">
-        <img id="artwork-image" class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ArtworkPreviewLoaded(this)"/>
+    <div class="col-12 col-md-6 mb-4 order-10">
+        <div class="row">
+
+            <div class="col-12 artwork-image-wrapper mb-4">
+                <img id="artwork-image" class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ArtworkPreviewLoaded(this)"/>
+            </div>
+
+            <a class="col-4 col-lg-3 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->picture_name}}', this)">
+                <div class="art-wrapper art-selector-wrapper">
+                    <img src="/storage/artworks/{{$artwork->picture_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
+                </div>
+            </a>
+
+            @foreach($artwork->getSizes as $index => $size)
+            <a class="col-4 col-lg-3 art-link artwork-selector artwork-selector-inactive mb-3" onclick="SelectPreview('{{$size->preview_name}}', this)">
+                <div class="art-wrapper art-selector-wrapper">
+                    <img src="/storage/artworks/{{$size->preview_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
+                </div>
+            </a>
+            @endforeach
+
+        </div>
     </div>
+
 
     <div class="col-12 col-md-6 text-justify order-12 order-md-11">
         <p class="text-uppercase text-underline">DESCRIPTION</p>
@@ -37,18 +58,7 @@
 
     <div class="col-12 col-md-6 order-11 order-md-12">
         <div class="row">
-            <a class="col-4 col-lg-3 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->picture_name}}', this)">
-                <div class="art-wrapper art-selector-wrapper">
-                    <img src="/storage/artworks/{{$artwork->picture_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
-                </div>
-            </a>
-            @foreach($artwork->getSizes as $index => $size)
-            <a class="col-4 col-lg-3 art-link artwork-selector artwork-selector-inactive mb-3" onclick="SelectPreview('{{$size->preview_name}}', this)">
-                <div class="art-wrapper art-selector-wrapper">
-                    <img src="/storage/artworks/{{$size->preview_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
-                </div>
-            </a>
-            @endforeach
+
         </div>
     </div>
 
