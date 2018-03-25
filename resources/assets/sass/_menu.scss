@@ -37,3 +37,126 @@
   }
 
 }
+
+
+.mobile-menu-header
+{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 90px;
+  z-index: 101;
+  background: white;
+
+  .mobile-menu-button
+  {
+    position: absolute;
+    left: 20px;
+    top: 35px;
+  }
+
+  .mobile-cart
+  {
+    position: absolute;
+    right: 20px;
+    top: 35px;
+  
+  }
+
+}
+
+.mobile-menu
+{
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: white;
+  position: fixed;
+  z-index: 99;
+
+
+  .mobile-links-container
+  {
+
+    position: absolute;
+    top: 100px;
+    left: 15px;
+    right: 0;
+    bottom: 90px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    ul
+    {
+      text-decoration: none;
+      padding: 0;
+  
+      li
+      {
+        list-style: none;
+        font-size: 40px;
+        font-family: 'Marvel', sans-serif;
+        letter-spacing: 8px;
+        line-height: 70px;
+      }
+  
+    }
+  }
+
+  .mobile-menu-footer
+  {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    line-height: 15px;
+    letter-spacing: 5px;
+  }
+
+}
+
+.menu-icon
+{
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url("/svg/menu_icon.svg");
+  background-size: 25px 25px;
+}
+
+.cart-icon
+{
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: url("/svg/cart_icon.svg");
+  background-size: 40px 40px;
+  margin-top: -5px;
+}
+
+.mobile-cart
+{
+  .cart-count
+  {
+    line-height: 0;
+    position: absolute;
+    left: 30%;
+    bottom: 9px;
+  }
+}
+
+.desktop-cart
+{
+  float: right;
+  position: relative;
+
+  .cart-count
+  {
+    line-height: 0;
+    position: absolute;
+    left: 45%;
+    bottom: 9px;
+  }
+}

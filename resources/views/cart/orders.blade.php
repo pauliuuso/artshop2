@@ -2,7 +2,7 @@
 
 @section("content")
 
-<div class="row mt-5">
+<div class="row mt-7">
     <div class="col-12 gallery-title mb-5">
         <h1 class="marvel">ORDERS</h1>
     </div>

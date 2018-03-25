@@ -2,7 +2,7 @@
 
 @section("content")
 
-<div class="row mt-5 mb-5">
+<div class="row mt-7 mb-5">
 
     <div class="col-12">
         @if(!Auth::guest() && Auth::user()->role == "admin")

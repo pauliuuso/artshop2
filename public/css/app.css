@@ -175,6 +175,106 @@
   float: right;
 }
 
+.mobile-menu-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 90px;
+  z-index: 101;
+  background: white;
+}
+
+.mobile-menu-header .mobile-menu-button {
+  position: absolute;
+  left: 20px;
+  top: 35px;
+}
+
+.mobile-menu-header .mobile-cart {
+  position: absolute;
+  right: 20px;
+  top: 35px;
+}
+
+.mobile-menu {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: white;
+  position: fixed;
+  z-index: 99;
+}
+
+.mobile-menu .mobile-links-container {
+  position: absolute;
+  top: 100px;
+  left: 15px;
+  right: 0;
+  bottom: 90px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mobile-menu .mobile-links-container ul {
+  text-decoration: none;
+  padding: 0;
+}
+
+.mobile-menu .mobile-links-container ul li {
+  list-style: none;
+  font-size: 40px;
+  font-family: 'Marvel', sans-serif;
+  letter-spacing: 8px;
+  line-height: 70px;
+}
+
+.mobile-menu .mobile-menu-footer {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  line-height: 15px;
+  letter-spacing: 5px;
+}
+
+.menu-icon {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url("/svg/menu_icon.svg");
+  background-size: 25px 25px;
+}
+
+.cart-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: url("/svg/cart_icon.svg");
+  background-size: 40px 40px;
+  margin-top: -5px;
+}
+
+.mobile-cart .cart-count {
+  line-height: 0;
+  position: absolute;
+  left: 30%;
+  bottom: 9px;
+}
+
+.desktop-cart {
+  float: right;
+  position: relative;
+}
+
+.desktop-cart .cart-count {
+  line-height: 0;
+  position: absolute;
+  left: 45%;
+  bottom: 9px;
+}
+
 .main-title {
   text-align: center;
   margin-bottom: 100px;
@@ -220,7 +320,8 @@
 
 @media (max-width: 575.98px) {
   .main-title h1 {
-    font-size: 70px;
+    font-size: 55px;
+    letter-spacing: 10px;
   }
 
   .main-title-sub {
@@ -239,11 +340,12 @@
   color: white;
 }
 
-.art-pagination {
+.artshop-pagination {
   margin-bottom: 150px;
+  padding: 0;
 }
 
-.art-pagination p {
+.artshop-pagination li {
   padding: 10px;
   line-height: 15px;
   font-size: 22px;
@@ -251,15 +353,24 @@
   padding: 0 10px;
 }
 
-.art-pagination a {
+.artshop-pagination li a {
   text-decoration: none;
   color: black;
   cursor: pointer;
-  border-right: 1px solid black;
 }
 
-.art-pagination a:last-child {
-  border-right: none;
+.artshop-pagination li.active span {
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: default;
+}
+
+.artshop-pagination li.disabled {
+  visibility: hidden;
+}
+
+.artshop-pagination li.disabled span {
+  cursor: default;
 }
 
 .background-wrapper {
@@ -320,6 +431,30 @@
   .cart-wrapper p {
     text-align: left;
   }
+}
+
+.slideOutLeft {
+  -webkit-animation-name: slideOutLeft !important;
+  animation-name: slideOutLeft !important;
+  -webkit-animation-duration: 0.3s !important;
+  animation-duration: 0.3s !important;
+}
+
+.slideInLeft {
+  -webkit-animation-name: slideInLeft !important;
+  animation-name: slideInLeft !important;
+  -webkit-animation-duration: 0.3s !important;
+  animation-duration: 0.3s !important;
+}
+
+.mt-6,
+.my-6 {
+  margin-top: 4rem !important;
+}
+
+.mt-7,
+.my-7 {
+  margin-top: 5rem !important;
 }
 
 html,

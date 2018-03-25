@@ -2,7 +2,7 @@
 
 @section("content")
 
-<div class="row mt-5">
+<div class="row mt-7">
 
     <div class="col-12 text-center mb-5">
         <h2 class="text-uppercase">Add new background:</h2>

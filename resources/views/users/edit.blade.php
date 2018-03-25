@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row mt-5">
+<div class="row mt-7">
 
         <div class="col-12 mb-5">
             <h2 class="text-uppercase">Edit user {{$user->email}}:</h2>

@@ -2,7 +2,7 @@
 
 @section("content")
 
-<div class="row cart-wrapper">
+<div class="row cart-wrapper mt-7">
 
     <div class="col-12">
         <!-- <a class="float-right btn btn-danger {{!Session::has('cart') ? 'visibility-hidden' : ''}}" href="/remove-all-from-cart">Clear all</a> -->

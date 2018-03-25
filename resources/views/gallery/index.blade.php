@@ -2,12 +2,12 @@
 
 @section("content")
 
-<div class="row mt-5">
-    <div class="col-12 mb-5 main-title">
+<div class="row mt-3 mt-7">
+    <div class="col-12 mb-2 mb-sm-5 main-title">
         <h1 class="marvel">GALLERY</h1>
     </div>
 
-    <div class="col-12 sort">
+    <div class="col-12 sort d-none d-sm-block">
         <div class="row">
             <div class="col-12 mb-2">
                 <div class="sort-option">SORT BY:</div>
@@ -48,20 +48,27 @@
     </div>
 
     @if(count($artworks) > 0 && $artworks != null)
+        <div class="col-12 artwork-list">
+            <div class="row">
+                @foreach($artworks as $artwork)
+                    <a class="col-12 col-md-6 col-lg-4 art-link" href="/artwork/show/{{$artwork->id}}">
+                        <div class="art-wrapper">
+                            <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)"/>
+                        </div>
+                        <div class="art-info pt-4 text-center mb-5">
+                            <h3 class="text-uppercase">{{ $artwork->title }}</h3>
+                            <p class="text-uppercase">{{ $artwork->getAuthor->name . " " . $artwork->getAuthor->surname }}</p>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
 
-        @foreach($artworks as $artwork)
-            <a class="col-12 col-md-6 col-lg-4 art-link" href="/artwork/show/{{$artwork->id}}">
-                <div class="art-wrapper">
-                    <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)"/>
-                </div>
-                <div class="art-info pt-4 text-center mb-5">
-                    <h3 class="text-uppercase">{{ $artwork->title }}</h3>
-                    <p class="text-uppercase">{{ $artwork->getAuthor->name . " " . $artwork->getAuthor->surname }}</p>
-                </div>
-            </a>
-        @endforeach
+
         
-        {{$artworks->links()}}
+        <div class="col-12 text-center">
+            {{$artworks->links()}}
+        </div>
 
     @else
         <div class="col-12">

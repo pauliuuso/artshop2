@@ -2,7 +2,7 @@
 
 @section("content")
 
-<div class="row mt-5">
+<div class="row mt-7">
 
     <div class="col-12">
         <h2 class="mb-5">Welcome to Art Shop administration dashboard!</h2>

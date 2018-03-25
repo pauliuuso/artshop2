@@ -31,7 +31,7 @@ class ArtworksController extends Controller
      */
     public function index($filter = "", $id = "")
     {
-        $artworksPerPage = 12;
+        $artworksPerPage = 1;
         $firstCategory = Category::orderBy("name")->select("id")->first();
         $firstArtist = User::orderBy("name")->select("id")->where("role", "author")->first();
         $categories = "";
