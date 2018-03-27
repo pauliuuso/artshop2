@@ -51,7 +51,7 @@
         <div class="col-12 artwork-list">
             <div class="row">
                 @foreach($artworks as $artwork)
-                    <a class="col-12 col-md-6 col-lg-4 art-link" href="/artwork/show/{{$artwork->id}}">
+                    <a class="offset-1 offset-sm-0 col-10 col-sm-6 col-lg-4 art-link" href="/artwork/show/{{$artwork->id}}">
                         <div class="art-wrapper">
                             <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)"/>
                         </div>

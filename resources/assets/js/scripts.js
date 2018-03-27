@@ -1,3 +1,4 @@
+
 $("#background-selector").change(function()
 {
     ShowSelectedBackground();
@@ -18,4 +19,22 @@ function ShowSelectedBackground()
             backgroundList[a].style.display = "none";
         }
     }
+}
+
+
+$(window).resize(function () 
+{
+    $(window).trigger("window:resize")
+});
+
+$(window).on("window:resize", function (e) 
+{
+    OnResizeGallery();
+    CenterPreviewSelectors();
+    $(".artwork-image-wrapper").height($(".artwork-image-wrapper img").height());
+});
+
+window.onscroll = function()
+{
+    FixMobileMenu();
 }

@@ -45,7 +45,8 @@
         </ul>
     </div>
 
-    <div class="d-sm-none mobile-menu-header">
+    <div class="d-sm-none mobile-menu-header position-fixed animated">
+
         <div class="mobile-menu-button">
             <a class="pointer" onclick="ToogleMenu();">
                 <i class="menu-icon"></i>
@@ -58,6 +59,7 @@
                 <i class="cart-icon"></i>
             </a>
         </div>
+
     </div>
 
 

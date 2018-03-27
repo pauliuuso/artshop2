@@ -41,11 +41,10 @@
 
 .mobile-menu-header
 {
-  position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  height: 90px;
+  height: 70px;
   z-index: 101;
   background: white;
 
@@ -53,14 +52,14 @@
   {
     position: absolute;
     left: 20px;
-    top: 35px;
+    top: 25px;
   }
 
   .mobile-cart
   {
     position: absolute;
     right: 20px;
-    top: 35px;
+    top: 25px;
   
   }
 

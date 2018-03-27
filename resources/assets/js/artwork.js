@@ -181,15 +181,3 @@ function GetArtworkPrice()
 
 
 OnResizeGallery();
-
-$(window).resize(function () 
-{
-    $(window).trigger("window:resize")
-});
-
-$(window).on("window:resize", function (e) 
-{
-    OnResizeGallery();
-    CenterPreviewSelectors();
-    $(".artwork-image-wrapper").height($(".artwork-image-wrapper img").height());
-});
