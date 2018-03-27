@@ -50,6 +50,40 @@
         cursor: pointer;
     }
 
+    .option-list
+    {
+        display: none;
+    }
+
+}
+
+.mobile-sort
+{
+    position: relative;
+
+    .title
+    {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    #mobile-sort-links, .option-list
+    {
+        line-height: 40px;
+        overflow: hidden;
+        height: 0px;
+        -webkit-transition: height 0.5s ease-out; /* For Safari 3.1 to 6.0 */
+        transition: height 0.5s ease-out;
+    }
+
+    .scroll-up
+    {
+        position: absolute;
+        text-align: center;
+        bottom: 15px;
+        left: 0;
+        right: 0;
+    }
 }
 
 

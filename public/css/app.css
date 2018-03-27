@@ -46,11 +46,16 @@
   width: 100%;
   position: relative;
   overflow: hidden;
+  text-align: center;
+  padding-bottom: 10px;
 }
 
-.art-wrapper .art-image {
-  position: absolute;
-  margin: auto;
+.art-wrapper img {
+  padding: 8px;
+  border: 2px solid #e6e6e6;
+  box-shadow: 0 4px 4px -2px #e6e6e6;
+  -moz-box-shadow: 0 4px 4px -2px #e6e6e6;
+  -webkit-box-shadow: 0 4px 8px 0 #e6e6e6;
 }
 
 .art-wrapper .preview-selector-image {
@@ -317,6 +322,37 @@
   cursor: pointer;
 }
 
+.sort .option-list {
+  display: none;
+}
+
+.mobile-sort {
+  position: relative;
+}
+
+.mobile-sort .title {
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.mobile-sort #mobile-sort-links,
+.mobile-sort .option-list {
+  line-height: 40px;
+  overflow: hidden;
+  height: 0px;
+  -webkit-transition: height 0.5s ease-out;
+  /* For Safari 3.1 to 6.0 */
+  transition: height 0.5s ease-out;
+}
+
+.mobile-sort .scroll-up {
+  position: absolute;
+  text-align: center;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+}
+
 @media (max-width: 575.98px) {
   .main-title h1 {
     font-size: 55px;
@@ -444,6 +480,34 @@
   animation-name: slideInLeft !important;
   -webkit-animation-duration: 0.3s !important;
   animation-duration: 0.3s !important;
+}
+
+.slideOutUp {
+  -webkit-animation-name: slideOutUp !important;
+  animation-name: slideOutUp !important;
+  -webkit-animation-duration: 0.4s !important;
+  animation-duration: 0.4s !important;
+}
+
+.slideInDown {
+  -webkit-animation-name: slideInDown !important;
+  animation-name: slideInDown !important;
+  -webkit-animation-duration: 0.4s !important;
+  animation-duration: 0.4s !important;
+}
+
+.fadeOutFast {
+  -webkit-animation-name: fadeOut !important;
+  animation-name: fadeOut !important;
+  -webkit-animation-duration: 0.4s !important;
+  animation-duration: 0.4s !important;
+}
+
+.fadeInFast {
+  -webkit-animation-name: fadeIn !important;
+  animation-name: fadeIn !important;
+  -webkit-animation-duration: 0.4s !important;
+  animation-duration: 0.4s !important;
 }
 
 .mt-6,

@@ -34,8 +34,8 @@ class ArtworksController extends Controller
         $artworksPerPage = 1;
         $firstCategory = Category::orderBy("name")->select("id")->first();
         $firstArtist = User::orderBy("name")->select("id")->where("role", "author")->first();
-        $categories = "";
-        $authors = "";
+        $categories = Category::orderBy("name")->get();
+        $authors = $authors = User::orderBy("name")->select("id", "name", "surname")->where("role", "author")->get();
         $artworks = "";
 
         if($filter == "")

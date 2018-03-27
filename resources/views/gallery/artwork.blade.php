@@ -22,23 +22,9 @@
     <div class="col-12 col-md-6 mb-4 order-10">
         <div class="row">
 
-            <div class="col-12 artwork-image-wrapper mb-4">
-                <img id="artwork-image" class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ArtworkPreviewLoaded(this)"/>
+            <div class="col-12 mb-4">
+                <img class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ImageLoaded(this)"/>
             </div>
-
-            <a class="col-4 col-lg-3 art-link artwork-selector mb-3" onclick="SelectPreview('{{$artwork->picture_name}}', this)">
-                <div class="art-wrapper art-selector-wrapper">
-                    <img src="/storage/artworks/{{$artwork->picture_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
-                </div>
-            </a>
-
-            @foreach($artwork->getSizes as $index => $size)
-            <a class="col-4 col-lg-3 art-link artwork-selector artwork-selector-inactive mb-3" onclick="SelectPreview('{{$size->preview_name}}', this)">
-                <div class="art-wrapper art-selector-wrapper">
-                    <img src="/storage/artworks/{{$size->preview_name}}" class="p-0 m-0 preview-selector-image visibility-hidden" onload="PreviewSelectorLoaded(this)"/>
-                </div>
-            </a>
-            @endforeach
 
         </div>
     </div>
@@ -71,8 +57,8 @@
     </div>
 
     <div class="col-12 col-md-6 mb-5">
-        <div class="artwork-frame">
-            <img id="artwork-image" class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="DisplayImage(this)"/>
+        <div class="artwork-image-wrapper">
+            <img id="artwork-image" class="img-fluid visibility-hidden animated" src="/storage/artworks/{{$artwork->getSizes[0]->preview_name}}" onload="ArtworkPreviewLoaded(this)"/>
         </div>
     </div>
 
@@ -86,7 +72,7 @@
         <div class="customization-option">PRINT SIZE:</div>
         <div class="mb-5">
             @foreach($artwork->getSizes as $index => $size)
-            <a class="customization-select-option {{ ($index == 0) ? 'artwork-selected-option' : '' }}" onclick="SelectArtworkSize('{{ $size->width }} x {{ $size->height }}', this, {{$size->id}})"><p class="p-0 m-0">{{ $size->width }} x {{ $size->height }}</p></a>
+            <a class="customization-select-option {{ ($index == 0) ? 'artwork-selected-option' : '' }}" onclick="SelectArtworkSize('{{ $size->width }} x {{ $size->height }}', this, {{$size->id}}); SelectPreview('{{$size->preview_name}}', this);"><p class="p-0 m-0">{{ $size->width }} x {{ $size->height }}</p></a>
             @endforeach
         </div>
 

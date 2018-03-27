@@ -4,20 +4,33 @@ function ImageLoaded(image)
     $(image).removeClass("visibility-hidden");
     $(image).addClass("animated fadeIn");
 
-    if(image.offsetWidth > wrapper.offsetWidth)
+    if(parseInt(image.offsetWidth) >= parseInt(image.offsetHeight))
     {
-        image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
+        $(image).css("width", "100%");
+        var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+        $(image).css("margin-top", topOffset + "px");
     }
     else
     {
-        image.style.left = 0;
-        image.style.width = wrapper.offsetWidth + "px";
+        $(image).css("height", "100%");
+        $(image).css("margin-top", "0");
     }
 
-    if(image.offsetHeight > wrapper.offsetHeight)
+    if(parseInt(image.offsetHeight) > wrapper.offsetHeight)
     {
-        image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
+        $(image).css("height", "100%");
+        $(image).css("margin-top", "0");
+        $(image).css("width", "");
     }
+    else if(parseInt(image.offsetWidth) > wrapper.offsetWidth && image.offsetHeight < wrapper.offsetHeight)
+    {
+        $(image).css("width", "100%");
+        $(image).css("height", "");
+
+        var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+        $(image).css("margin-top", topOffset + "px");
+    }
+
 }
 
 function DisplayImage(image)
@@ -72,28 +85,43 @@ function OnResizeGallery()
     {
         var wrapper = $(".art-image")[index].parentElement;
         var image = $(".art-image")[index];
+        $(image).css("width", "");
+        $(image).css("height", "");
 
-        if(image.offsetWidth > wrapper.offsetWidth)
+        if(parseInt(image.offsetWidth) >= parseInt(image.offsetHeight))
         {
-            image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
+            $(image).css("width", "100%");
+            var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+            $(image).css("margin-top", topOffset + "px");
         }
         else
         {
-            image.style.left = 0;
-            image.style.width = wrapper.offsetWidth + "px";
+            $(image).css("height", "100%");
+            $(image).css("margin-top", "0");
         }
-
-        if(image.offsetHeight > wrapper.offsetHeight)
+    
+        if(parseInt(image.offsetHeight) > wrapper.offsetHeight)
         {
-            image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
+            $(image).css("height", "100%");
+            $(image).css("margin-top", "0");
+            $(image).css("width", "");
         }
+        else if(parseInt(image.offsetWidth) > wrapper.offsetWidth && image.offsetHeight < wrapper.offsetHeight)
+        {
+            $(image).css("width", "100%");
+            $(image).css("height", "");
+    
+            var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+            $(image).css("margin-top", topOffset + "px");
+        }
+    
     });
 }
 
 function ArtworkPreviewLoaded(image)
 {
-    $(image).removeClass("visibility-hidden animated fadeIn");
-    $(image).addClass("animated fadeIn");
+    $(image).removeClass("visibility-hidden fadeIn");
+    $(image).addClass("fadeIn");
     var wrapper = image.parentElement;
     $(wrapper).height($(image).height());
 }
@@ -101,11 +129,9 @@ function ArtworkPreviewLoaded(image)
 function SelectPreview(pictureName, element)
 {
     $("#artwork-image").attr("src", "/storage/artworks/" + pictureName);
-    $(".artwork-selector").addClass("artwork-selector-inactive");
-    $(element).removeClass("artwork-selector-inactive");
 
     $('html, body').animate({
-        scrollTop: $("#artwork-image").offset().top - 20
+        scrollTop: $("#artwork-image").offset().top - 100
     }, 500);
 }
 
@@ -213,7 +239,6 @@ $(window).resize(function ()
 $(window).on("window:resize", function (e) 
 {
     OnResizeGallery();
-    CenterPreviewSelectors();
     $(".artwork-image-wrapper").height($(".artwork-image-wrapper img").height());
 });
 
@@ -245,7 +270,6 @@ function FixMobileMenu()
             up = !up;
             $menu.removeClass("slideInDown");
             $menu.addClass("slideOutUp");
-            console.log("down " + window.pageYOffset + " " + scrollTop);
         }
     }
     else if(window.pageYOffset == scrollTop)
@@ -259,7 +283,6 @@ function FixMobileMenu()
             up = !up;
             $menu.removeClass("slideOutUp");
             $menu.addClass("slideInDown");
-            console.log("up " + window.pageYOffset + " " + scrollTop);
         }
 
     }
@@ -287,4 +310,69 @@ function Slide()
 {
     $(".artwork-list").addClass("animated slideOutLeft");
     location.reload();
+}
+function ToogleSort()
+{
+    var $sort = $("#mobile-sort-links");
+    var $offsetTop = $sort.offset().top;
+    var $height = $(window).height();
+    var $sortHeight = $height - $offsetTop;
+
+    if($sort.hasClass("sort-visible"))
+    {
+        // hide
+        $sort.removeClass("sort-visible");
+        $sort.addClass("fadeOut");
+        $(".scroll-up").addClass("fadeOutFast");
+        $(".scroll-up").removeClass("fadeInFast");
+        $(".scroll-down").removeClass("fadeOutFast");
+        $(".scroll-down").addClass("fadeInFast");
+        $sort.css("height", "0");
+    }
+    else
+    {
+        // show
+        $sort.removeClass("sort-hidden");
+        $(".scroll-up").addClass("fadeInFast");
+        $(".scroll-up").removeClass("fadeOutFast");
+        $(".scroll-up").removeClass("d-none");
+        $(".scroll-down").removeClass("fadeInFast");
+        $(".scroll-down").addClass("fadeOutFast");
+        $sort.addClass("sort-visible");
+        $sort.css("height", $sortHeight + "px");
+    }
+}
+
+function ToogleOptions(element)
+{
+    var $element = $(element);
+
+    if($element.hasClass("opened"))
+    {
+        $element.removeClass("opened")
+        $element.next("div").css("height", "0");
+    }
+    else
+    {
+        $element.addClass("opened")
+        $element.next("div").css("height", $(element).first().height() + "px");
+    }
+
+}
+
+function ToogleOptionDesktop(name)
+{
+    var $element = $("." + name);
+
+    if($element.hasClass("d-none"))
+    {
+        $(".desktop-sort-option").addClass("d-none");
+        $element.removeClass("d-none");
+        $element.addClass("fadeInFast");
+    }
+    else
+    {
+        $element.addClass("d-none");
+        $element.removeClass("fadeInFast");
+    }
 }

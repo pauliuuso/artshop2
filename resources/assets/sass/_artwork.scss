@@ -9,18 +9,22 @@
     }
 }
 
-
 .art-wrapper
 {
     height: 350px;
     width: 100%;
     position: relative;
     overflow: hidden;
+    text-align: center;
+    padding-bottom: 10px;
 
-    .art-image
+    img
     {
-        position: absolute;
-        margin: auto;
+        padding: 8px;
+        border: 2px solid #e6e6e6;
+        box-shadow: 0 4px 4px -2px #e6e6e6;
+        -moz-box-shadow: 0 4px 4px -2px #e6e6e6;
+        -webkit-box-shadow: 0 4px 8px 0 #e6e6e6;
     }
 
     .preview-selector-image
@@ -128,4 +132,3 @@
         text-decoration: underline;
     }
 }
-

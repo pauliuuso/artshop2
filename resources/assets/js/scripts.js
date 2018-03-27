@@ -30,7 +30,6 @@ $(window).resize(function ()
 $(window).on("window:resize", function (e) 
 {
     OnResizeGallery();
-    CenterPreviewSelectors();
     $(".artwork-image-wrapper").height($(".artwork-image-wrapper img").height());
 });
 

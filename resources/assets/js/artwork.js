@@ -4,20 +4,33 @@ function ImageLoaded(image)
     $(image).removeClass("visibility-hidden");
     $(image).addClass("animated fadeIn");
 
-    if(image.offsetWidth > wrapper.offsetWidth)
+    if(parseInt(image.offsetWidth) >= parseInt(image.offsetHeight))
     {
-        image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
+        $(image).css("width", "100%");
+        var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+        $(image).css("margin-top", topOffset + "px");
     }
     else
     {
-        image.style.left = 0;
-        image.style.width = wrapper.offsetWidth + "px";
+        $(image).css("height", "100%");
+        $(image).css("margin-top", "0");
     }
 
-    if(image.offsetHeight > wrapper.offsetHeight)
+    if(parseInt(image.offsetHeight) > wrapper.offsetHeight)
     {
-        image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
+        $(image).css("height", "100%");
+        $(image).css("margin-top", "0");
+        $(image).css("width", "");
     }
+    else if(parseInt(image.offsetWidth) > wrapper.offsetWidth && image.offsetHeight < wrapper.offsetHeight)
+    {
+        $(image).css("width", "100%");
+        $(image).css("height", "");
+
+        var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+        $(image).css("margin-top", topOffset + "px");
+    }
+
 }
 
 function DisplayImage(image)
@@ -72,28 +85,43 @@ function OnResizeGallery()
     {
         var wrapper = $(".art-image")[index].parentElement;
         var image = $(".art-image")[index];
+        $(image).css("width", "");
+        $(image).css("height", "");
 
-        if(image.offsetWidth > wrapper.offsetWidth)
+        if(parseInt(image.offsetWidth) >= parseInt(image.offsetHeight))
         {
-            image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
+            $(image).css("width", "100%");
+            var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+            $(image).css("margin-top", topOffset + "px");
         }
         else
         {
-            image.style.left = 0;
-            image.style.width = wrapper.offsetWidth + "px";
+            $(image).css("height", "100%");
+            $(image).css("margin-top", "0");
         }
-
-        if(image.offsetHeight > wrapper.offsetHeight)
+    
+        if(parseInt(image.offsetHeight) > wrapper.offsetHeight)
         {
-            image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
+            $(image).css("height", "100%");
+            $(image).css("margin-top", "0");
+            $(image).css("width", "");
         }
+        else if(parseInt(image.offsetWidth) > wrapper.offsetWidth && image.offsetHeight < wrapper.offsetHeight)
+        {
+            $(image).css("width", "100%");
+            $(image).css("height", "");
+    
+            var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
+            $(image).css("margin-top", topOffset + "px");
+        }
+    
     });
 }
 
 function ArtworkPreviewLoaded(image)
 {
-    $(image).removeClass("visibility-hidden animated fadeIn");
-    $(image).addClass("animated fadeIn");
+    $(image).removeClass("visibility-hidden fadeIn");
+    $(image).addClass("fadeIn");
     var wrapper = image.parentElement;
     $(wrapper).height($(image).height());
 }
@@ -101,11 +129,9 @@ function ArtworkPreviewLoaded(image)
 function SelectPreview(pictureName, element)
 {
     $("#artwork-image").attr("src", "/storage/artworks/" + pictureName);
-    $(".artwork-selector").addClass("artwork-selector-inactive");
-    $(element).removeClass("artwork-selector-inactive");
 
     $('html, body').animate({
-        scrollTop: $("#artwork-image").offset().top - 20
+        scrollTop: $("#artwork-image").offset().top - 100
     }, 500);
 }
 

@@ -21,7 +21,6 @@ function FixMobileMenu()
             up = !up;
             $menu.removeClass("slideInDown");
             $menu.addClass("slideOutUp");
-            console.log("down " + window.pageYOffset + " " + scrollTop);
         }
     }
     else if(window.pageYOffset == scrollTop)
@@ -35,7 +34,6 @@ function FixMobileMenu()
             up = !up;
             $menu.removeClass("slideOutUp");
             $menu.addClass("slideInDown");
-            console.log("up " + window.pageYOffset + " " + scrollTop);
         }
 
     }
