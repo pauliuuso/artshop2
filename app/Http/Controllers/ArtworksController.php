@@ -704,7 +704,7 @@ class ArtworksController extends Controller
             }
 
             $background = imagecreatefromjpeg($previewBackground);
-            $previewNameToStore = $size->preview_name;
+            $previewNameToStore = "preview-" . substr(md5(openssl_random_pseudo_bytes(5)),-5) . $pictureName;
             imagecopyresampled($previewImage, $background, 0, 0, 0, 0, $backgroundDimensions[0], $backgroundDimensions[1], $backgroundDimensions[0], $backgroundDimensions[1]);
             imagecopyresampled($previewImage, $image, $backgroundDimensions[0]/2 - $assumedArtworkDimensions[0]/2, $backgroundDimensions[1]/2 - $assumedArtworkDimensions[1]/2 - $backgroundDimensions[1]/6, 0, 0, $assumedArtworkDimensions[0], $assumedArtworkDimensions[1], $artworkDimensions[0], $artworkDimensions[1]);
 
