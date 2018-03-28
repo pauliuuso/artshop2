@@ -8,7 +8,7 @@
         @if(!Auth::guest() && Auth::user()->role == "admin")
             {!! Form::open(["action" => ["BackgroundsController@destroy", $background->id], "method" => "POST"]) !!}
                 {{Form::hidden("_method", "DELETE")}}
-                {{Form::submit("Delete", ["class" => "btn btn-danger"])}}
+                {{Form::submit("Delete", ["class" => "artshop-button red"])}}
             {!! Form::close() !!}
         @endif
     </div>
@@ -40,7 +40,7 @@
             {{Form::file("picture", ["class" => "form-control"])}}
         </div>
         {{Form::hidden("_method", "PUT")}}
-        {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
+        {{Form::submit("Submit", ["class" => "artshop-button mt-5"])}}
         {!! Form::close() !!}
     </div>
 

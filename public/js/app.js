@@ -33,6 +33,28 @@ function ImageLoaded(image)
 
 }
 
+function WrappedImageLoaded(image)
+{
+    var wrapper = image.parentElement;
+    $(image).removeClass("visibility-hidden");
+    $(image).addClass("animated fadeIn");
+
+    if(image.offsetWidth > wrapper.offsetWidth)
+    {
+        image.style.left = "-" + (image.offsetWidth - wrapper.offsetWidth)/2 + "px";
+    }
+    else
+    {
+        image.style.left = 0;
+        image.style.width = wrapper.offsetWidth + "px";
+    }
+
+    if(image.offsetHeight > wrapper.offsetHeight)
+    {
+        image.style.top = "-" + (image.height - wrapper.offsetWidth) / 2 + "px";
+    }
+}
+
 function DisplayImage(image)
 {
     $(image).removeClass("visibility-hidden");
@@ -83,38 +105,18 @@ function OnResizeGallery()
 {
     $(".art-image").each(function(index)
     {
-        var wrapper = $(".art-image")[index].parentElement;
         var image = $(".art-image")[index];
         $(image).css("width", "");
         $(image).css("height", "");
 
-        if(parseInt(image.offsetWidth) >= parseInt(image.offsetHeight))
-        {
-            $(image).css("width", "100%");
-            var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
-            $(image).css("margin-top", topOffset + "px");
-        }
-        else
-        {
-            $(image).css("height", "100%");
-            $(image).css("margin-top", "0");
-        }
-    
-        if(parseInt(image.offsetHeight) > wrapper.offsetHeight)
-        {
-            $(image).css("height", "100%");
-            $(image).css("margin-top", "0");
-            $(image).css("width", "");
-        }
-        else if(parseInt(image.offsetWidth) > wrapper.offsetWidth && image.offsetHeight < wrapper.offsetHeight)
-        {
-            $(image).css("width", "100%");
-            $(image).css("height", "");
-    
-            var topOffset = (wrapper.offsetHeight - image.offsetHeight) / 2;
-            $(image).css("margin-top", topOffset + "px");
-        }
-    
+        ImageLoaded(image);
+    });
+
+    $(".background-image").each(function(index)
+    {
+        var image = $(".background-image")[index];
+
+        WrappedImageLoaded(image);
     });
 }
 

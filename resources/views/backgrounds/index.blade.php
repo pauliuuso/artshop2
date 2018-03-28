@@ -4,8 +4,8 @@
 
 <div class="row mt-7">
 
-    <div class="col-12 text-center mb-5">
-        <h2 class="text-uppercase">Add new background:</h2>
+    <div class="col-12 mb-2 mb-sm-5 main-title">
+        <h1 class="marvel">ADD BACKGROUND</h1>
     </div>
 
     <div class="col-12 col-xl-6 mb-5">
@@ -26,7 +26,7 @@
             {{Form::label("picture", "Picture:")}}
             {{Form::file("picture", ["class" => "form-control"])}}
         </div>
-        {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
+        {{Form::submit("Submit", ["class" => "artshop-button mt-5"])}}
         {!! Form::close() !!}
     </div>
 
@@ -40,7 +40,7 @@
                 <a class="col-12 col-xl-6 art-link" href="/backgrounds/edit/{{$background->id}}">
                     <i class="fas fa-edit background-edit-button"></i>
                     <div class="background-wrapper">
-                        <img src="/storage/backgrounds/{{$background->background_name}}" class="p-0 m-0 art-image visibility-hidden" onload="ImageLoaded(this)"/>
+                        <img src="/storage/backgrounds/{{$background->background_name}}" class="p-0 m-0 background-image visibility-hidden" onload="WrappedImageLoaded(this)"/>
                     </div>
                     <div class="art-info pt-4 text-center mb-5">
                         <h3 class="text-uppercase">{{ $background->title }}</h3>

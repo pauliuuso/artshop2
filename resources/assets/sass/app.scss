@@ -46,6 +46,21 @@ a
     color: black;
 }
 
+input, select
+{
+  border: 2px solid black !important;
+  border-radius: 0 !important;
+  line-height: 2 !important;
+  margin-bottom: 30px;
+}
+
+input:focus
+{
+  box-shadow: 0 0 8px 2px #c3c3c3 !important;
+  -moz-box-shadow: 0 0 8px 2px #c3c3c3 !important;
+  -webkit-box-shadow: 0 0 8px 2px #c3c3c3 !important;
+}
+
 a:hover, a:visited, a:focus
 {
   text-decoration: none;
@@ -56,6 +71,21 @@ a:hover, a:visited, a:focus
 button:hover
 {
   cursor: pointer;
+}
+
+.artshop-button
+{
+  padding: 10px 50px;
+  color: white;
+  background: black;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &.red
+  {
+    background: #b30000;
+  }
 }
 
 .art-float-left

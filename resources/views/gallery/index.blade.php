@@ -27,7 +27,7 @@
         </div>
     </div>
     
-    <div class="col-12 mb-5 sort">
+    <div class="col-12 mb-5 sort d-none d-sm-block">
         @if($categories != null)
             <span class="category-list-desktop desktop-sort-option animated d-none">
                 @foreach($categories as $category)

@@ -3,8 +3,8 @@
 @section("content")
 
 <div class="row mt-7">
-    <div class="col-12 mb-5">
-        <h2>Categories:</h2>
+    <div class="col-12 mb-2 mb-sm-5 main-title">
+        <h1 class="marvel">CATEGORIES</h1>
     </div>
 
     <div class="col-12 col-lg-6">
@@ -14,7 +14,7 @@
                 {{Form::label("name", "Category name:")}}
                 {{Form::text("name", "", ["class" => "form-control", "placeholder" => ""])}}
             </div>
-        {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
+        {{Form::submit("Submit", ["class" => "artshop-button mt-5"])}}
         {!! Form::close() !!}
 
 

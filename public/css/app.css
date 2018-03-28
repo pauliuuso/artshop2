@@ -53,8 +53,8 @@
 .art-wrapper img {
   padding: 8px;
   border: 2px solid #e6e6e6;
-  box-shadow: 0 4px 4px -2px #e6e6e6;
-  -moz-box-shadow: 0 4px 4px -2px #e6e6e6;
+  box-shadow: 0 4px 8px 0 #e6e6e6;
+  -moz-box-shadow: 0 4px 8px 0 #e6e6e6;
   -webkit-box-shadow: 0 4px 8px 0 #e6e6e6;
 }
 
@@ -415,7 +415,7 @@
   overflow: hidden;
 }
 
-.background-wrapper .art-image {
+.background-wrapper .background-image {
   position: absolute;
   margin: auto;
 }
@@ -520,6 +520,10 @@
   margin-top: 5rem !important;
 }
 
+.cke {
+  border: 2px solid black !important;
+}
+
 html,
 body {
   padding: 0;
@@ -555,6 +559,20 @@ a {
   color: black;
 }
 
+input,
+select {
+  border: 2px solid black !important;
+  border-radius: 0 !important;
+  line-height: 2 !important;
+  margin-bottom: 30px;
+}
+
+input:focus {
+  box-shadow: 0 0 8px 2px #c3c3c3 !important;
+  -moz-box-shadow: 0 0 8px 2px #c3c3c3 !important;
+  -webkit-box-shadow: 0 0 8px 2px #c3c3c3 !important;
+}
+
 a:hover,
 a:visited,
 a:focus {
@@ -565,6 +583,19 @@ a:focus {
 
 button:hover {
   cursor: pointer;
+}
+
+.artshop-button {
+  padding: 10px 50px;
+  color: white;
+  background: black;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.artshop-button.red {
+  background: #b30000;
 }
 
 .art-float-left {

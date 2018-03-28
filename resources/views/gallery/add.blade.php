@@ -4,10 +4,10 @@
 
 <div class="row mt-7">
 
-    <div class="col-12 text-center mb-5">
-        <h2 class="text-uppercase">Add new artwork:</h2>
+    <div class="col-12 mb-2 mb-sm-5 main-title">
+        <h1 class="marvel">ADD NEW</h1>
     </div>
-
+    
     <div class="col-12 col-xl-6 mb-5">
         {!! Form::open(["action" => "ArtworksController@store", "method" => "POST", "files" => true]) !!}
         <div class="form-group">
@@ -61,7 +61,7 @@
                 </div>
             @endforeach
         </div>
-        {{Form::submit("Submit", ["class" => "btn btn-primary"])}}
+        {{Form::submit("Submit", ["class" => "artshop-button"])}}
         {!! Form::close() !!}
     </div>
 
