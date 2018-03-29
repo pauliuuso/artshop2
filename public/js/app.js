@@ -252,6 +252,7 @@ window.onscroll = function()
 // vars //
 
 var scrollTop = window.pageYOffset;
+var previousScrollTop;
 var up = true;
 
 
@@ -297,12 +298,23 @@ function ToogleMenu()
     var $menu = $(".mobile-menu");
     if(!$menu.hasClass("slideInLeft"))
     {
+        // show
+        previousScrollTop = $(window).scrollTop();
+
+        setTimeout(function()
+        {
+            $("body").addClass("unscrollable");
+        }, 300);
+
         $menu.removeClass("visibility-hidden");
         $menu.removeClass("slideOutLeft");
         $menu.addClass("slideInLeft");
     }
     else
     {
+        // hide
+        $("body").removeClass("unscrollable");
+        $(window).scrollTop(previousScrollTop);
         $menu.removeClass("slideInLeft");
         $menu.addClass("slideOutLeft");
     }
@@ -316,9 +328,6 @@ function Slide()
 function ToogleSort()
 {
     var $sort = $("#mobile-sort-links");
-    var $offsetTop = $sort.offset().top;
-    var $height = $(window).height();
-    var $sortHeight = $height - $offsetTop;
 
     if($sort.hasClass("sort-visible"))
     {
@@ -330,10 +339,17 @@ function ToogleSort()
         $(".scroll-down").removeClass("fadeOutFast");
         $(".scroll-down").addClass("fadeInFast");
         $sort.css("height", "0");
+        $("body").removeClass("unscrollable");
     }
     else
     {
         // show
+        $("body").addClass("unscrollable");
+        var $offsetTop = $sort.offset().top;
+        var $height = $(window).height();
+        var $sortHeight = $height - $offsetTop + $(window).scrollTop();
+        var $optionsHeight = $sortHeight - 110;
+
         $sort.removeClass("sort-hidden");
         $(".scroll-up").addClass("fadeInFast");
         $(".scroll-up").removeClass("fadeOutFast");
@@ -342,8 +358,10 @@ function ToogleSort()
         $(".scroll-down").addClass("fadeOutFast");
         $sort.addClass("sort-visible");
         $sort.css("height", $sortHeight + "px");
+        $(".mobile-links-area").css("height", $optionsHeight + "px");
     }
 }
+
 
 function ToogleOptions(element)
 {
@@ -356,10 +374,10 @@ function ToogleOptions(element)
     }
     else
     {
-        $element.addClass("opened")
-        $element.next("div").css("height", $(element).first().height() + "px");
+        console.log($element.next("div").find("span"));
+        $element.addClass("opened");
+        $element.next("div").css("height", $element.next("div").find("span").height() + "px");
     }
-
 }
 
 function ToogleOptionDesktop(name)

@@ -417,7 +417,7 @@ class ArtworksController extends Controller
 
         $request->session()->put("cart", $cart);
         // dd($request->session()->get("cart"));
-        return redirect("/")->with("success", "Artwork added to cart!");
+        return redirect("/artwork/show/" . $id)->with("success", "Artwork added to cart!");
     }
 
     public function removefromcart($index)

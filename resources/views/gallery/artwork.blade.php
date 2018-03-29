@@ -7,9 +7,9 @@
     <div class="col-12">
         @if(!Auth::guest() && Auth::user()->role == "admin")
             {!! Form::open(["action" => ["ArtworksController@destroy", $artwork->id], "method" => "POST"]) !!}
-                <a href="/artwork/edit/{{$artwork->id}}" class="btn btn-success">Edit</a>
+                <a href="/artwork/edit/{{$artwork->id}}" class="artshop-button-a">Edit</a>
                 {{Form::hidden("_method", "DELETE")}}
-                {{Form::submit("Delete", ["class" => "btn btn-danger"])}}
+                {{Form::submit("Delete", ["class" => "artshop-button red"])}}
             {!! Form::close() !!}
         @endif
     </div>
@@ -23,7 +23,7 @@
         <div class="row">
 
             <div class="col-12 mb-4">
-                <img class="img-fluid visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ImageLoaded(this)"/>
+                <img class="col-12 p-0 visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ImageLoaded(this)"/>
             </div>
 
         </div>
@@ -58,7 +58,7 @@
 
     <div class="col-12 col-md-6 mb-5">
         <div class="artwork-image-wrapper">
-            <img id="artwork-image" class="img-fluid visibility-hidden animated" src="/storage/artworks/{{$artwork->getSizes[0]->preview_name}}" onload="ArtworkPreviewLoaded(this)"/>
+            <img id="artwork-image" class="col-12 p-0 visibility-hidden animated" src="/storage/artworks/{{$artwork->getSizes[0]->preview_name}}" onload="ArtworkPreviewLoaded(this)"/>
         </div>
     </div>
 

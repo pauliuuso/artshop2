@@ -345,6 +345,16 @@
   transition: height 0.5s ease-out;
 }
 
+.mobile-sort #mobile-sort-links .option-list span,
+.mobile-sort .option-list .option-list span {
+  display: block;
+}
+
+.mobile-sort #mobile-sort-links .mobile-links-area,
+.mobile-sort .option-list .mobile-links-area {
+  overflow: auto;
+}
+
 .mobile-sort .scroll-up {
   position: absolute;
   text-align: center;
@@ -565,6 +575,7 @@ select {
   border-radius: 0 !important;
   line-height: 2 !important;
   margin-bottom: 30px;
+  padding-left: 8px;
 }
 
 input:focus {
@@ -592,10 +603,30 @@ button:hover {
   border: none;
   text-transform: uppercase;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .artshop-button.red {
   background: #b30000;
+}
+
+.artshop-button-a {
+  padding: 18px 50px;
+  color: white;
+  background: black;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.artshop-button-a.red {
+  background: #b30000;
+}
+
+.artshop-button:hover,
+.artshop-button:visited {
+  color: white;
 }
 
 .art-float-left {
@@ -656,5 +687,9 @@ button:hover {
 
 .size-full {
   width: 100%;
+}
+
+.unscrollable {
+  overflow: hidden;
 }
 

@@ -1,6 +1,7 @@
 // vars //
 
 var scrollTop = window.pageYOffset;
+var previousScrollTop;
 var up = true;
 
 
@@ -46,12 +47,23 @@ function ToogleMenu()
     var $menu = $(".mobile-menu");
     if(!$menu.hasClass("slideInLeft"))
     {
+        // show
+        previousScrollTop = $(window).scrollTop();
+
+        setTimeout(function()
+        {
+            $("body").addClass("unscrollable");
+        }, 300);
+
         $menu.removeClass("visibility-hidden");
         $menu.removeClass("slideOutLeft");
         $menu.addClass("slideInLeft");
     }
     else
     {
+        // hide
+        $("body").removeClass("unscrollable");
+        $(window).scrollTop(previousScrollTop);
         $menu.removeClass("slideInLeft");
         $menu.addClass("slideOutLeft");
     }

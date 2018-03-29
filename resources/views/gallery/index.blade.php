@@ -62,6 +62,7 @@
         </div>
         <div id="mobile-sort-links" class="pl-5">
 
+            <div class="mobile-links-area">
                 <a href="/" class="sort-option title">
                     <div @if ($filter == "") class="text-underline title" @endif>ALL</div>
                 </a>
@@ -76,7 +77,7 @@
 
                         @foreach($categories as $category)
                             <a href="/gallery/kind/{{$category->id}}" class="sort-option-secondary">
-                                <div class="text-uppercase @if($category->id == $sortId) text-underline @endif"><p>{{$category->name}}</p></div>
+                                <div class="text-uppercase @if($category->id == $sortId) text-underline @endif"><p class="m-0">{{$category->name}}</p></div>
                             </a>
                         @endforeach
 
@@ -104,6 +105,7 @@
                 </div>
 
                 <div class="sort-option title">YEAR</div>
+            </div>
 
             <span class="scroll-up text-center title pointer animated d-none" onclick="ToogleSort()">
                 <i class="fas fa-chevron-up"></i>

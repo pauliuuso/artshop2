@@ -52,6 +52,7 @@ input, select
   border-radius: 0 !important;
   line-height: 2 !important;
   margin-bottom: 30px;
+  padding-left: 8px;
 }
 
 input:focus
@@ -81,11 +82,33 @@ button:hover
   border: none;
   text-transform: uppercase;
   cursor: pointer;
+  text-decoration: none;
 
   &.red
   {
     background: #b30000;
   }
+}
+
+.artshop-button-a
+{
+  padding: 18px 50px;
+  color: white;
+  background: black;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+
+  &.red
+  {
+    background: #b30000;
+  }
+}
+
+.artshop-button:hover, .artshop-button:visited
+{
+  color: white;
 }
 
 .art-float-left
@@ -159,6 +182,11 @@ button:hover
 .size-full
 {
   width: 100%;
+}
+
+.unscrollable
+{
+  overflow: hidden;
 }
 
 

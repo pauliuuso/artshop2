@@ -30,12 +30,14 @@
             </div>
         </div>
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-        <script>
-            CKEDITOR.replace( 'ckeditor' );
-        </script>
+    <!-- Scripts -->
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        if($(".ckeditor").length)
+        {
+            CKEDITOR.replaceClass = 'ckeditor';
+        }
+    </script>
 
     </body>
 </html>
