@@ -12,7 +12,8 @@
     </div>
 
     <div class="col-12 col-md-3 pt-4 d-none d-sm-block">
-        @if(Auth::guest())
+
+        {{--  @if(Auth::guest())
             <ul class="login-buttons">
                 <a href="/login">
                     <li><p class="text-underline">Login</p></li>
@@ -33,16 +34,45 @@
                     {{ csrf_field() }}
                 </form>
             </ul>
-        @endif
+        @endif  --}}
+
         <ul class="pl-2 desktop-cart">
-            <!-- <li>
-                <a href="/get-cart">Cart: {{ Session::has("cart") ? Session::get("cart")->totalCount : "0" }}</a>
-            </li> -->
+            <a href="#" onclick="ToogleUserDropDown()">
+                <i class="profile-icon mr-3"></i>
+            </a>
             <a href="/get-cart">
-                <p class="cart-count">{{ Session::has("cart") ? Session::get("cart")->totalCount : "0" }}</p>
-                <i class="cart-icon"></i>
+                <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->totalCount ? 'full' : 'empty' }}"></i>
             </a>
         </ul>
+
+        <div class="user-dropdown text-center animated d-none fadeOutFast">
+            <div class="dropdown-arrow"></div>
+            <ul>
+                @if(Auth::guest())
+                    <a href="/login">
+                        <li><p>LOGIN</p></li>
+                    </a>
+                    <a href="/register">
+                        <li><p>REGISTER</p></li>
+                    </a>
+                @else
+                    <li>
+                        <a href="#">
+                            <p>PROFILE</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <p>LOGOUT</p>
+                        </a>
+                    </li>
+                    <form id="logout-form" action="/logout" method="POST">
+                        {{ csrf_field() }}
+                    </form>
+                @endif
+            </ul>
+        </div>
+
     </div>
 
     <div class="d-sm-none mobile-menu-header position-fixed animated">
@@ -55,8 +85,7 @@
 
         <div class="mobile-cart">
             <a class="pointer" href="/get-cart">
-                <p class="cart-count">{{ Session::has("cart") ? Session::get("cart")->totalCount : "0" }}</p>
-                <i class="cart-icon"></i>
+                <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->totalCount ? 'full' : 'empty' }}"></i>
             </a>
         </div>
 

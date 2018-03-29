@@ -10,7 +10,7 @@
 
 @if(session("success"))
 
-    <div class="alert alert-success">
+    <div class="alert alert-success mobile-alert">
         {{session("success")}}
     </div>
 
@@ -18,7 +18,7 @@
 
 @if(session("error"))
 
-    <div class="alert alert-danger">
+    <div class="alert alert-danger mobile-alert">
         {{session("error")}}
     </div>
 

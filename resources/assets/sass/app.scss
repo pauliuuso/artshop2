@@ -17,6 +17,8 @@
 @import "background";
 @import "cart";
 @import "overwrite";
+@import "errors";
+@import "sort";
 
 // Generic
 
@@ -106,7 +108,7 @@ button:hover
   }
 }
 
-.artshop-button:hover, .artshop-button:visited
+.artshop-button-a:hover, .artshop-button-a:visited
 {
   color: white;
 }

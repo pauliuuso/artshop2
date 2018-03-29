@@ -57,8 +57,9 @@
 
     <div class="col-12 mt-3 mb-2 mobile-sort d-sm-none">
         <div class="text-center title pointer mb-4" onclick="ToogleSort()">
-            <p class="mb-1">SORT ITEMS</p>
+            <p class="mb-1 scroll-down animated">SORT ITEMS</p>
             <i class="fas fa-chevron-down pointer scroll-down animated"></i>
+            <i class="fas fa-chevron-up pointer d-none scroll-up animated"></i>
         </div>
         <div id="mobile-sort-links" class="pl-5">
 
@@ -107,11 +108,6 @@
                 <div class="sort-option title">YEAR</div>
             </div>
 
-            <span class="scroll-up text-center title pointer animated d-none" onclick="ToogleSort()">
-                <i class="fas fa-chevron-up"></i>
-                <p>Close</p>
-            </span>
-
         </div>
     </div>
 
@@ -119,7 +115,7 @@
         <div class="col-12 artwork-list">
             <div class="row">
                 @foreach($artworks as $artwork)
-                    <a class="offset-1 offset-sm-0 col-10 col-sm-6 col-lg-4 art-link" href="/artwork/show/{{$artwork->id}}">
+                    <a class="col-10 col-sm-6 col-lg-4 offset-1 offset-sm-0 art-link" href="/artwork/show/{{$artwork->id}}">
                         <div class="art-wrapper">
                             <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="art-image visibility-hidden" onload="ImageLoaded(this)"/>
                         </div>

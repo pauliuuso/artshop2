@@ -7,10 +7,9 @@ function ToogleSort()
         // hide
         $sort.removeClass("sort-visible");
         $sort.addClass("fadeOut");
-        $(".scroll-up").addClass("fadeOutFast");
-        $(".scroll-up").removeClass("fadeInFast");
-        $(".scroll-down").removeClass("fadeOutFast");
+        $(".scroll-down").removeClass("d-none");
         $(".scroll-down").addClass("fadeInFast");
+        $(".scroll-up").addClass("d-none");
         $sort.css("height", "0");
         $("body").removeClass("unscrollable");
     }
@@ -20,15 +19,14 @@ function ToogleSort()
         $("body").addClass("unscrollable");
         var $offsetTop = $sort.offset().top;
         var $height = $(window).height();
-        var $sortHeight = $height - $offsetTop + $(window).scrollTop();
-        var $optionsHeight = $sortHeight - 110;
+        var $sortHeight = $height - $offsetTop + $(window).scrollTop() + 50;
+        var $optionsHeight = $sortHeight - 20;
 
         $sort.removeClass("sort-hidden");
-        $(".scroll-up").addClass("fadeInFast");
-        $(".scroll-up").removeClass("fadeOutFast");
-        $(".scroll-up").removeClass("d-none");
         $(".scroll-down").removeClass("fadeInFast");
-        $(".scroll-down").addClass("fadeOutFast");
+        $(".scroll-down").addClass("d-none");
+        $(".scroll-up").removeClass("d-none");
+        $(".scroll-up").addClass("fadeInFast");
         $sort.addClass("sort-visible");
         $sort.css("height", $sortHeight + "px");
         $(".mobile-links-area").css("height", $optionsHeight + "px");

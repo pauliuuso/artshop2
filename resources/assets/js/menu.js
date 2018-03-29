@@ -49,11 +49,7 @@ function ToogleMenu()
     {
         // show
         previousScrollTop = $(window).scrollTop();
-
-        setTimeout(function()
-        {
-            $("body").addClass("unscrollable");
-        }, 300);
+        $("body").addClass("unscrollable");
 
         $menu.removeClass("visibility-hidden");
         $menu.removeClass("slideOutLeft");
@@ -73,4 +69,22 @@ function Slide()
 {
     $(".artwork-list").addClass("animated slideOutLeft");
     location.reload();
+}
+
+function ToogleUserDropDown()
+{
+    $dropdown = $(".user-dropdown");
+
+    if($dropdown.hasClass("fadeOutFast"))
+    {
+        // show
+        $dropdown.removeClass("fadeOutFast d-none");
+        $dropdown.addClass("fadeInFast");
+    }
+    else
+    {
+        //hide
+        $dropdown.addClass("fadeOutFast");
+        $dropdown.removeClass("fadeInFast");
+    }
 }

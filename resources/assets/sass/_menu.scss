@@ -44,7 +44,7 @@
   left: 0;
   right: 0;
   top: 0;
-  height: 70px;
+  height: 65px;
   z-index: 101;
   background: white;
 
@@ -107,7 +107,7 @@
   .mobile-menu-footer
   {
     position: absolute;
-    bottom: 15px;
+    bottom: 0px;
     left: 0;
     right: 0;
     line-height: 15px;
@@ -119,10 +119,10 @@
 .menu-icon
 {
   display: block;
-  width: 25px;
-  height: 25px;
-  background: url("/svg/menu_icon.svg");
-  background-size: 25px 25px;
+  width: 35px;
+  height: 35px;
+  background: url("/svg/menu_icon.svg") no-repeat;
+  margin-top: -5px;
 }
 
 .cart-icon
@@ -130,20 +130,28 @@
   display: block;
   width: 40px;
   height: 40px;
-  background: url("/svg/cart_icon.svg");
   background-size: 40px 40px;
-  margin-top: -5px;
+  margin-top: -7px;
+
+  &.empty
+  {
+    background: url("/svg/empty_cart.svg") no-repeat;
+  }
+
+  &.full
+  {
+    background: url("/svg/filled_cart.svg") no-repeat;
+  }
+
 }
 
-.mobile-cart
+.profile-icon
 {
-  .cart-count
-  {
-    line-height: 0;
-    position: absolute;
-    left: 30%;
-    bottom: 9px;
-  }
+  display: block;
+  width: 35px;
+  height: 35px;
+  background: url("/svg/profile_icon.svg") no-repeat;
+  margin-top: -5px;
 }
 
 .desktop-cart
@@ -157,5 +165,46 @@
     position: absolute;
     left: 45%;
     bottom: 9px;
+  }
+}
+
+.dropdown-arrow
+{
+  position: absolute;
+  top: -8px;
+  right: 82px;
+  width: 0; 
+  height: 0; 
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid black;
+}
+
+.user-dropdown
+{
+  width: 300px;
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  border: 2px solid black;
+  background: white;
+  z-index: 11;
+
+  ul
+  {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    padding: 15px 5px;
+
+    li
+    {
+      list-style: none;
+      font-size: 30px;
+      font-family: 'Marvel', sans-serif;
+      letter-spacing: 6px;
+      line-height: 50px;
+    }
+
   }
 }

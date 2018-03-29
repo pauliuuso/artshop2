@@ -300,11 +300,7 @@ function ToogleMenu()
     {
         // show
         previousScrollTop = $(window).scrollTop();
-
-        setTimeout(function()
-        {
-            $("body").addClass("unscrollable");
-        }, 300);
+        $("body").addClass("unscrollable");
 
         $menu.removeClass("visibility-hidden");
         $menu.removeClass("slideOutLeft");
@@ -325,6 +321,24 @@ function Slide()
     $(".artwork-list").addClass("animated slideOutLeft");
     location.reload();
 }
+
+function ToogleUserDropDown()
+{
+    $dropdown = $(".user-dropdown");
+
+    if($dropdown.hasClass("fadeOutFast"))
+    {
+        // show
+        $dropdown.removeClass("fadeOutFast d-none");
+        $dropdown.addClass("fadeInFast");
+    }
+    else
+    {
+        //hide
+        $dropdown.addClass("fadeOutFast");
+        $dropdown.removeClass("fadeInFast");
+    }
+}
 function ToogleSort()
 {
     var $sort = $("#mobile-sort-links");
@@ -334,10 +348,9 @@ function ToogleSort()
         // hide
         $sort.removeClass("sort-visible");
         $sort.addClass("fadeOut");
-        $(".scroll-up").addClass("fadeOutFast");
-        $(".scroll-up").removeClass("fadeInFast");
-        $(".scroll-down").removeClass("fadeOutFast");
+        $(".scroll-down").removeClass("d-none");
         $(".scroll-down").addClass("fadeInFast");
+        $(".scroll-up").addClass("d-none");
         $sort.css("height", "0");
         $("body").removeClass("unscrollable");
     }
@@ -347,15 +360,14 @@ function ToogleSort()
         $("body").addClass("unscrollable");
         var $offsetTop = $sort.offset().top;
         var $height = $(window).height();
-        var $sortHeight = $height - $offsetTop + $(window).scrollTop();
-        var $optionsHeight = $sortHeight - 110;
+        var $sortHeight = $height - $offsetTop + $(window).scrollTop() + 50;
+        var $optionsHeight = $sortHeight - 20;
 
         $sort.removeClass("sort-hidden");
-        $(".scroll-up").addClass("fadeInFast");
-        $(".scroll-up").removeClass("fadeOutFast");
-        $(".scroll-up").removeClass("d-none");
         $(".scroll-down").removeClass("fadeInFast");
-        $(".scroll-down").addClass("fadeOutFast");
+        $(".scroll-down").addClass("d-none");
+        $(".scroll-up").removeClass("d-none");
+        $(".scroll-up").addClass("fadeInFast");
         $sort.addClass("sort-visible");
         $sort.css("height", $sortHeight + "px");
         $(".mobile-links-area").css("height", $optionsHeight + "px");
