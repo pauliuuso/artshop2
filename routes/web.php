@@ -49,10 +49,11 @@ Route::delete("/category/delete/{id}", "CategoriesController@destroy");
 Route::get("/users/manage", "UsersController@index");
 Route::get("/users/edit/{id}", "UsersController@edit");
 Route::post("/users/update/{id}", "UsersController@update");
+Route::get("/artists", "UsersController@showlist");
 
 Route::get("/contacts", "PagesController@contacts");
 Route::get("/about", "PagesController@about");
-Route::get("/artists", "PagesController@artists");
+
 Route::get("/admin", "PagesController@admin");
 
 

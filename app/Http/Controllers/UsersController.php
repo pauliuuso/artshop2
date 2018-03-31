@@ -128,6 +128,12 @@ class UsersController extends Controller
         return redirect("/admin")->with("success", "User updated!");
     }
 
+    public function showlist()
+    {
+        $users = User::all()->whereIn("role", ["author", "user"]);
+        return view("users/list")->with("users", $users);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
