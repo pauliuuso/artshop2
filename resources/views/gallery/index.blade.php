@@ -115,7 +115,7 @@
         <div class="col-12 artwork-list">
             <div class="row">
                 @foreach($artworks as $artwork)
-                    <a class="col-10 col-sm-6 col-lg-4 offset-1 offset-sm-0 art-link" href="/artwork/show/{{$artwork->id}}">
+                    <a class="col-10 col-sm-6 col-lg-3 offset-1 offset-sm-0 art-link" href="/artwork/show/{{$artwork->id}}">
                         <div class="art-wrapper">
                             <img src="/storage/artworks/{{$artwork->thumbnail_name}}" class="art-image visibility-hidden" onload="ImageLoaded(this)"/>
                         </div>
@@ -128,8 +128,6 @@
             </div>
         </div>
 
-
-        
         <div class="col-12 text-center">
             {{$artworks->links()}}
         </div>

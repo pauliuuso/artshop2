@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Auth;
 use App\User;
 
 class UsersController extends Controller
@@ -101,11 +103,27 @@ class UsersController extends Controller
         ]);
 
         $user = User::find($id);
+        $pictureNameToStore = "";
+
+        if($request->hasFile("picture"))
+        {
+            $pictureNameWithExt = $request->file("picture")->getClientOriginalName();
+            $pictureName = pathinfo($pictureNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file("picture")->getClientOriginalExtension();
+            $pictureNameToStore = $pictureName . "-" . substr(md5(openssl_random_pseudo_bytes(20)),-20) . "." . $extension;
+            $path = $request->file("picture")->storeAs("public/users/", $pictureNameToStore);
+            if($user->picture_name != null && $user->picture_name != "")
+            {
+                Storage::delete("public/users/" . $user->picture_name);
+            }
+        }
+
         $user->name = $request->input("name");
         $user->surname = $request->input("surname");
         $user->description = $request->input("description");
         $user->role = $request->input("role");
         $user->active = $request->input("active");
+        $user->picture_name = $pictureNameToStore;
         $user->save();
         return redirect("/admin")->with("success", "User updated!");
     }

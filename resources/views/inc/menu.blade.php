@@ -13,29 +13,6 @@
 
     <div class="col-12 col-md-3 pt-4 d-none d-sm-block">
 
-        {{--  @if(Auth::guest())
-            <ul class="login-buttons">
-                <a href="/login">
-                    <li><p class="text-underline">Login</p></li>
-                </a>
-                <a class="mr-2" href="/register">
-                    <li><p class="text-underline">Register</p></li>
-                </a>
-            </ul>
-        @else
-            <ul class="login-buttons">
-                <li>{{ Auth::user()->email }}</li>
-                <li class="ml-1">
-                    <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        / Logout
-                    </a>
-                </li>
-                <form id="logout-form" action="/logout" method="POST">
-                    {{ csrf_field() }}
-                </form>
-            </ul>
-        @endif  --}}
-
         <ul class="pl-2 desktop-cart">
             <a href="#" onclick="ToogleUserDropDown()">
                 <i class="profile-icon mr-3"></i>

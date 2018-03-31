@@ -8,7 +8,7 @@
         </div>
     
         <div class="col-12 col-xl-6 mb-5">
-            <form class="form-horizontal" method="POST" action="/users/update/{{$user->id}}">
+            <form class="form-horizontal" method="POST" action="/users/update/{{$user->id}}" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
@@ -24,6 +24,11 @@
                 <div class="form-group">
                     <label for="description" >Description:</label>
                     <textarea id="description" class="form-control ckeditor" name="description">{{ $user->description }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="picture" >Picture:</label>
+                    <input class="form-control" name="picture" id="picture" type="file">
                 </div>
 
                 <div class="form-group {{ $errors->has('role') ? 'has-error' : '' }}">
