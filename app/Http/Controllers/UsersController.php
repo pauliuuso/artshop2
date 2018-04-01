@@ -12,7 +12,7 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth");
+        $this->middleware("auth", ["except" => ["showlist"]]);
     }
     /**
      * Display a listing of the resource.
@@ -116,6 +116,7 @@ class UsersController extends Controller
             {
                 Storage::delete("public/users/" . $user->picture_name);
             }
+            $user->picture_name = $pictureNameToStore;
         }
 
         $user->name = $request->input("name");
@@ -123,7 +124,6 @@ class UsersController extends Controller
         $user->description = $request->input("description");
         $user->role = $request->input("role");
         $user->active = $request->input("active");
-        $user->picture_name = $pictureNameToStore;
         $user->save();
         return redirect("/admin")->with("success", "User updated!");
     }
@@ -132,6 +132,12 @@ class UsersController extends Controller
     {
         $users = User::all()->whereIn("role", ["author", "user"]);
         return view("users/list")->with("users", $users);
+    }
+
+    public function showartist($id)
+    {
+        $user = User::find($id);
+        return view("users/user")->with("user", $user);
     }
 
     /**

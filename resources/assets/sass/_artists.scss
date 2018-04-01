@@ -1,0 +1,30 @@
+.artist-card
+{
+    .artist-type
+    {
+        font-size: 20px;
+        letter-spacing: 5px;;
+    }
+
+    .artist-description
+    {
+        .columns
+        {
+            column-count: 2;
+        }
+    }
+}
+
+@media (max-width: 575.98px)
+{
+    .artist-card
+    {
+        .artist-description
+        {
+            .columns
+            {
+                column-count: 1;
+            }
+        }
+    }
+}
