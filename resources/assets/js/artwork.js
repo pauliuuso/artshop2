@@ -205,6 +205,23 @@ function GetArtworkPrice()
         }
     });
 }
+
+function GetArtistWorks(count, id)
+{
+    $.ajax({
+        type: "GET",
+        url: "/artwork/getart",
+        data: {_token: $('#_token').val(), artowork_count: count, artwork_id: id},
+        success: function(data)
+        {
+            
+        },
+        error: function(data)
+        {
+            // $("#total-price").html("Something went wrong, try again.");
+        }
+    });
+}
 ////////////////////
 
 

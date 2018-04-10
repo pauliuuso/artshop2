@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 use App\Artwork;
@@ -21,7 +22,7 @@ class ArtworksController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show", "getprice", "addtocart", "getcart", "checkout", "postcheckout", "removefromcart", "removeallfromcart"]]);
+        $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckout", "removefromcart", "removeallfromcart"]]);
     }
 
     /**
@@ -399,6 +400,14 @@ class ArtworksController extends Controller
         $price *= request("quantity");
         return $price;
     }
+
+    // public function getart(Request $request)
+    // {
+    //     $id = $request->input("artwork_id");
+    //     $count = $request->input("count");
+    //     $artworks = Artwork::select("thumbnail_name", "id")->where("author_id", 4)->orderBy("created_at", "desc")->toArray();
+    //     return response()->json($artworks);
+    // }
 
     public function addtocart(Request $request)
     {

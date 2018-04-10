@@ -12,7 +12,7 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["showlist"]]);
+        $this->middleware("auth", ["except" => ["showlist", "showartist"]]);
     }
     /**
      * Display a listing of the resource.
@@ -136,7 +136,11 @@ class UsersController extends Controller
 
     public function showartist($id)
     {
-        $user = User::find($id);
+        $user = User::with(["artworks" => function($query)
+        {
+            $query->select();
+        }])->find($id);
+
         return view("users/user")->with("user", $user);
     }
 

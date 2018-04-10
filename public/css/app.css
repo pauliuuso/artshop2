@@ -163,6 +163,32 @@
           column-count: 2;
 }
 
+.artist-carousel img {
+  padding: 8px;
+  border: 2px solid #e6e6e6;
+  box-shadow: 0 4px 8px 0 #e6e6e6;
+  -moz-box-shadow: 0 4px 8px 0 #e6e6e6;
+  -webkit-box-shadow: 0 4px 8px 0 #e6e6e6;
+}
+
+.slick-previous {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  z-index: 99;
+  color: black;
+  font-size: 42px;
+}
+
+.slick-nexter {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  z-index: 99;
+  color: black;
+  font-size: 42px;
+}
+
 @media (max-width: 575.98px) {
   .artist-card .artist-description .columns {
     -webkit-column-count: 1;
@@ -531,6 +557,22 @@
 .mt-7,
 .my-7 {
   margin-top: 5rem !important;
+}
+
+.pl-6 {
+  padding-left: 3rem !important;
+}
+
+.pr-6 {
+  padding-right: 3rem !important;
+}
+
+.pl-7 {
+  padding-left: 4rem !important;
+}
+
+.pr-7 {
+  padding-right: 4rem !important;
 }
 
 .cke {
