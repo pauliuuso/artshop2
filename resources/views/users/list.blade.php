@@ -24,7 +24,7 @@
                         {!! str_limit($user->description, 800) !!}
                     </div>
                     <div class="text-right">
-                        <a class="artshop-button-a p-2 pl-5 pr-5" href="/artists/{{ $user->id }}">READ MORE</a>
+                        <a class="artshop-button-a p-2 pl-5 pr-5" href="/artists/{{ $user->alias }}">READ MORE</a>
                     </div>
                 </div>
             </div>

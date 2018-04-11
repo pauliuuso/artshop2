@@ -50,7 +50,7 @@ Route::get("/users/manage", "UsersController@index");
 Route::get("/users/edit/{id}", "UsersController@edit");
 Route::post("/users/update/{id}", "UsersController@update");
 Route::get("/artists", "UsersController@showlist");
-Route::get("/artists/{id}", "UsersController@showartist");
+Route::get("/artists/{alias}", "UsersController@showartist");
 
 Route::get("/contacts", "PagesController@contacts");
 Route::get("/about", "PagesController@about");

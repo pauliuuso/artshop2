@@ -134,17 +134,15 @@ class UsersController extends Controller
 
     public function showlist()
     {
-        $users = User::all()->whereIn("role", ["author", "user"]);
+        $users = User::all()->whereIn("role", "author");
         return view("users/list")->with("users", $users);
     }
 
-    public function showartist($id)
+    public function showartist($alias)
     {
-        $user = User::with(["artworks" => function($query)
-        {
-            $query->select("artworks.thumbnail_name", "artworks.id");
-        }])->find($id);
+        $user = User::where("alias", $alias)->first();
 
+        $id = $user->id;
         $artworks = Artwork::select("id", "thumbnail_name")->where("author_id", $id)->get();
 
         return view("users/user")->with(["user" => $user, "artworks" => $artworks]);
