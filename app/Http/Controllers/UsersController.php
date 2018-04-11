@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 use App\User;
+use App\Artwork;
 
 class UsersController extends Controller
 {
@@ -138,10 +139,12 @@ class UsersController extends Controller
     {
         $user = User::with(["artworks" => function($query)
         {
-            $query->select();
+            $query->select("artworks.thumbnail_name", "artworks.id");
         }])->find($id);
 
-        return view("users/user")->with("user", $user);
+        $artworks = Artwork::select("id", "thumbnail_name")->where("author_id", $id)->get();
+
+        return view("users/user")->with(["user" => $user, "artworks" => $artworks]);
     }
 
     /**

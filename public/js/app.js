@@ -249,6 +249,12 @@ function ShowSelectedBackground()
     }
 }
 
+function ScrollToArt(element)
+{
+    $('html, body').animate({
+        scrollTop: $(element).offset().top - 100
+    }, 500);
+}
 
 $(window).resize(function () 
 {
