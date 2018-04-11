@@ -50,6 +50,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:50',
             'surname' => 'required|string|max:50',
+            'alias' => 'string|max:190',
             'email' => 'required|string|email|max:190|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -63,11 +64,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $alias = preg_replace('/\s+/', '-', $data['name'] . " " . $data['surname']);
+        // $alias = transliterator_transliterate('Any-Latin; Latin-ASCII;', $alias);
+        $alias = iconv('UTF-8', 'ASCII//TRANSLIT', $alias);
+        $alias = strtolower($alias);
         return User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
+            'alias' => $alias,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
+
 }

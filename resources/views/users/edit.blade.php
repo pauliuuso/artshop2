@@ -21,6 +21,16 @@
                     <input id="surname" type="text" class="form-control" name="surname" value="{{ $user->surname }}" required>
                 </div>
 
+                <div class="form-group {{ $errors->has('alias') ? 'has-error' : '' }}">
+                    <label for="alias" >Alias:</label>
+                    <input id="alias" type="text" class="form-control" name="alias" value="{{ $user->alias }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="speciality" >Speciality:</label>
+                    <input id="speciality" type="text" class="form-control" name="speciality" value="{{ $user->speciality }}">
+                </div>
+
                 <div class="form-group">
                     <label for="description" >Description:</label>
                     <textarea id="description" class="form-control ckeditor" name="description">{{ $user->description }}</textarea>

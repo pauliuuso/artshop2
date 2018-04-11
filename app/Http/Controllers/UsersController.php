@@ -98,6 +98,7 @@ class UsersController extends Controller
         [
             'name' => 'required|string|max:50',
             'surname' => 'required|string|max:50',
+            'alias' => 'required|string|max:190',
             "description" => "max:1000",
             "active" => "required",
             "role" => "required"
@@ -122,6 +123,8 @@ class UsersController extends Controller
 
         $user->name = $request->input("name");
         $user->surname = $request->input("surname");
+        $user->alias = $request->input("alias");
+        $user->speciality = $request->input("speciality");
         $user->description = $request->input("description");
         $user->role = $request->input("role");
         $user->active = $request->input("active");

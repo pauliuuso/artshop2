@@ -49,7 +49,7 @@
         @endif
 
         <span class="year-list-desktop desktop-sort-option animated d-none">
-            <a href="/gallery/artist/{{$author->id}}" class="sort-option-secondary">
+            <a href="#" class="sort-option-secondary">
                 <div><p>Year</p></div>
             </a>
         </span>

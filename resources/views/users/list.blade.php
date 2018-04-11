@@ -17,7 +17,7 @@
             </div>
             <div class="col-12 col-md-9 col-lg-9 col-xl-10 pl-md-5 text-center text-sm-left artist-description">
                 <h2 class="text-uppercase main-title-sub">{{ $user->name }} {{ $user->surname }}</h2>
-                <p class="artist-type mb-2">Graphical artist</p>
+                <p class="artist-type mb-2">{{ $user->speciality }}</p>
                 <div class="col-12 purchase-beam"></div>
                 <div class="artist-description text-justify mt-3">
                     <div class="columns">

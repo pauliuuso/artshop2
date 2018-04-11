@@ -6,7 +6,7 @@
 
     <div class="col-12 main-title">
         <h1 class="marvel text-uppercase">{{ $user->name }} {{ $user->surname }}</h1>
-        <h4 class="text-uppercase main-title-sub">GRAPHIC ARTIST</h4>
+        <h4 class="text-uppercase main-title-sub">{{ $user->speciality }}</h4>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-lg-4">
