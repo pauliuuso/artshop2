@@ -289,7 +289,12 @@ function FixMobileMenu()
     var $menu = $(".mobile-menu-header");
     var $menuOffset = $menu.offset();
 
-    if(window.pageYOffset > scrollTop)
+    if(scrollTop <= 10)
+    {
+        $menu.removeClass("slideOutUp");
+        $menu.addClass("slideInDown");
+    }
+    else if(window.pageYOffset > scrollTop)
     {
         if(up)
         {

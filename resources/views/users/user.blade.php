@@ -9,9 +9,10 @@
         <h4 class="text-uppercase main-title-sub">{{ $user->speciality }}</h4>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-lg-4">
+    <div class="col-xs-12 col-sm-6 col-lg-4 mb-4">
         <img class="size-full" src="/storage/users/{{$user->picture_name}}">
     </div>
+
     <div class="artist-card col-xs-12 col-sm-6 col-lg-8">
         <h4 class="text-uppercase main-title-sub">SHORT BIO</h4>
         <div class="col-12 purchase-beam"></div>
@@ -22,7 +23,7 @@
         </div>
         <h4 class="text-uppercase main-title-sub">Projects</h4>
         <div class="col-12 purchase-beam"></div>
-        <div class="artist-description text-justify mt-3 mb-4">
+        <div class="artist-description text-justify mt-3 mb-2 mb-sm-4">
             <div class="columns">
                 <p>Lorem ipsum dolor sit amet, ne mei reque quodsi, laudem dictas ea eum. Eius lorem legere cu eos. Mei eu aliquam tacimates intellegat, ad homero percipit nec. Dicam quodsi mea an, his eu mucius appetere vivendum, cum iudico dolores nominati ut. Pri tale detraxit evertitur ut, docendi facilisi instructior est ex. Qui putant ornatus postulant in, ea probo invidunt pro.Lorem ipsum dolor sit amet, ne mei reque quodsi, laudem dictas ea eum. Eius lorem legere cu eos. Mei eu aliquam tacimates intellegat, ad homero percipit nec. Dicam quodsi mea an, his eu mucius appetere vivendum, cum iudico dolores nominati ut. Pri tale detraxit evertitur ut, docendi facilisi instructior est ex. Qui putant ornatus postulant in, ea probo invidunt pro.Lorem ipsum dolor sit amet, ne mei reque quodsi, laudem dictas ea eum. Eius lorem legere cu eos. Mei eu aliquam tacimates intellegat, ad homero percipit nec. Dicam quodsi mea an, his eu mucius appetere vivendum, cum iudico dolores nominati ut. Pri tale detraxit evertitur ut, docendi facilisi instructior est ex. Qui putant ornatus postulant in, ea probo invidunt pro.Lorem ipsum dolor sit amet, ne mei reque quodsi, laudem dictas ea eum. Eius lorem legere cu eos. Mei eu aliquam tacimates intellegat, ad homero percipit nec. Dicam quodsi mea an, his eu mucius appetere vivendum, cum iudico dolores nominati ut. Pri tale detraxit evertitur ut, docendi facilisi instructior est ex. Qui putant ornatus postulant in, ea probo invidunt pro.</p>
             </div>
@@ -36,7 +37,7 @@
 
     <div class="col-12 slick-slider artist-carousel pl-7 pr-7 mb-5">
         @foreach($artworks as $index => $artwork)
-            <a class="mb-3 m-sm-2 mb-sm-4 m-xl-3" href="/artwork/show/{{$artwork->id}}">
+            <a class="mb-3 m-2 mb-sm-4 m-xl-3" href="/artwork/show/{{$artwork->id}}">
                 <img class="size-full" src="/storage/artworks/{{$artwork->thumbnail_name}}">
             </a>
         @endforeach

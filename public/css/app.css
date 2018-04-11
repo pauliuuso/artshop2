@@ -153,6 +153,11 @@
   }
 }
 
+.artist-card .artist-list-name {
+  letter-spacing: 8px;
+  font-size: 1.75rem;
+}
+
 .artist-card .artist-type {
   font-size: 20px;
   letter-spacing: 5px;
@@ -389,6 +394,10 @@
 }
 
 @media (max-width: 575.98px) {
+  .main-title {
+    margin-bottom: 50px;
+  }
+
   .main-title h1 {
     font-size: 55px;
     letter-spacing: 10px;

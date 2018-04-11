@@ -10,13 +10,13 @@
 
     @foreach($users as $user)
 
-    <div class="col-12">
+    <div class="col-12 mb-5">
         <div class="row artist-card">
-            <div class="col-10 col-md-3 col-lg-3 col-xl-2 offset-1 offset-md-0 mb-5">
+            <div class="col-10 col-md-3 col-lg-3 col-xl-2 offset-1 offset-md-0 mb-4">
                 <img class="size-full" src="/storage/users/{{$user->picture_name}}">
             </div>
-            <div class="col-12 col-md-9 col-lg-9 col-xl-10 pl-md-5 text-center text-sm-left artist-description">
-                <h2 class="text-uppercase main-title-sub">{{ $user->name }} {{ $user->surname }}</h2>
+            <div class="col-10 col-md-9 col-lg-9 col-xl-10 offset-1 offset-md-0 pl-md-3 text-center text-sm-left artist-description">
+                <h2 class="text-uppercase artist-list-name">{{ $user->name }} {{ $user->surname }}</h2>
                 <p class="artist-type mb-2">{{ $user->speciality }}</p>
                 <div class="col-12 purchase-beam"></div>
                 <div class="artist-description text-justify mt-3">
