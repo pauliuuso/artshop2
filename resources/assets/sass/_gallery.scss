@@ -37,3 +37,24 @@
     }
 
 }
+
+@media (min-width: 575.98px) and (max-width: 768px)
+{
+    .main-title
+    {
+        margin-bottom: 50px;
+
+        h1
+        {
+            font-size: 80px;
+            letter-spacing: 10px;
+        }
+
+    }
+
+    .main-title-sub
+    {
+        font-size: 24px;
+    }
+
+}

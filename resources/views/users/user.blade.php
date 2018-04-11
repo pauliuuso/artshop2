@@ -4,16 +4,16 @@
 
 <div class="row mt-7">
 
-    <div class="col-12 main-title">
+    <div class="col-10 col-sm-12 main-title offset-1 offset-sm-0">
         <h1 class="marvel text-uppercase">{{ $user->name }} {{ $user->surname }}</h1>
         <h4 class="text-uppercase main-title-sub">{{ $user->speciality }}</h4>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-lg-4 mb-4">
+    <div class="col-10 col-sm-6 col-lg-4 offset-1 offset-sm-0 mb-4">
         <img class="size-full" src="/storage/users/{{$user->picture_name}}">
     </div>
 
-    <div class="artist-card col-xs-12 col-sm-6 col-lg-8">
+    <div class="artist-card col-10 col-sm-6 col-lg-8 offset-1 offset-sm-0">
         <h4 class="text-uppercase main-title-sub">SHORT BIO</h4>
         <div class="col-12 purchase-beam"></div>
         <div class="artist-description text-justify mt-3 mb-4">
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-10 col-sm-12 offset-1 offset-sm-0">
         <h4 class="text-uppercase main-title-sub mt-5">ARTWORKS</h4>
         <div class="col-12 purchase-beam mb-4"></div>
     </div>
