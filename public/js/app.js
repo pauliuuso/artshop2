@@ -256,6 +256,18 @@ function ScrollToArt(element)
     }, 500);
 }
 
+function CalculateTopMargin(element)
+{
+    var $image = $(element);
+    var $wrapper = $image.parent();
+    var $offset = ($wrapper.height() - $image.height()) / 2;
+
+    console.log("offset: " + $offset);
+
+    $image.css("margin-top", $offset);
+
+}
+
 $(window).resize(function () 
 {
     $(window).trigger("window:resize")
@@ -271,6 +283,20 @@ window.onscroll = function()
 {
     FixMobileMenu();
 }
+
+// window.onclick = function(element)
+// {
+//     $dropdown = $(".user-dropdown");
+
+//     console.log($(element).hasClass("profile"));
+//     console.log($(element));
+
+//     if(!$(element).hasClass("user-dropdown") && !$(element).hasClass("profile-icon") && !$(element).hasClass("profile-icon-logged"))
+//     {
+//         $dropdown.addClass("fadeOutFast");
+//         $dropdown.removeClass("fadeInFast");
+//     }
+// }
 
 // vars //
 
@@ -321,9 +347,21 @@ function FixMobileMenu()
     scrollTop = window.pageYOffset;
 }
 
-function ToogleMenu()
+function ToogleMenu(desktop)
 {
     var $menu = $(".mobile-menu");
+    var $menuClose = $(".menu-close");
+
+    if(desktop)
+    {
+        $menu.css("width", "300");
+        $menuClose.css("display", "block");
+    }
+    else
+    {
+        $menuClose.css("display", "none");
+    }
+
     if(!$menu.hasClass("slideInLeft"))
     {
         // show
@@ -342,6 +380,7 @@ function ToogleMenu()
         $menu.removeClass("slideInLeft");
         $menu.addClass("slideOutLeft");
     }
+
 }
 
 function Slide()
@@ -350,23 +389,8 @@ function Slide()
     location.reload();
 }
 
-function ToogleUserDropDown()
-{
-    $dropdown = $(".user-dropdown");
 
-    if($dropdown.hasClass("fadeOutFast"))
-    {
-        // show
-        $dropdown.removeClass("fadeOutFast d-none");
-        $dropdown.addClass("fadeInFast");
-    }
-    else
-    {
-        //hide
-        $dropdown.addClass("fadeOutFast");
-        $dropdown.removeClass("fadeInFast");
-    }
-}
+
 function ToogleSort()
 {
     var $sort = $("#mobile-sort-links");

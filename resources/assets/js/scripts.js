@@ -28,6 +28,18 @@ function ScrollToArt(element)
     }, 500);
 }
 
+function CalculateTopMargin(element)
+{
+    var $image = $(element);
+    var $wrapper = $image.parent();
+    var $offset = ($wrapper.height() - $image.height()) / 2;
+
+    console.log("offset: " + $offset);
+
+    $image.css("margin-top", $offset);
+
+}
+
 $(window).resize(function () 
 {
     $(window).trigger("window:resize")
@@ -43,3 +55,17 @@ window.onscroll = function()
 {
     FixMobileMenu();
 }
+
+// window.onclick = function(element)
+// {
+//     $dropdown = $(".user-dropdown");
+
+//     console.log($(element).hasClass("profile"));
+//     console.log($(element));
+
+//     if(!$(element).hasClass("user-dropdown") && !$(element).hasClass("profile-icon") && !$(element).hasClass("profile-icon-logged"))
+//     {
+//         $dropdown.addClass("fadeOutFast");
+//         $dropdown.removeClass("fadeInFast");
+//     }
+// }

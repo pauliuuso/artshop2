@@ -176,6 +176,19 @@
   -webkit-box-shadow: 0 4px 8px 0 #e6e6e6;
 }
 
+.slick-slider {
+  height: 400px;
+}
+
+.slick-slider a {
+  height: 350px;
+}
+
+.slick-slider a img {
+  max-height: 350px;
+  max-width: 100%;
+}
+
 .slick-previous {
   position: absolute;
   top: 50%;
@@ -255,6 +268,12 @@
   top: 25px;
 }
 
+.desktop-menu-button {
+  position: absolute;
+  left: 20px;
+  top: 28px;
+}
+
 .mobile-menu {
   left: 0;
   right: 0;
@@ -263,6 +282,12 @@
   background: white;
   position: fixed;
   z-index: 99;
+}
+
+.mobile-menu .menu-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 .mobile-menu .mobile-links-container {
@@ -329,6 +354,14 @@
   margin-top: -5px;
 }
 
+.profile-icon-logged {
+  display: block;
+  width: 35px;
+  height: 35px;
+  background: url("/svg/profile_icon_logged.svg") no-repeat;
+  margin-top: -5px;
+}
+
 .desktop-cart {
   float: right;
   position: relative;
@@ -349,32 +382,33 @@
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid black;
+  border-bottom: 8px solid #e6e6e6;
 }
 
 .user-dropdown {
-  width: 300px;
+  width: 150px;
   position: absolute;
   top: 60px;
   right: 0px;
-  border: 2px solid black;
+  border: 2px solid #e6e6e6;
   background: white;
   z-index: 11;
+}
+
+.user-dropdown p {
+  margin: 0;
 }
 
 .user-dropdown ul {
   text-decoration: none;
   padding: 0;
   margin: 0;
-  padding: 15px 5px;
 }
 
 .user-dropdown ul li {
   list-style: none;
-  font-size: 30px;
   font-family: 'Marvel', sans-serif;
   letter-spacing: 6px;
-  line-height: 50px;
 }
 
 .main-title {
@@ -826,5 +860,9 @@ button:hover {
 
 .unscrollable {
   overflow: hidden;
+}
+
+.margin-auto {
+  margin: auto;
 }
 

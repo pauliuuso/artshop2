@@ -33,6 +33,23 @@
     }
 }
 
+.slick-slider
+{
+    height: 400px;
+
+    a
+    {
+        height: 350px;
+
+        img
+        {
+            max-height: 350px;
+            max-width: 100%;
+        }
+
+    }
+}
+
 .slick-previous
 {
     position: absolute;

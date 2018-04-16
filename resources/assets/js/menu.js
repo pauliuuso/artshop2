@@ -47,9 +47,21 @@ function FixMobileMenu()
     scrollTop = window.pageYOffset;
 }
 
-function ToogleMenu()
+function ToogleMenu(desktop)
 {
     var $menu = $(".mobile-menu");
+    var $menuClose = $(".menu-close");
+
+    if(desktop)
+    {
+        $menu.css("width", "300");
+        $menuClose.css("display", "block");
+    }
+    else
+    {
+        $menuClose.css("display", "none");
+    }
+
     if(!$menu.hasClass("slideInLeft"))
     {
         // show
@@ -68,6 +80,7 @@ function ToogleMenu()
         $menu.removeClass("slideInLeft");
         $menu.addClass("slideOutLeft");
     }
+
 }
 
 function Slide()
@@ -76,20 +89,4 @@ function Slide()
     location.reload();
 }
 
-function ToogleUserDropDown()
-{
-    $dropdown = $(".user-dropdown");
 
-    if($dropdown.hasClass("fadeOutFast"))
-    {
-        // show
-        $dropdown.removeClass("fadeOutFast d-none");
-        $dropdown.addClass("fadeInFast");
-    }
-    else
-    {
-        //hide
-        $dropdown.addClass("fadeOutFast");
-        $dropdown.removeClass("fadeInFast");
-    }
-}

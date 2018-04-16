@@ -65,6 +65,13 @@
 
 }
 
+.desktop-menu-button
+{
+  position: absolute;
+  left: 20px;
+  top: 28px;
+}
+
 .mobile-menu
 {
   left: 0;
@@ -75,6 +82,12 @@
   position: fixed;
   z-index: 99;
 
+  .menu-close
+  {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
 
   .mobile-links-container
   {
@@ -154,6 +167,15 @@
   margin-top: -5px;
 }
 
+.profile-icon-logged
+{
+  display: block;
+  width: 35px;
+  height: 35px;
+  background: url("/svg/profile_icon_logged.svg") no-repeat;
+  margin-top: -5px;
+}
+
 .desktop-cart
 {
   float: right;
@@ -177,34 +199,41 @@
   height: 0; 
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 8px solid black;
+  border-bottom: 8px solid #e6e6e6;
 }
 
 .user-dropdown
 {
-  width: 300px;
+  width: 150px;
   position: absolute;
   top: 60px;
   right: 0px;
-  border: 2px solid black;
+  border: 2px solid #e6e6e6;
   background: white;
   z-index: 11;
+
+  p
+  {
+    margin: 0;
+  }
 
   ul
   {
     text-decoration: none;
     padding: 0;
     margin: 0;
-    padding: 15px 5px;
 
     li
     {
       list-style: none;
-      font-size: 30px;
       font-family: 'Marvel', sans-serif;
       letter-spacing: 6px;
-      line-height: 50px;
     }
 
   }
+}
+
+@media (max-width: 768px)
+{
+
 }

@@ -38,9 +38,13 @@
     <div class="col-12 slick-slider artist-carousel pl-7 pr-7 mb-5">
         @foreach($artworks as $index => $artwork)
             <a class="mb-3 m-2 mb-sm-4 m-xl-3" href="/artwork/show/{{$artwork->id}}">
-                <img class="size-full" src="/storage/artworks/{{$artwork->thumbnail_name}}">
+                <img class="margin-auto" src="/storage/artworks/{{$artwork->thumbnail_name}}" onload="CalculateTopMargin(this)">
             </a>
         @endforeach
+    </div>
+
+    <div class="col-10 col-sm-12 offset-1 offset-sm-0 text-center text-sm-right mb-5 mt-4">
+        <a href="/gallery/artist/{{$user->id}}" class="customization-select-option-low">VIEW ALL</a>
     </div>
 
 </div>
@@ -61,7 +65,6 @@
                 slidesToScroll: 3,
                 infinite: true,
                 dots: true,
-                adaptiveHeight: true,
                 prevArrow: "<p class='slick-previous pointer'><</p>",
                 nextArrow: "<p class='slick-nexter pointer'>></p>",
             }
@@ -74,7 +77,6 @@
                 slidesToScroll: 2,
                 infinite: true,
                 dots: true,
-                adaptiveHeight: true,
                 prevArrow: "<p class='slick-previous pointer'><</p>",
                 nextArrow: "<p class='slick-nexter pointer'>></p>",
             }
@@ -87,26 +89,10 @@
                 slidesToScroll: 1,
                 infinite: true,
                 dots: true,
-                adaptiveHeight: true,
                 prevArrow: "<p class='slick-previous pointer'><</p>",
                 nextArrow: "<p class='slick-nexter pointer'>></p>",
             }
         }]
-    });
-
-    $(".slick-previous").on("click", function()
-    {
-        ScrollToArt(".slick-slider");
-    });
-
-    $(".slick-nexter").on("click", function()
-    {
-        ScrollToArt(".slick-slider");
-    });
-
-    $(".slick-slider").on("beforeChange", function()
-    {
-        ScrollToArt(".slick-slider");
     });
 
 </script>

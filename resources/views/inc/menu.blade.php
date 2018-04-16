@@ -1,5 +1,14 @@
 <div class="row">
-    <div class="col-12 col-md-6 offset-md-3 d-none d-sm-block">
+
+    <div class="col-sm-3">
+        <div class="desktop-menu-button d-none d-sm-block">
+            <a class="pointer" onclick="ToogleMenu(true);">
+                <i class="menu-icon"></i>
+            </a>
+        </div>
+    </div>
+    
+    {{-- <div class="col-12 col-md-6 d-none d-sm-block">
         <ul class="art-menu mt-3">
             <a href="/"><li>Gallery | </li></a>
             <a href="/artists"><li>Artists | </li></a>
@@ -9,38 +18,39 @@
                 <a href="/admin"><li>| Admin</li></a>
             @endif
         </ul>
-    </div>
+    </div> --}}
 
-    <div class="col-12 col-md-3 pt-4 d-none d-sm-block">
+
+    <div class="col-12 col-sm-9 pt-4 d-none d-sm-block">
 
         <ul class="pl-2 desktop-cart">
-            <a href="#" onclick="ToogleUserDropDown()">
-                <i class="profile-icon mr-3"></i>
-            </a>
+            {{-- <a href="#" class="profile">
+                <i class="{{Auth::guest() ? 'profile-icon' : 'profile-icon-logged'}} mr-3"></i>
+            </a> --}}
             <a href="/get-cart">
                 <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->totalCount ? 'full' : 'empty' }}"></i>
             </a>
         </ul>
 
-        <div class="user-dropdown text-center animated d-none fadeOutFast">
+        <div class="user-dropdown animated p-2 d-none fadeOutFast">
             <div class="dropdown-arrow"></div>
             <ul>
                 @if(Auth::guest())
                     <a href="/login">
-                        <li><p>LOGIN</p></li>
+                        <li><p>Login</p></li>
                     </a>
                     <a href="/register">
-                        <li><p>REGISTER</p></li>
+                        <li><p>Register</p></li>
                     </a>
                 @else
                     <li>
                         <a href="#">
-                            <p>PROFILE</p>
+                            <p>Profile</p>
                         </a>
                     </li>
                     <li>
                         <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <p>LOGOUT</p>
+                            <p>Logout</p>
                         </a>
                     </li>
                     <form id="logout-form" action="/logout" method="POST">
@@ -68,11 +78,13 @@
 
     </div>
 
-
-
 </div>
 
 <div class="mobile-menu visibility-hidden uppercase animated">
+
+    <div class="menu-close" onclick="ToogleMenu()">
+        x
+    </div>
 
     <div class="mobile-links-container">
         <ul>
@@ -122,3 +134,21 @@
     </div>
 
 </div>
+
+<script>
+    $(".profile, .user-dropdown").mouseover(function()
+    {  
+        // show
+        $dropdown = $(".user-dropdown");
+        $dropdown.removeClass("fadeOutFast d-none");
+        $dropdown.addClass("fadeInFast");
+    });
+
+    $(".profile, .user-dropdown").mouseout(function()
+    {
+        // hide
+        $dropdown = $(".user-dropdown");
+        $dropdown.addClass("fadeOutFast");
+        $dropdown.removeClass("fadeInFast");
+    });
+</script>
