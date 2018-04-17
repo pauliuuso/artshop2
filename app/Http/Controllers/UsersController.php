@@ -99,7 +99,7 @@ class UsersController extends Controller
             'name' => 'required|string|max:50',
             'surname' => 'required|string|max:50',
             'alias' => 'required|string|max:190',
-            "description" => "max:1000",
+            "description" => "max:10000",
             "active" => "required",
             "role" => "required"
         ]);

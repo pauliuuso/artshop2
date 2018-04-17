@@ -168,6 +168,19 @@
           column-count: 2;
 }
 
+.artist-card .read-more-wrapper {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  padding-right: 15px;
+  margin-top: 15px;
+}
+
+.artist-card .read-more-wrapper .read-more {
+  bottom: 0;
+}
+
 .artist-carousel img {
   padding: 8px;
   border: 2px solid #e6e6e6;

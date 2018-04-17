@@ -21,11 +21,14 @@
                 <div class="col-12 purchase-beam"></div>
                 <div class="artist-description text-justify mt-3">
                     <div class="columns">
-                        {!! str_limit($user->description, 800) !!}
+                        {!! str_limit($user->description, 1200) !!}
                     </div>
-                    <div class="text-right">
-                        <a class="artshop-button-a p-2 pl-5 pr-5" href="/artists/{{ $user->alias }}">READ MORE</a>
+                    <div class="read-more-wrapper">
+                        <div class="text-right read-more">
+                            <a class="artshop-button-a p-2 pl-5 pr-5" href="/artists/{{ $user->alias }}">READ MORE</a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
