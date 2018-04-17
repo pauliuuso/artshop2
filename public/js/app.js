@@ -380,10 +380,10 @@ function ToogleDesktopMenu()
     var $curtain = $(".curtain");
     var $content = $(".content");
 
-    if($curtain.hasClass("d-none"))
+    if(!$curtain.hasClass("curtain-appear"))
     {
         // show
-        $curtain.removeClass("d-none");
+        $curtain.addClass("curtain-appear");
         $content.addClass("blur");
         $menu.removeClass("slideOutRight d-none");
         $menu.addClass("slideInRight");
@@ -393,7 +393,8 @@ function ToogleDesktopMenu()
     else
     {
         // hide
-        $curtain.addClass("d-none");
+        $curtain.removeClass("curtain-appear");
+        $curtain.removeClass("curtain-appear");
         $content.removeClass("blur");
         $menu.removeClass("slideInRight");
         $menu.addClass("slideOutRight");

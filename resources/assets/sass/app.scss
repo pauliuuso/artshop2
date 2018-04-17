@@ -117,13 +117,29 @@ button:hover
 .curtain
 {
   position: fixed;
+  background: #a9adac;
+  opacity: 0;
+
+  -webkit-transition: 0.5s opacity ease-out;
+  -moz-transition: 0.5s opacity ease-out;
+  -o-transition: 0.5s opacity ease-out;
+  transition: 0.5s opacity ease-out;
+}
+
+.curtain-appear
+{
+  opacity: 0.5;
+  z-index: 12;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #a9adac;
-  opacity: 0.5;
-  z-index: 12;
+}
+
+.content
+{
+  -webkit-transition: blur 0.5s ease-out;
+  transition: blur 0.5s ease-out;
 }
 
 .blur
@@ -133,6 +149,10 @@ button:hover
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
   filter: blur(5px);
+  -webkit-transition: 1s -webkit-filter linear;
+  -moz-transition: 1s -moz-filter linear;
+  -o-transition: 1s -o-filter linear;
+  transition: 1s -webkit-filter linear;
 }
 
 .art-float-left

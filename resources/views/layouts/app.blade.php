@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="curtain d-none">
+        <div class="curtain">
 
         </div>
 
