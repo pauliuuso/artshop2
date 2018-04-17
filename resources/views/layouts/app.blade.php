@@ -29,7 +29,9 @@
                 <div class="col-12 col-xl-10">
                     @include("inc/menu")
                     @include("inc/errors")
-                    @yield("content")
+                    <div class="content">
+                        @yield("content")
+                    </div>
                 </div>
             </div>
         </div>

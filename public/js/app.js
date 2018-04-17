@@ -284,35 +284,16 @@ window.onscroll = function()
     FixMobileMenu();
 }
 
-// $(".curtain").click(function()
-// {
-//     console.log("hi");
-//     $element = $(element);
-
-//     if(!$element.hasClass("mobile-menu") && !$element.hasClass("desktop-menu-button") && menuVisible)
-//     {
-//         ToogleMenu(true);
-//     }
-// });
-
-$("div").click(function(){
-    alert("The paragraph was clicked.");
-}); 
-
-
-// window.onclick = function(element)
-// {
-//     $dropdown = $(".user-dropdown");
-
-//     console.log($(element).hasClass("profile"));
-//     console.log($(element));
-
-//     if(!$(element).hasClass("user-dropdown") && !$(element).hasClass("profile-icon") && !$(element).hasClass("profile-icon-logged"))
-//     {
-//         $dropdown.addClass("fadeOutFast");
-//         $dropdown.removeClass("fadeInFast");
-//     }
-// }
+window.onclick = function(element)
+{
+    if($(element.target).hasClass("curtain"))
+    {
+        if(menuVisible)
+        {
+            ToogleDesktopMenu();
+        }
+    }
+}
 
 // vars //
 
@@ -397,11 +378,13 @@ function ToogleDesktopMenu()
 {
     var $menu = $(".desktop-menu");
     var $curtain = $(".curtain");
+    var $content = $(".content");
 
     if($curtain.hasClass("d-none"))
     {
         // show
         $curtain.removeClass("d-none");
+        $content.addClass("blur");
         $menu.removeClass("slideOutRight d-none");
         $menu.addClass("slideInRight");
 
@@ -411,6 +394,7 @@ function ToogleDesktopMenu()
     {
         // hide
         $curtain.addClass("d-none");
+        $content.removeClass("blur");
         $menu.removeClass("slideInRight");
         $menu.addClass("slideOutRight");
 

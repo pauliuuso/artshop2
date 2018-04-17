@@ -121,9 +121,18 @@ button:hover
   left: 0;
   right: 0;
   bottom: 0;
-  background: grey;
+  background: #a9adac;
   opacity: 0.5;
   z-index: 12;
+}
+
+.blur
+{
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
 }
 
 .art-float-left

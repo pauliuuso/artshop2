@@ -81,11 +81,13 @@ function ToogleDesktopMenu()
 {
     var $menu = $(".desktop-menu");
     var $curtain = $(".curtain");
+    var $content = $(".content");
 
     if($curtain.hasClass("d-none"))
     {
         // show
         $curtain.removeClass("d-none");
+        $content.addClass("blur");
         $menu.removeClass("slideOutRight d-none");
         $menu.addClass("slideInRight");
 
@@ -95,6 +97,7 @@ function ToogleDesktopMenu()
     {
         // hide
         $curtain.addClass("d-none");
+        $content.removeClass("blur");
         $menu.removeClass("slideInRight");
         $menu.addClass("slideOutRight");
 

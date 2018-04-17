@@ -32,10 +32,6 @@
 
 <div class="mobile-menu visibility-hidden uppercase animated">
 
-    <div class="menu-close" onclick="ToogleMenu(true)">
-        x
-    </div>
-
     <div class="mobile-links-container">
         <ul>
             <a href="/">
@@ -87,11 +83,15 @@
 
 <div class="desktop-menu d-none uppercase animated">
 
-    <div class="menu-close" onclick="ToogleDesktopMenu()">
-        x
-    </div>
+    <a class="menu-cart"  href="/get-cart">
+        <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->totalCount ? 'full' : 'empty' }}"></i>
+    </a>
 
-    <div class="mobile-links-container">
+    <a class="pointer menu-close" onclick="ToogleDesktopMenu();">
+        <i class="cross-icon"></i>
+    </a>
+
+    <div class="mobile-links-container ml-2">
         <ul>
             <a href="/">
                 <li class="marvel">Gallery</li>
@@ -110,6 +110,9 @@
                 <li>Admin</li>
                 @endif
             </a>
+
+            <div class="purchase-beam menu-beam mt-5"></div>
+
             @if(Auth::guest())
                 <a href="/login">
                     <li>Login</li>
@@ -134,26 +137,14 @@
     </div>
 
     <div class="mobile-menu-footer text-capitalize text-center">
-        <p>Copyright ArtShop</p>
-        <p><?php echo date("Y"); ?></p>
+        <p>Terms and conditions | FAQ</p>
     </div>
 
 </div>
 
 <script>
-    $(".profile, .user-dropdown").mouseover(function()
-    {  
-        // show
-        $dropdown = $(".user-dropdown");
-        $dropdown.removeClass("fadeOutFast d-none");
-        $dropdown.addClass("fadeInFast");
-    });
-
-    $(".profile, .user-dropdown").mouseout(function()
+    $(".curtain").click(function()
     {
-        // hide
-        $dropdown = $(".user-dropdown");
-        $dropdown.addClass("fadeOutFast");
-        $dropdown.removeClass("fadeInFast");
+        console.log("click");
     });
 </script>

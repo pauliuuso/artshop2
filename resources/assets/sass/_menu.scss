@@ -134,16 +134,28 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 400px;
-  background: white;
+  width: 450px;
+  background: #f8f9f9;
   position: fixed;
   z-index: 99;
 
   .menu-close
   {
     position: absolute;
-    right: 20px;
+    right: 25px;
     top: 20px;
+  }
+
+  .menu-cart
+  {
+    position: absolute;
+    left: 25px;
+    top: 20px;
+  }
+
+  .menu-beam
+  {
+    width: 400px;
   }
 
   .mobile-links-container
@@ -181,7 +193,7 @@
     left: 0;
     right: 0;
     line-height: 15px;
-    letter-spacing: 5px;
+    letter-spacing: 3px;
   }
 
 }
@@ -230,6 +242,15 @@
   width: 35px;
   height: 35px;
   background: url("/svg/profile_icon_logged.svg") no-repeat;
+  margin-top: -5px;
+}
+
+.cross-icon
+{
+  display: block;
+  width: 35px;
+  height: 35px;
+  background: url("/svg/cross.svg") no-repeat;
   margin-top: -5px;
 }
 
