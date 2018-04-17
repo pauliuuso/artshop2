@@ -56,6 +56,22 @@ window.onscroll = function()
     FixMobileMenu();
 }
 
+// $(".curtain").click(function()
+// {
+//     console.log("hi");
+//     $element = $(element);
+
+//     if(!$element.hasClass("mobile-menu") && !$element.hasClass("desktop-menu-button") && menuVisible)
+//     {
+//         ToogleMenu(true);
+//     }
+// });
+
+$("div").click(function(){
+    alert("The paragraph was clicked.");
+}); 
+
+
 // window.onclick = function(element)
 // {
 //     $dropdown = $(".user-dropdown");

@@ -6,10 +6,26 @@
     animation-duration: 0.3s !important;
 }
 
+.slideOutRight 
+{
+    -webkit-animation-name: slideOutRight !important;
+    animation-name: slideOutRight !important;
+    -webkit-animation-duration: 0.3s !important;
+    animation-duration: 0.3s !important;
+}
+
 .slideInLeft 
 {
     -webkit-animation-name: slideInLeft !important;
     animation-name: slideInLeft !important;
+    -webkit-animation-duration: 0.3s !important;
+    animation-duration: 0.3s !important;
+}
+
+.slideInRight 
+{
+    -webkit-animation-name: slideInRight !important;
+    animation-name: slideInRight !important;
     -webkit-animation-duration: 0.3s !important;
     animation-duration: 0.3s !important;
 }

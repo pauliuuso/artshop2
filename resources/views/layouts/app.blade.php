@@ -34,6 +34,10 @@
             </div>
         </div>
 
+        <div class="curtain d-none">
+
+        </div>
+
     <!-- Scripts -->
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>

@@ -275,10 +275,10 @@
 }
 
 .mobile-menu {
-  left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+  left: 0;
   background: white;
   position: fixed;
   z-index: 99;
@@ -314,6 +314,54 @@
 }
 
 .mobile-menu .mobile-menu-footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  line-height: 15px;
+  letter-spacing: 5px;
+}
+
+.desktop-menu {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 400px;
+  background: white;
+  position: fixed;
+  z-index: 99;
+}
+
+.desktop-menu .menu-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.desktop-menu .mobile-links-container {
+  position: absolute;
+  top: 100px;
+  left: 15px;
+  right: 0;
+  bottom: 90px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.desktop-menu .mobile-links-container ul {
+  text-decoration: none;
+  padding: 0;
+}
+
+.desktop-menu .mobile-links-container ul li {
+  list-style: none;
+  font-size: 40px;
+  font-family: 'Marvel', sans-serif;
+  letter-spacing: 8px;
+  line-height: 70px;
+}
+
+.desktop-menu .mobile-menu-footer {
   position: absolute;
   bottom: 0px;
   left: 0;
@@ -572,9 +620,23 @@
   animation-duration: 0.3s !important;
 }
 
+.slideOutRight {
+  -webkit-animation-name: slideOutRight !important;
+  animation-name: slideOutRight !important;
+  -webkit-animation-duration: 0.3s !important;
+  animation-duration: 0.3s !important;
+}
+
 .slideInLeft {
   -webkit-animation-name: slideInLeft !important;
   animation-name: slideInLeft !important;
+  -webkit-animation-duration: 0.3s !important;
+  animation-duration: 0.3s !important;
+}
+
+.slideInRight {
+  -webkit-animation-name: slideInRight !important;
+  animation-name: slideInRight !important;
   -webkit-animation-duration: 0.3s !important;
   animation-duration: 0.3s !important;
 }
@@ -796,6 +858,17 @@ button:hover {
 .artshop-button-a:hover,
 .artshop-button-a:visited {
   color: white;
+}
+
+.curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: grey;
+  opacity: 0.5;
+  z-index: 12;
 }
 
 .art-float-left {

@@ -3,6 +3,7 @@
 var scrollTop = window.pageYOffset;
 var previousScrollTop;
 var up = true;
+var menuVisible = false;
 
 
 function FixMobileMenu()
@@ -47,20 +48,9 @@ function FixMobileMenu()
     scrollTop = window.pageYOffset;
 }
 
-function ToogleMenu(desktop)
+function ToogleMenu()
 {
     var $menu = $(".mobile-menu");
-    var $menuClose = $(".menu-close");
-
-    if(desktop)
-    {
-        $menu.css("width", "300");
-        $menuClose.css("display", "block");
-    }
-    else
-    {
-        $menuClose.css("display", "none");
-    }
 
     if(!$menu.hasClass("slideInLeft"))
     {
@@ -71,6 +61,8 @@ function ToogleMenu(desktop)
         $menu.removeClass("visibility-hidden");
         $menu.removeClass("slideOutLeft");
         $menu.addClass("slideInLeft");
+
+        menuVisible = true;
     }
     else
     {
@@ -79,6 +71,34 @@ function ToogleMenu(desktop)
         $(window).scrollTop(previousScrollTop);
         $menu.removeClass("slideInLeft");
         $menu.addClass("slideOutLeft");
+
+        menuVisible = false;
+    }
+
+}
+
+function ToogleDesktopMenu()
+{
+    var $menu = $(".desktop-menu");
+    var $curtain = $(".curtain");
+
+    if($curtain.hasClass("d-none"))
+    {
+        // show
+        $curtain.removeClass("d-none");
+        $menu.removeClass("slideOutRight d-none");
+        $menu.addClass("slideInRight");
+
+        menuVisible = true;
+    }
+    else
+    {
+        // hide
+        $curtain.addClass("d-none");
+        $menu.removeClass("slideInRight");
+        $menu.addClass("slideOutRight");
+
+        menuVisible = false;
     }
 
 }
