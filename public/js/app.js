@@ -262,10 +262,31 @@ function CalculateTopMargin(element)
     var $wrapper = $image.parent();
     var $offset = ($wrapper.height() - $image.height()) / 2;
 
-    console.log("offset: " + $offset);
-
     $image.css("margin-top", $offset);
+}
 
+function GotoCheckoutStep(previousStep, nextStep)
+{
+    var $nextStep = $(nextStep);
+    var $previousStep = $(previousStep);
+
+    $nextStep.removeClass("d-none");
+    $nextStep.addClass("slideInRight");
+    $previousStep.addClass("d-none");
+
+    ScrollToArt("html");
+}
+
+function GotoCheckoutStepBack(currentStep, previousStep)
+{
+    var $previousStep = $(previousStep);
+    var $currentStep = $(currentStep);
+
+    $previousStep.removeClass("d-none");
+    $previousStep.addClass("slideInLeft");
+    $currentStep.addClass("d-none");
+
+    ScrollToArt("html");
 }
 
 $(window).resize(function () 

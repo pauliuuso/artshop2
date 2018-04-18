@@ -8,3 +8,17 @@
 {
     background: #f8f9f9;
 }
+
+.count-circle
+{
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background: #f8f9f9;
+    border: 2px solid black;
+    border-radius: 50%;
+    text-align: center;
+    z-index: 15;
+}

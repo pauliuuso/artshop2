@@ -488,7 +488,7 @@ class ArtworksController extends Controller
         $cart = new Cart($oldCart);
         $totalPrice = $cart->totalPrice;
 
-        return view("cart/checkout")->with(["totalPrice" => $totalPrice]);
+        return view("cart/checkout")->with(["artworks" => $cart->artworks, "totalPrice" => $totalPrice]);
 
     }
 
