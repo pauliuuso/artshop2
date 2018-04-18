@@ -393,6 +393,12 @@
   letter-spacing: 3px;
 }
 
+.absolute-menu {
+  position: absolute;
+  top: 0;
+  z-index: 11;
+}
+
 .menu-icon {
   display: block;
   width: 35px;
@@ -710,6 +716,16 @@
   margin-top: 5rem !important;
 }
 
+.mt-8,
+.my-8 {
+  margin-top: 6rem !important;
+}
+
+.mt-9,
+.my-9 {
+  margin-top: 7rem !important;
+}
+
 .pl-6 {
   padding-left: 3rem !important;
 }
@@ -796,6 +812,15 @@
   overflow: auto;
 }
 
+.checkout-right {
+  background: #f8f9f9;
+  border-left: 2px solid lightblue;
+}
+
+.checkout-side {
+  background: #f8f9f9;
+}
+
 html,
 body {
   padding: 0;
@@ -838,6 +863,10 @@ select {
   line-height: 2 !important;
   margin-bottom: 30px;
   padding-left: 8px;
+}
+
+select {
+  height: 48px;
 }
 
 input:focus {

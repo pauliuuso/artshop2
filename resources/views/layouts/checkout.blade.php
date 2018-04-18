@@ -24,15 +24,15 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-                <div class="hidden-lg-down col-xl-1">
-                </div>
-                <div class="col-12 col-xl-10">
-                    @include("inc/menu")
+                <div class="col-12 col-xl-10 offset-xl-1">
+                    @include("inc/absolutemenu")
                     @include("inc/menutables")
                     @include("inc/errors")
                     <div class="content">
                         @yield("content")
                     </div>
+                </div>
+                <div class="hidden-lg-down col-xl-1 checkout-side">
                 </div>
             </div>
         </div>

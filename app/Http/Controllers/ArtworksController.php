@@ -19,7 +19,6 @@ use Session;
 
 class ArtworksController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckout", "removefromcart", "removeallfromcart"]]);
@@ -467,12 +466,14 @@ class ArtworksController extends Controller
 
     public function getcart()
     {
+
         if(!Session::has("cart"))
         {
             return view("cart/index");
         }
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
+
         return view("cart/index")->with(["artworks" => $cart->artworks, "totalPrice" => $cart->totalPrice, "totalCount" => $cart->totalCount]);
     }
 

@@ -20,6 +20,7 @@
 @import "overwrite";
 @import "errors";
 @import "sort";
+@import "checkout";
 
 // Generic
 
@@ -56,6 +57,11 @@ input, select
   line-height: 2 !important;
   margin-bottom: 30px;
   padding-left: 8px;
+}
+
+select
+{
+  height: 48px;
 }
 
 input:focus
