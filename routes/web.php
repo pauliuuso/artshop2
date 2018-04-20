@@ -26,7 +26,7 @@ Route::get("/remove-from-cart/{index}", "ArtworksController@removefromcart");
 Route::get("/remove-all-from-cart", "ArtworksController@removeallfromcart");
 Route::get("/get-cart", "ArtworksController@getcart");
 Route::get("/checkout", "ArtworksController@checkout");
-Route::post("/checkout", "ArtworksController@postcheckout");
+Route::post("/checkoutaddress", "ArtworksController@checkoutaddress");
 Route::get("/orders", "ArtworksController@orders");
 Route::get("/edit-size/{id}", "ArtworksController@editsize");
 Route::put("/update-size/{id}", "ArtworksController@updatesize");

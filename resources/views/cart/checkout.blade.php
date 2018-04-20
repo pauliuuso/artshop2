@@ -12,7 +12,7 @@
 
                 <div>
                     @if(Session::has("cart"))
-                        {!! Form::open(["action" => "ArtworksController@checkout", "method" => "POST", "id" => "checkout-form", "onsubmit" => "event.preventDefault();", "novalidate" => "novalidate"]) !!}
+                        {!! Form::open(["action" => "ArtworksController@checkoutaddress", "method" => "POST", "id" => "checkout-form", "novalidate" => "novalidate"]) !!}
                 
                         <div class="checkout-1 animated mt-6">
                             <p>CONTACT INFORMATION:</p>
@@ -43,7 +43,7 @@
                                 </div>
         
                                 <div class="form-group col-12 col-sm-4">
-                                    {{Form::text("apt", "", ["class" => "form-control", "placeholder" => "Apartment / Suite", "required" => true])}}
+                                    {{Form::text("apartment", "", ["class" => "form-control", "placeholder" => "Apartment / Suite", "required" => true])}}
                                 </div>
     
                                 <div class="form-group col-12 col-sm-8">
@@ -313,49 +313,63 @@
                             <p class="m-0">SAVE THIS INFORMATION FOR THE NEXT TIME <input type="checkbox" id="save_info" class="m-0 ml-2 mb-3"></p>
                             <a class="text-underline" href="/get-cart">BACK TO SHOPPING CART</a>
     
-                            <div class="row mt-4 mb-5">
+                            {{-- <div class="row mt-4 mb-5">
                                 <div class="col-12 text-right">
                                     <button type="button" class="artshop-button" onclick="GotoCheckoutStep('.checkout-1', '.checkout-2')">Continue</button>
                                 </div>
-                            </div>
-
-                        </div>
-
-                        <div class="checkout-2 d-none animated mt-6">
-                            <div class="form-group">
-                                {{Form::label("card-number", "Credit card number:")}}
-                                {{Form::text("card-number", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
-                            </div>
-                    
-                            <div class="form-group">
-                                {{Form::label("card-expiry-month", "Card expiration month:")}}
-                                {{Form::text("card-expiry-month", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
-                            </div>
-                    
-                            <div class="form-group">
-                                {{Form::label("card-expiry-year", "Card expiration year:")}}
-                                {{Form::text("card-expiry-year", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
-                            </div>
-                    
-                            <div class="form-group">
-                                {{Form::label("card-cvc", "CVC:")}}
-                                {{Form::text("card-cvc", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
-                            </div>
+                            </div> --}}
 
                             <div class="row mt-4 mb-5">
-                                <div class="col-12">
-                                    <button type="button" class="artshop-button" onclick="GotoCheckoutStepBack('.checkout-2', '.checkout-1')">Back</button>
+                                <div class="col-12 text-right">
+                                    {{Form::submit("Continue", ["class" => "artshop-button", "id" => "checkout-button"])}}
                                 </div>
                             </div>
-                    
-                            {{-- {{Form::submit("Buy now", ["class" => "btn btn-primary", "id" => "checkout-button"])}} --}}
-                        </div>
-                        
 
-                
-                        <p id="charge-error" class="text-danger {{ !Session::has('error') ? 'hidden' : '' }}">
-                            {{ Session::get("error") }}
-                        </p>
+                        </div>
+
+                        {!! Form::close() !!}
+                        @else
+                        <div class="col-12">
+                            <p>Your chart is empty!</p>
+                        </div>
+                        @endif
+
+                        @if(Session::has("cart"))
+                        {!! Form::open(["action" => "ArtworksController@checkoutaddress", "method" => "POST", "id" => "checkout-form", "onsubmit" => "event.preventDefault();", "novalidate" => "novalidate"]) !!}
+
+                            <div class="checkout-2 d-none animated mt-6">
+                                <div class="form-group">
+                                    {{Form::label("card-number", "Credit card number:")}}
+                                    {{Form::text("card-number", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
+                                </div>
+                        
+                                <div class="form-group">
+                                    {{Form::label("card-expiry-month", "Card expiration month:")}}
+                                    {{Form::text("card-expiry-month", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
+                                </div>
+                        
+                                <div class="form-group">
+                                    {{Form::label("card-expiry-year", "Card expiration year:")}}
+                                    {{Form::text("card-expiry-year", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
+                                </div>
+                        
+                                <div class="form-group">
+                                    {{Form::label("card-cvc", "CVC:")}}
+                                    {{Form::text("card-cvc", "", ["class" => "form-control", "placeholder" => "", "required" => true])}}
+                                </div>
+
+                                <div class="row mt-4 mb-5">
+                                    <div class="col-12">
+                                        <button type="button" class="artshop-button" onclick="GotoCheckoutStepBack('.checkout-2', '.checkout-1')">Back</button>
+                                    </div>
+                                </div>
+                        
+                                {{-- {{Form::submit("Buy now", ["class" => "btn btn-primary", "id" => "checkout-button"])}} --}}
+                            </div>
+                        
+                            <p id="charge-error" class="text-danger {{ !Session::has('error') ? 'hidden' : '' }}">
+                                {{ Session::get("error") }}
+                            </p>
                 
                         {!! Form::close() !!}
                     @else
@@ -453,7 +467,7 @@
 
 </div>
 
-<script>
+{{-- <script>
 
     Stripe.setPublishableKey('pk_test_E3REl5rEcxp7FJePFQkyyjpA');
 
@@ -495,6 +509,6 @@
 
     }
 
-</script>
+</script> --}}
 
 @endsection

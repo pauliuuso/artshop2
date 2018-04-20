@@ -21,7 +21,7 @@ class ArtworksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckout", "removefromcart", "removeallfromcart"]]);
+        $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "checkoutaddress", "completecheckout", "removefromcart", "removeallfromcart"]]);
     }
 
     /**
@@ -424,7 +424,7 @@ class ArtworksController extends Controller
         $cart->add($artwork, $id, $size, $count);
 
         $request->session()->put("cart", $cart);
-        // dd($request->session()->get("cart"));
+
         return redirect("/artwork/show/" . $id)->with("success", "Artwork added to cart!");
     }
 
@@ -492,16 +492,56 @@ class ArtworksController extends Controller
 
     }
 
-    public function postcheckout(Request $request)
+    public function checkoutaddress(Request $request)
     {
         if(!Session::has("cart"))
         {
             return view("cart/index");
         }
 
+        $this->validate($request,
+        [
+            "name" => "required",
+            "surname" => "required",
+            "email" => "required",
+            "name_shipping" => "required",
+            "surname_shipping" => "required",
+            "address" => "required",
+            "apartment" => "required",
+            "country" => "required",
+            "postal_code" => "required",
+            "phone" => "required"
+        ]);
+
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
 
+        $order = new Order();
+        $order->cart = serialize($cart);
+        $order->name = $request->input("name");
+        $order->surname = $request->input("surname");
+        $order->email = $request->input("email");
+        $order->name_shipping = $request->input("name_shipping");
+        $order->surname_shipping = $request->input("surname_shipping");
+        $order->address = $request->input("address");
+        $order->apartment = $request->input("apartment");
+        $order->country = $request->input("country");
+        $order->postal_code = $request->input("postal_code");
+        $order->phone = $request->input("phone");
+
+        if(Auth::user())
+        {
+            Auth::user()->orders()->save($order);
+        }
+        else
+        {
+            $order->save();
+        }
+
+    }
+
+    public function completecheckout(Request $request)
+    {
         Stripe::setApiKey("sk_test_JJ7cu8Hrdi0wda1MHgvBSi3i");
 
         try
@@ -539,7 +579,6 @@ class ArtworksController extends Controller
 
         Session::forget("cart");
         return redirect("/get-cart")->with(["success" => "Purchace succesfull!"]);
-
     }
 
     public function orders()
