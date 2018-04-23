@@ -22,3 +22,15 @@
     text-align: center;
     z-index: 15;
 }
+
+.payment-method
+{
+    width: 100%;
+    border: 1px solid black;
+
+    &.active
+    {
+        background: black;
+        color: white;
+    }
+}

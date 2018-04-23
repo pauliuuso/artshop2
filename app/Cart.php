@@ -7,6 +7,7 @@ class Cart
     public $artworks = array();
     public $totalCount = 0;
     public $totalPrice = 0;
+    public $orderId = 0;
 
     public function __construct($oldCart)
     {
@@ -15,6 +16,7 @@ class Cart
             $this->artworks = $oldCart->artworks;
             $this->totalCount = $oldCart->totalCount;
             $this->totalPrice = $oldCart->totalPrice;
+            $this->orderId = $oldCart->orderId;
         }
     }
 
@@ -49,6 +51,11 @@ class Cart
         $this->totalPrice -= $price * $count;
         $this->totalCount -= $count;
         unset($this->artworks[$index]);
+
+        if(sizeof($this->artworks) == 0)
+        {
+            $this->removeall();
+        }
     }
 
     public function removeall()
@@ -56,6 +63,12 @@ class Cart
         $this->artworks = array();
         $this->totalCount = 0;
         $this->totalPrice = 0;
+        $this->orderId = 0;
+    }
+
+    public function setOrderId($id)
+    {
+        $this->orderId = $id;
     }
 
 }

@@ -89,7 +89,7 @@
 
     <div class="col-12 text-right mb-5">
         <p class="main-title-sub">TOTAL PRICE: {{Session::has("cart") ? $totalPrice : '0'}} €</p>
-        <a class="customization-select-option-low" href="/checkout"><p class="p-0 m-0">CHECKOUT</p></a>
+        <a class="customization-select-option-low" href="/checkoutaddress"><p class="p-0 m-0">CHECKOUT</p></a>
     </div>
 
 </div>

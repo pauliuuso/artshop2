@@ -834,6 +834,16 @@
   z-index: 15;
 }
 
+.payment-method {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.payment-method.active {
+  background: black;
+  color: white;
+}
+
 html,
 body {
   padding: 0;
@@ -914,6 +924,11 @@ button:hover {
   background: #b30000;
 }
 
+.artshop-button:disabled {
+  background: grey;
+  cursor: default;
+}
+
 .artshop-button-a {
   padding: 18px 50px;
   color: white;
@@ -926,6 +941,11 @@ button:hover {
 
 .artshop-button-a.red {
   background: #b30000;
+}
+
+.artshop-button-a:disabled {
+  background: grey;
+  cursor: default;
 }
 
 .artshop-button-a:hover,
@@ -1031,5 +1051,9 @@ button:hover {
 
 .margin-auto {
   margin: auto;
+}
+
+.text-small {
+  font-size: 10px;
 }
 

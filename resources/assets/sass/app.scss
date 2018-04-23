@@ -97,6 +97,12 @@ button:hover
   {
     background: #b30000;
   }
+
+  &:disabled
+  {
+    background: grey;
+    cursor: default;
+  }
 }
 
 .artshop-button-a
@@ -113,7 +119,14 @@ button:hover
   {
     background: #b30000;
   }
+
+  &:disabled
+  {
+    background: grey;
+    cursor: default;
+  }
 }
+
 
 .artshop-button-a:hover, .artshop-button-a:visited
 {
@@ -242,6 +255,11 @@ button:hover
 .margin-auto
 {
   margin: auto;
+}
+
+.text-small
+{
+  font-size: 10px;
 }
 
 
