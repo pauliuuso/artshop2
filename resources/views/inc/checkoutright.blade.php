@@ -47,13 +47,12 @@
 
                 <div class="purchase-beam"></div>
 
-                {{-- TODO: FIX PRICES! --}}
                 <div class="row mt-4">
                     <div class="col-6">
                         <b>SUBTOTAL</b>
                     </div>
                     <div class="col-6 text-right">
-                        <b>{{ $artwork["price"] }} €</b>
+                        <b>{{ Session::get("cart")->totalPrice }} €</b>
                     </div>
                 </div>
 

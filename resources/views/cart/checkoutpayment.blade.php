@@ -41,27 +41,29 @@
 
                             {{Form::select("card_type", ["Maestro" => "Maestro", "Visa" => "Visa"], "", ["class" => "col-12"])}}
 
-                            {{Form::text("name_credit", "", ["class" => "form-control", "placeholder" => "Name"])}}
+                            {{Form::text("name_credit", "", ["id" => "name_credit", "class" => "form-control", "placeholder" => "Name"])}}
 
-                            {{Form::text("surname_credit", "", ["class" => "form-control", "placeholder" => "Surname"])}}
+                            {{Form::text("surname_credit", "", ["id" => "surname_credit", "class" => "form-control", "placeholder" => "Surname"])}}
 
-                            {{Form::text("card-number", "", ["class" => "form-control", "placeholder" => "Card Number e.g 4242 4242 4242 4242"])}}
+                            {{Form::text("card_number", "", ["id" => "card_number", "class" => "form-control", "placeholder" => "Card Number e.g 4242 4242 4242 4242"])}}
 
                             <div class="row">
                                 <div class="col-6">
-                                    {{Form::text("card-expiry-month", "", ["class" => "form-control", "placeholder" => "Expiration month"])}}
+                                    {{Form::text("card_expirity_month", "", ["id" => "card_expirity_month", "class" => "form-control", "placeholder" => "Expiration month"])}}
                                 </div>
                         
                                 <div class="col-6">
-                                    {{Form::text("card-expiry-year", "", ["class" => "form-control", "placeholder" => "Expiration year"])}}
+                                    {{Form::text("card_expirity_year", "", ["id" => "card_expirity_year", "class" => "form-control", "placeholder" => "Expiration year"])}}
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-6">
-                                    {{Form::text("card-cvc", "", ["class" => "form-control", "placeholder" => "CVC"])}}
+                                    {{Form::text("card_cvc", "", ["id" => "card_cvc", "class" => "form-control", "placeholder" => "CVC"])}}
                                 </div>
                             </div>
+
+                            {{Form::hidden("payment_type", $type)}}
 
                             <div class="row mt-4 mb-5">
                                 <div class="col-6 text-left pt-3">
@@ -107,14 +109,18 @@
         $("#charge-error").addClass("hidden");
         $("#checkout-button").prop("disabled", true);
 
+        console.log($('#card_number').val());
+
         Stripe.card.createToken
         ({
-            number: $('#card-number').val(),
-            cvc: $('#card-cvc').val(),
-            exp_month: $('#card-expiry-month').val(),
-            exp_year: $('#card-expiry-year').val(),
+            number: $('#card_number').val(),
+            cvc: $('#card_cvc').val(),
+            exp_month: $('#card_expirity_month').val(),
+            exp_year: $('#card_expirity_year').val(),
             name: $('#name_credit').val()
         }, stripeResponseHandler);
+
+        console.log(Stripe.card);
 
         return false;
     });

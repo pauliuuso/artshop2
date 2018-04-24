@@ -21,7 +21,7 @@ class ArtworksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "checkoutaddress", "completecheckout", "removefromcart", "removeallfromcart"]]);
+        $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckoutaddress", "checkoutaddress", "checkoutpayment", "completecheckout", "removefromcart", "removeallfromcart"]]);
     }
 
     /**
@@ -740,9 +740,11 @@ class ArtworksController extends Controller
             "ZW" => "Zimbabwe"
         ];
 
+        $order = new Order();
+
         if($cart->orderId != 0)
         {
-            $order = Order::find($cart->orderId);
+            $order = $order->find($cart->orderId);
         }
 
         return view("cart/checkoutaddress")->with(["artworks" => $cart->artworks, "totalPrice" => $totalPrice, "countries" => $countries, "order" => $order]);
@@ -824,7 +826,21 @@ class ArtworksController extends Controller
 
     public function completecheckout(Request $request)
     {
+
+        $this->validate($request,
+        [
+            "card_type" => "required",
+            "name_credit" => "required",
+            "surname_credit" => "required",
+            "card_number" => "required",
+            "card_expirity_month" => "required",
+            "card_expirity_year" => "required",
+            "card_cvc" => "required"
+        ]);
+
         Stripe::setApiKey("sk_test_JJ7cu8Hrdi0wda1MHgvBSi3i");
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
 
         try
         {
@@ -837,11 +853,15 @@ class ArtworksController extends Controller
                 "description" => "Payment"
             ));
 
-            $order = new Order();
+            $order = Order::find($cart->orderId);
             $order->cart = serialize($cart);
-            $order->address = $request->input("address");
-            $order->name = $request->input("name");
-            $order->surname = $request->input("surname");
+            $order->card_type = $request->input("card_type");
+            $order->name_credit = $request->input("name_credit");
+            $order->surname_credit = $request->input("surname_credit");
+            $order->card_number = $request->input("card_number");
+            $order->payment_type = $request->input("payment_type");
+            $order->completed = true;
+            $order->price = $cart->totalPrice;
             $order->payment_id = $charge->id;
 
             if(Auth::user())
@@ -856,7 +876,7 @@ class ArtworksController extends Controller
         }
         catch(\Exception $exception)
         {
-            return redirect("/checkout")->with(["error" => $exception->getMessage()]);
+            return redirect("/checkoutpayment/" . $request->input("payment_type"))->with(["error" => $exception->getMessage()]);
         }
 
         Session::forget("cart");
