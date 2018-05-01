@@ -12,7 +12,7 @@
 
                 <div>
                     @if(Session::has("cart"))
-                        {!! Form::open(["action" => "ArtworksController@postcheckoutaddress", "method" => "POST", "id" => "checkout-form", "novalidate" => "novalidate"]) !!}
+                        {!! Form::open(["action" => "ArtworksController@postcheckoutaddress", "method" => "POST", "id" => "checkout-form"]) !!}
                 
                         <div class="checkout-1 mt-6">
                             <p>CONTACT INFORMATION:</p>
@@ -25,7 +25,7 @@
                             </div>
     
                             <div class="form-group">
-                                {{Form::text("email", $order->email, ["class" => "form-control", "placeholder" => "Email"])}}
+                                {{Form::email("email", $order->email, ["class" => "form-control", "placeholder" => "Email"])}}
                             </div>
                     
                             <p class="mt-6">SHIPPING ADDRESS:</p>
