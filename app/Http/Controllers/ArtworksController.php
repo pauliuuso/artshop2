@@ -24,6 +24,11 @@ class ArtworksController extends Controller
         $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckoutaddress", "checkoutaddress", "checkoutpayment", "completecheckout", "removefromcart", "removeallfromcart"]]);
     }
 
+    public function intro()
+    {
+        return view("intro/index");
+    }
+
     /**
      * Display a listing of the resource.
      *

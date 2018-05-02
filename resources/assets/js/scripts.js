@@ -61,6 +61,17 @@ function GotoCheckoutStepBack(currentStep, previousStep)
     ScrollToArt("html");
 }
 
+function CenterImage(id)
+{
+    var $element = $(id);
+    var imageWidth = $element.width();
+    var imageHeight = $element.height();
+    var wrapperWidth = $('.intro-wrapper').width();
+    var wrapperHeight = $('.intro-wrapper').height();
+
+    $element.css("left", "-" + (imageWidth - wrapperWidth)/2 + "px")
+}
+
 $(window).resize(function () 
 {
     $(window).trigger("window:resize")
@@ -70,6 +81,7 @@ $(window).on("window:resize", function (e)
 {
     OnResizeGallery();
     $(".artwork-image-wrapper").height($(".artwork-image-wrapper img").height());
+    CenterImage("#intro-video");
 });
 
 window.onscroll = function()

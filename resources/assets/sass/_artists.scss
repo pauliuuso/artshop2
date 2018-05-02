@@ -18,20 +18,24 @@
         {
             column-count: 2;
         }
+
+        -webkit-mask-size: 50px 50px;
     }
 
     .read-more-wrapper
     {
         position: absolute;
-        bottom: -20px;
+        bottom: 0px;
         left: 0;
         right: 0;
         padding-right: 15px;
         margin-top: 15px;
+        height: 40px;
+        background: white;
 
         .read-more
         {
-            bottom: 0;
+            float: right;
         }
     }
 

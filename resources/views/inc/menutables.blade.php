@@ -2,7 +2,7 @@
 
     <div class="mobile-links-container">
         <ul>
-            <a href="/">
+            <a href="/gallery">
                 <li class="marvel">Gallery</li>
             </a>
             <a href="/artists">
@@ -61,7 +61,7 @@
 
     <div class="mobile-links-container ml-2">
         <ul>
-            <a href="/">
+            <a href="/gallery">
                 <li class="marvel">Gallery</li>
             </a>
             <a href="/artists">

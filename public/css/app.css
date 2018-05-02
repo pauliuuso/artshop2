@@ -163,6 +163,10 @@
   letter-spacing: 5px;
 }
 
+.artist-card .artist-description {
+  -webkit-mask-size: 50px 50px;
+}
+
 .artist-card .artist-description .columns {
   -webkit-column-count: 2;
           column-count: 2;
@@ -170,15 +174,17 @@
 
 .artist-card .read-more-wrapper {
   position: absolute;
-  bottom: -20px;
+  bottom: 0px;
   left: 0;
   right: 0;
   padding-right: 15px;
   margin-top: 15px;
+  height: 40px;
+  background: white;
 }
 
 .artist-card .read-more-wrapper .read-more {
-  bottom: 0;
+  float: right;
 }
 
 .artist-carousel img {
@@ -726,6 +732,14 @@
   margin-top: 7rem !important;
 }
 
+.mb-9 {
+  margin-bottom: 7rem !important;
+}
+
+.mb-10 {
+  margin-bottom: 8rem !important;
+}
+
 .pl-6 {
   padding-left: 3rem !important;
 }
@@ -844,16 +858,44 @@
   color: white;
 }
 
+.intro-wrapper {
+  height: 100%;
+  background: black;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.intro-wrapper video {
+  position: absolute;
+}
+
+.intro-wrapper .intro-description {
+  position: absolute;
+  z-index: 99;
+  top: 150px;
+}
+
+.intro-wrapper .intro-title {
+  border-bottom: 2px solid black;
+  padding-bottom: 45px;
+}
+
+.intro-wrapper .intro-text {
+  float: left;
+  width: 600px;
+}
+
+.intro-wrapper .intro-continue {
+  border: 2px solid black;
+  padding: 5px 25px;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   height: 100%;
-}
-
-html {
-  overflow: -moz-scrollbars-vertical;
-  overflow-y: scroll;
 }
 
 p,
