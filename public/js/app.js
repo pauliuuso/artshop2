@@ -300,6 +300,25 @@ function CenterImage(id)
     $element.css("left", "-" + (imageWidth - wrapperWidth)/2 + "px")
 }
 
+function ShowDescription(element)
+{
+    $element = $(element);
+    $description = $('.artwork-description');
+    $scroller = $('.artwork-scroller');
+
+    if($element.height() < $description.height())
+    {
+        $description.css('height', ($element.height() - 50) + 'px');
+        $scroller.removeClass('visibility-hidden');
+    }
+    else
+    {
+        $description.addClass('unscrollable');
+    }
+
+    $description.removeClass('visibility-hidden');
+}
+
 $(window).resize(function () 
 {
     $(window).trigger("window:resize")

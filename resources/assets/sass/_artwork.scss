@@ -133,6 +133,31 @@
     }
 }
 
+.artwork-description
+{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.artwork-scroller
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+}
+
+.artwork-scrollbar-wrapper
+{
+    position: absolute;
+    z-index: 12;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    background: white;
+}
 
 @media (max-width: 575.98px)
 {

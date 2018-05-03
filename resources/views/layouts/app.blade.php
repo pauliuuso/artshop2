@@ -27,6 +27,7 @@
                 <div class="hidden-lg-down col-xl-1">
                 </div>
                 <div class="col-12 col-xl-10">
+                    @include("inc/logo")
                     @include("inc/menu")
                     @include("inc/menutables")
                     @include("inc/errors")

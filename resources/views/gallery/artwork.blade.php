@@ -23,7 +23,7 @@
         <div class="row">
 
             <div class="col-12 mb-4">
-                <img class="col-12 p-0 visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ImageLoaded(this)"/>
+                <img class="col-12 p-0 visibility-hidden" src="/storage/artworks/{{$artwork->picture_name}}" onload="ImageLoaded(this); ShowDescription(this);"/>
             </div>
 
         </div>
@@ -31,15 +31,23 @@
 
 
     <div class="col-12 col-md-6 text-justify order-12 order-md-11">
-        <p class="text-uppercase text-underline">DESCRIPTION</p>
-        {!!$artwork->description!!}
 
-        <div class="row mt-2">
-            <div class="col-12 text-justify">
-                <p class="text-uppercase text-underline">AUTHOR BIO</p>
-                <p>{!! $artwork->getAuthor->description !!}</p>
+        <div class="artwork-description visibility-hidden pr-2">
+            <p class="text-uppercase text-underline">DESCRIPTION</p>
+            {!!$artwork->description!!}
+    
+            <div class="row mt-2">
+                <div class="col-12 text-justify">
+                    <p class="text-uppercase text-underline">AUTHOR BIO</p>
+                    <p>{!! $artwork->getAuthor->description !!}</p>
+                </div>
             </div>
         </div>
+
+        <div class="artwork-scrollbar-wrapper"></div>
+
+        <div class="artwork-scroller visibility-hidden text-center">Scroll down for more info</div>
+
     </div>
 
     <div class="col-12 col-md-6 order-11 order-md-12">

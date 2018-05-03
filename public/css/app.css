@@ -147,6 +147,29 @@
   text-decoration: underline;
 }
 
+.artwork-description {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.artwork-scroller {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+}
+
+.artwork-scrollbar-wrapper {
+  position: absolute;
+  z-index: 12;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  background: white;
+}
+
 @media (max-width: 575.98px) {
   .art-wrapper {
     height: 450px;
@@ -231,6 +254,15 @@
     -webkit-column-count: 1;
             column-count: 1;
   }
+}
+
+.logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 50px;
+  width: 500px;
+  z-index: 99;
 }
 
 .art-menu {
@@ -856,6 +888,15 @@
 .payment-method.active {
   background: black;
   color: white;
+}
+
+.intro-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
 }
 
 .intro-wrapper {

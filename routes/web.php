@@ -30,6 +30,7 @@ Route::get("/checkoutaddress", "ArtworksController@checkoutaddress");
 Route::post("/postcheckoutaddress", "ArtworksController@postcheckoutaddress");
 Route::get("/checkoutpayment/{type}", "ArtworksController@checkoutpayment");
 Route::post("/completecheckout", "ArtworksController@completecheckout");
+Route::post("/completecheckoutpaypal", "ArtworksController@completecheckoutpaypal");
 Route::get("/orders", "ArtworksController@orders");
 Route::get("/edit-size/{id}", "ArtworksController@editsize");
 Route::put("/update-size/{id}", "ArtworksController@updatesize");

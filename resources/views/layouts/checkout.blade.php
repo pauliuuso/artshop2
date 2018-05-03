@@ -25,6 +25,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-xl-10 offset-xl-1">
+                    @include("inc/logo")
                     @include("inc/absolutemenu")
                     @include("inc/menutables")
                     @include("inc/errors")

@@ -70,7 +70,7 @@
                         <b>GRANDTOTAL</b>
                     </div>
                     <div class="col-6 text-right">
-                        <b>{{ $artwork["price"] + 4.99 }} €</b>
+                        <b>{{ Session::get("cart")->totalPrice + 4.99 }} €</b>
                     </div>
                 </div>
 

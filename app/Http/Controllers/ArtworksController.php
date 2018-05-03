@@ -13,15 +13,25 @@ use App\User;
 use App\Cart;
 use App\Order;
 use App\Size;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
 use Stripe\Stripe;
 use Stripe\Charge;
+use PayPal\Rest\ApiContext;
+use PayPal\Api\Payer;
+use PayPal\Auth\OAuthTokenCredential;
 use Session;
 
 class ArtworksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckoutaddress", "checkoutaddress", "checkoutpayment", "completecheckout", "removefromcart", "removeallfromcart"]]);
+        $this->middleware("auth", ["except" => ["intro", "index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckoutaddress", "checkoutaddress", "checkoutpayment", "completecheckout", "completecheckoutpaypal", "removefromcart", "removeallfromcart"]]);
     }
 
     public function intro()
@@ -766,7 +776,19 @@ class ArtworksController extends Controller
         $cart = new Cart($oldCart);
         $totalPrice = $cart->totalPrice;
 
-        return view("cart/checkoutpayment")->with(["artworks" => $cart->artworks, "totalPrice" => $totalPrice, "type" => $type]);
+        if($type == "credit")
+        {
+            return view("cart/checkoutpayment")->with(["artworks" => $cart->artworks, "totalPrice" => $totalPrice, "type" => $type]);
+        }
+        else if($type == "paypal")
+        {
+            return view("cart/checkoutpaypal")->with(["artworks" => $cart->artworks, "totalPrice" => $totalPrice, "type" => $type]);
+        }
+        else
+        {
+            return view("cart/checkoutpayment")->with(["artworks" => $cart->artworks, "totalPrice" => $totalPrice, "type" => $type]);
+        }
+
     }
 
     public function postcheckoutaddress(Request $request)
@@ -886,6 +908,110 @@ class ArtworksController extends Controller
 
         Session::forget("cart");
         return redirect("/get-cart")->with(["success" => "Purchace succesfull!"]);
+    }
+
+    public function completecheckoutpaypal(Request $request)
+    {
+
+        $this->validate($request,
+        [
+            "price" => "required"
+        ]);
+
+        $authtoken = new OAuthTokenCredential(
+            'AVSaVKCcTKLnagQLFxn4nFrOate_Tb9sxXbsvnvNp1wVYdhAn5eG7maIBo6icXPBau0e6TybTBhbkuVK',
+            'EJ-Yayj6NJURyAVkt7NYwd1Wo_7rhB_T_frGAIpa2A0acji6p1ak98Ky-lOPhQgDpuP3iDyu7eBpzKdg'
+        );
+        $paypal = new ApiContext($authtoken);
+
+        $price = $request->input("price");
+        $shipping = 4.99;
+        $totalPrice = $price + $shipping;
+
+        $payer = new Payer();
+        $payer->setPaymentMethod("paypal");
+
+        $item = new Item();
+        $item->setName("Artworks")->setCurrency("EUR")->setQuantity(1)->setPrice($price);
+
+        $itemList = new ItemList();
+        $itemList->setItems([$item]);
+
+        $details = new Details();
+        $details->setShipping($shipping)->setSubtotal($price);
+
+        $amount = new Amount();
+        $amount->setCurrency("EUR")->setTotal($totalPrice)->setDetails($details);
+
+        $transaction = new Transaction();
+        $transaction->setAmount($amount)->setDescription("Payment")->setItemList($itemList)->setInvoiceNumber(uniqid());
+
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl(url("/gallery"))->setCancelUrl(url("/gallery"));
+
+
+        $payment = new Payment();
+        $payment->setIntent("sale")
+                ->setPayer($payer)
+                ->setRedirectUrls($redirectUrls)
+                ->setTransactions([$transaction]);
+
+        try
+        {
+            $payment->create($paypal);
+        }
+        catch(\Exception $exception)
+        {
+            die($exception);
+        }
+
+        $approvalUrl = $payment->getApprovalLink();
+
+        header("Location: " . $approvalUrl);
+        die();
+
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
+
+        // try
+        // {
+
+        //     $charge = Charge::create(
+        //     array(
+        //         "amount" => $cart->totalPrice * 100,
+        //         "currency" => "eur",
+        //         "source" => $request->input("stripeToken"),
+        //         "description" => "Payment"
+        //     ));
+
+        //     $order = Order::find($cart->orderId);
+        //     $order->cart = serialize($cart);
+        //     $order->card_type = $request->input("card_type");
+        //     $order->name_credit = $request->input("name_credit");
+        //     $order->surname_credit = $request->input("surname_credit");
+        //     $order->card_number = $request->input("card_number");
+        //     $order->payment_type = $request->input("payment_type");
+        //     $order->completed = true;
+        //     $order->price = $cart->totalPrice;
+        //     $order->payment_id = $charge->id;
+
+        //     if(Auth::user())
+        //     {
+        //         Auth::user()->orders()->save($order);
+        //     }
+        //     else
+        //     {
+        //         $order->save();
+        //     }
+
+        // }
+        // catch(\Exception $exception)
+        // {
+        //     return redirect("/checkoutpayment/" . $request->input("payment_type"))->with(["error" => $exception->getMessage()]);
+        // }
+
+        // Session::forget("cart");
+        // return redirect("/get-cart")->with(["success" => $approvalUrl]);
     }
 
     public function orders()
