@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string("surname", 50)->nullable();
             $table->string("email", 190)->nullable();
             $table->string("payment_id", 190)->nullable();
+            $table->string("payer_id", 190)->nullable();
             $table->string("name_shipping", 50)->nullable();
             $table->string("surname_shipping", 50)->nullable();
             $table->string("name_credit", 50)->nullable();

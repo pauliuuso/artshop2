@@ -18,6 +18,7 @@ use PayPal\Api\Details;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use Stripe\Stripe;
@@ -29,9 +30,14 @@ use Session;
 
 class ArtworksController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware("auth", ["except" => ["intro", "index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckoutaddress", "checkoutaddress", "checkoutpayment", "completecheckout", "completecheckoutpaypal", "removefromcart", "removeallfromcart"]]);
+        $this->middleware("auth", ["except" => ["intro", "index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckoutaddress", "checkoutaddress", "checkoutpayment", "completecheckout", "completecheckoutpaypal", "removefromcart", "removeallfromcart", "thankyou"]]);
+
+        define("PAYPAL_CLIENTID", "AVSaVKCcTKLnagQLFxn4nFrOate_Tb9sxXbsvnvNp1wVYdhAn5eG7maIBo6icXPBau0e6TybTBhbkuVK");
+        define("PAYPAL_SECRET", "EJ-Yayj6NJURyAVkt7NYwd1Wo_7rhB_T_frGAIpa2A0acji6p1ak98Ky-lOPhQgDpuP3iDyu7eBpzKdg");
+        define("STRIPE_KEY", "sk_test_JJ7cu8Hrdi0wda1MHgvBSi3i");
     }
 
     public function intro()
@@ -865,7 +871,7 @@ class ArtworksController extends Controller
             "card_cvc" => "required"
         ]);
 
-        Stripe::setApiKey("sk_test_JJ7cu8Hrdi0wda1MHgvBSi3i");
+        Stripe::setApiKey(STRIPE_KEY);
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
 
@@ -918,9 +924,37 @@ class ArtworksController extends Controller
             "price" => "required"
         ]);
 
+        // save order to the database
+
+        $oldCart = Session::get("cart");
+        $cart = new Cart($oldCart);
+
+        try
+        {
+            $order = Order::find($cart->orderId);
+            $order->cart = serialize($cart);
+            $order->payment_type = $request->input("payment_type");
+            $order->price = $cart->totalPrice;
+
+            if(Auth::user())
+            {
+                Auth::user()->orders()->save($order);
+            }
+            else
+            {
+                $order->save();
+            }
+        }
+        catch(\Exception $exception)
+        {
+            return redirect("/checkoutpayment/" . $request->input("payment_type"))->with(["error" => $exception->getMessage()]);
+        }
+
+
+        // start paypal payment
         $authtoken = new OAuthTokenCredential(
-            'AVSaVKCcTKLnagQLFxn4nFrOate_Tb9sxXbsvnvNp1wVYdhAn5eG7maIBo6icXPBau0e6TybTBhbkuVK',
-            'EJ-Yayj6NJURyAVkt7NYwd1Wo_7rhB_T_frGAIpa2A0acji6p1ak98Ky-lOPhQgDpuP3iDyu7eBpzKdg'
+            PAYPAL_CLIENTID,
+            PAYPAL_SECRET
         );
         $paypal = new ApiContext($authtoken);
 
@@ -931,12 +965,18 @@ class ArtworksController extends Controller
         $payer = new Payer();
         $payer->setPaymentMethod("paypal");
 
-        $item = new Item();
-        $item->setName("Artworks")->setCurrency("EUR")->setQuantity(1)->setPrice($price);
-
         $itemList = new ItemList();
-        $itemList->setItems([$item]);
+        $itemArray = array();
 
+        foreach ($cart->artworks as $artwork)
+        {
+            $item = new Item();
+            $item->setName($artwork["artwork"]->title . " " . $artwork["size"])->setCurrency("EUR")->setQuantity($artwork["count"])->setPrice($artwork["price"]);
+            array_push($itemArray, $item);
+        }
+
+        $itemList->setItems($itemArray);
+        
         $details = new Details();
         $details->setShipping($shipping)->setSubtotal($price);
 
@@ -947,8 +987,7 @@ class ArtworksController extends Controller
         $transaction->setAmount($amount)->setDescription("Payment")->setItemList($itemList)->setInvoiceNumber(uniqid());
 
         $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl(url("/gallery"))->setCancelUrl(url("/gallery"));
-
+        $redirectUrls->setReturnUrl(url("/executepaypal"))->setCancelUrl(url("/get-cart"));
 
         $payment = new Payment();
         $payment->setIntent("sale")
@@ -969,49 +1008,70 @@ class ArtworksController extends Controller
 
         header("Location: " . $approvalUrl);
         die();
+    }
+
+    public function executepaypal()
+    {
+
+        $paymentId = $_GET["paymentId"];
+        $payerId = $_GET["PayerID"];
+
+        if(!isset($paymentId, $payerId))
+        {
+            return redirect("/checkoutpayment/credit")->with(["error" => "Payment failed!"]);
+        }
+
+        $authtoken = new OAuthTokenCredential(
+            PAYPAL_CLIENTID,
+            PAYPAL_SECRET
+        );
+        $paypal = new ApiContext($authtoken);
+
+        $payment = Payment::get($paymentId, $paypal);
+
+        $execute = new PaymentExecution();
+        $execute->setPayerId($payerId);
+
+        try
+        {
+            $result = $payment->execute($execute, $paypal);
+        }
+        catch(\Exception $exception)
+        {
+            return redirect("/checkoutpayment/credit")->with(["error" => $exception]);
+        }
 
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
 
-        // try
-        // {
+        try
+        {
+            $order = Order::find($cart->orderId);
+            $order->completed = true;
+            $order->payment_id = $paymentId;
+            $order->payer_id = $payerId;
 
-        //     $charge = Charge::create(
-        //     array(
-        //         "amount" => $cart->totalPrice * 100,
-        //         "currency" => "eur",
-        //         "source" => $request->input("stripeToken"),
-        //         "description" => "Payment"
-        //     ));
+            if(Auth::user())
+            {
+                Auth::user()->orders()->save($order);
+            }
+            else
+            {
+                $order->save();
+            }
+        }
+        catch(\Exception $exception)
+        {
+            return redirect("/get-cart/")->with(["error" => $exception->getMessage()]);
+        }
 
-        //     $order = Order::find($cart->orderId);
-        //     $order->cart = serialize($cart);
-        //     $order->card_type = $request->input("card_type");
-        //     $order->name_credit = $request->input("name_credit");
-        //     $order->surname_credit = $request->input("surname_credit");
-        //     $order->card_number = $request->input("card_number");
-        //     $order->payment_type = $request->input("payment_type");
-        //     $order->completed = true;
-        //     $order->price = $cart->totalPrice;
-        //     $order->payment_id = $charge->id;
+        Session::forget("cart");
+        return redirect("/thankyou");
+    }
 
-        //     if(Auth::user())
-        //     {
-        //         Auth::user()->orders()->save($order);
-        //     }
-        //     else
-        //     {
-        //         $order->save();
-        //     }
-
-        // }
-        // catch(\Exception $exception)
-        // {
-        //     return redirect("/checkoutpayment/" . $request->input("payment_type"))->with(["error" => $exception->getMessage()]);
-        // }
-
-        // Session::forget("cart");
-        // return redirect("/get-cart")->with(["success" => $approvalUrl]);
+    public function thankyou()
+    {
+        return view("cart/thankyou");
     }
 
     public function orders()

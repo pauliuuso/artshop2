@@ -38,6 +38,10 @@ Route::get("/new-size/{id}", "ArtworksController@newsize");
 Route::post("/create-size/{id}", "ArtworksController@createsize");
 Route::delete("/delete-size/{id}", "ArtworksController@deletesize");
 
+Route::get("/thankyou", "ArtworksController@thankyou");
+Route::get("/executepaypal", "ArtworksController@executepaypal");
+Route::get("/paymentfailed", "ArtworksController@paymentfailed");
+
 Route::get("/backgrounds/manage", "BackgroundsController@index");
 Route::post("/backgrounds/store", "BackgroundsController@store");
 Route::get("/backgrounds/edit/{id}", "BackgroundsController@edit");
