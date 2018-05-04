@@ -1,4 +1,12 @@
-function ImageLoaded(image) 
+$(document).ready(function()
+{
+    $('#quantity-input').bind('DOMAttrModified textInput input keypress paste focus', function ()
+    {
+        QuantityChanged();
+    });
+});
+
+function ImageLoaded(image)
 {
     var wrapper = image.parentElement;
     $(image).removeClass("visibility-hidden");
@@ -160,11 +168,6 @@ function SelectFrame(frame, element)
     $(element).addClass("artwork-selected-option");
     $("#frame").val(frame);
 }
-
-$('#quantity-input').bind('DOMAttrModified textInput input keypress paste focus', function () 
-{
-    QuantityChanged();
-});
 
 function QuantityChanged()
 {

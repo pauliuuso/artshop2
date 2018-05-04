@@ -35,6 +35,7 @@ class ArtworksController extends Controller
     {
         $this->middleware("auth", ["except" => ["intro", "index", "show", "getprice", "getart", "addtocart", "getcart", "checkout", "postcheckoutaddress", "checkoutaddress", "checkoutpayment", "completecheckout", "completecheckoutpaypal", "removefromcart", "removeallfromcart", "thankyou"]]);
 
+        // test keys //
         define("PAYPAL_CLIENTID", "AVSaVKCcTKLnagQLFxn4nFrOate_Tb9sxXbsvnvNp1wVYdhAn5eG7maIBo6icXPBau0e6TybTBhbkuVK");
         define("PAYPAL_SECRET", "EJ-Yayj6NJURyAVkt7NYwd1Wo_7rhB_T_frGAIpa2A0acji6p1ak98Ky-lOPhQgDpuP3iDyu7eBpzKdg");
         define("STRIPE_KEY", "sk_test_JJ7cu8Hrdi0wda1MHgvBSi3i");
@@ -976,7 +977,7 @@ class ArtworksController extends Controller
         }
 
         $itemList->setItems($itemArray);
-        
+
         $details = new Details();
         $details->setShipping($shipping)->setSubtotal($price);
 
