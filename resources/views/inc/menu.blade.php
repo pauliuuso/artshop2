@@ -3,7 +3,7 @@
 
         <ul class="pl-2 desktop-cart">
             <a href="/get-cart">
-                <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->totalCount ? 'full' : 'empty' }}"></i>
+                <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->getTotalCount() > 0 ? 'full' : 'empty' }}"></i>
             </a>
             <a class="pointer ml-4" onclick="ToogleDesktopMenu();">
                 <i class="menu-icon"></i>
@@ -22,7 +22,7 @@
 
         <div class="mobile-cart">
             <a class="pointer" href="/get-cart">
-                <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->totalCount ? 'full' : 'empty' }}"></i>
+                <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->getTotalCount() > 0 ? 'full' : 'empty' }}"></i>
             </a>
         </div>
 

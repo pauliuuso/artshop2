@@ -40,8 +40,6 @@
                             <p class="mt-6">PayPal</p>
                             <p>Total: {{ Session::get('cart')->totalPrice + 4.99 }}</p>
 
-                            {{Form::hidden("price", Session::get('cart')->totalPrice)}}
-
                             {{Form::hidden("payment_type", $type)}}
 
                             <div class="row mt-4 mb-5">

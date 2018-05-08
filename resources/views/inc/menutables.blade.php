@@ -52,7 +52,7 @@
 <div class="desktop-menu d-none uppercase animated">
 
     <a class="menu-cart"  href="/get-cart">
-        <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->totalCount ? 'full' : 'empty' }}"></i>
+        <i class="cart-icon {{ Session::get('cart') && Session::get('cart')->getTotalCount() > 0 ? 'full' : 'empty' }}"></i>
     </a>
 
     <a class="pointer menu-close" onclick="ToogleDesktopMenu();">

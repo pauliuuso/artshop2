@@ -496,7 +496,7 @@ class ArtworksController extends Controller
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
 
-        return view("cart/index")->with(["artworks" => $cart->artworks, "totalPrice" => $cart->totalPrice, "totalCount" => $cart->totalCount]);
+        return view("cart/index")->with(["artworks" => $cart->artworks, "totalPrice" => $cart->getFullPrice(), "totalCount" => $cart->getTotalCount()]);
     }
 
     public function checkoutaddress()
@@ -508,7 +508,7 @@ class ArtworksController extends Controller
 
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
-        $totalPrice = $cart->totalPrice;
+        $totalPrice = $cart->getFullPrice();
         $countries = [
             "Select" => "Select Country",
             "AF" => "Afghanistan",
@@ -781,7 +781,7 @@ class ArtworksController extends Controller
 
         $oldCart = Session::get("cart");
         $cart = new Cart($oldCart);
-        $totalPrice = $cart->totalPrice;
+        $totalPrice = $cart->getFullPrice();
 
         if($type == "credit")
         {
@@ -895,7 +895,7 @@ class ArtworksController extends Controller
             $order->card_number = $request->input("card_number");
             $order->payment_type = $request->input("payment_type");
             $order->completed = true;
-            $order->price = $cart->totalPrice;
+            $order->price = $cart->getFullPrice();
             $order->payment_id = $charge->id;
 
             if(Auth::user())
@@ -935,7 +935,7 @@ class ArtworksController extends Controller
             $order = Order::find($cart->orderId);
             $order->cart = serialize($cart);
             $order->payment_type = $request->input("payment_type");
-            $order->price = $cart->totalPrice;
+            $order->price = $cart->getFullPrice();
 
             if(Auth::user())
             {
@@ -959,7 +959,7 @@ class ArtworksController extends Controller
         );
         $paypal = new ApiContext($authtoken);
 
-        $price = $request->input("price");
+        $price = $cart->getFullPrice();
         $shipping = 4.99;
         $totalPrice = $price + $shipping;
 

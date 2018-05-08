@@ -34,7 +34,7 @@
                                 <p>Paper: Quality paper</p>
                                 <p>Frame: No frame</p>
                                 <p>Size: {{ $artwork["size"] }} cm.</p>
-                                <p>Price: {{ $artwork["price"] }} €</p>
+                                <p>Price: {{ $artwork["price"] * $artwork["count"] }} €</p>
                             </div>
     
                         @endforeach
@@ -52,7 +52,7 @@
                         <b>SUBTOTAL</b>
                     </div>
                     <div class="col-6 text-right">
-                        <b>{{ Session::get("cart")->totalPrice }} €</b>
+                        <b>{{Session::has("cart") ? $totalPrice : '-'}} €</b>
                     </div>
                 </div>
 
@@ -70,7 +70,7 @@
                         <b>GRANDTOTAL</b>
                     </div>
                     <div class="col-6 text-right">
-                        <b>{{ Session::get("cart")->totalPrice + 4.99 }} €</b>
+                        <b>{{ Session::has("cart") ? $totalPrice + 4.99 : '-' }} €</b>
                     </div>
                 </div>
 

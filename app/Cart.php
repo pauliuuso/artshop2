@@ -5,8 +5,7 @@ namespace App;
 class Cart
 {
     public $artworks = array();
-    public $totalCount = 0;
-    public $totalPrice = 0;
+
     public $orderId = 0;
 
     public function __construct($oldCart)
@@ -14,8 +13,6 @@ class Cart
         if($oldCart)
         {
             $this->artworks = $oldCart->artworks;
-            $this->totalCount = $oldCart->totalCount;
-            $this->totalPrice = $oldCart->totalPrice;
             $this->orderId = $oldCart->orderId;
         }
     }
@@ -25,11 +22,8 @@ class Cart
         $storedArtwork = ["count" => $count, "price" => 0, "size" => "", "artwork" => $artwork];
 
         $storedArtwork["count"] = $count;
-        $storedArtwork["price"] = $size->price * $count;
+        $storedArtwork["price"] = $size->price;
         $storedArtwork["size"] = $size->width . "x" . $size->height;
-
-        $this->totalCount += $count;
-        $this->totalPrice += $storedArtwork["price"];
 
         foreach($this->artworks as $index => $artwork)
         {
@@ -41,15 +35,10 @@ class Cart
         }
 
         array_push($this->artworks, $storedArtwork);
-
     }
 
     public function remove($index)
     {
-        $count = $this->artworks[$index]["count"];
-        $price = $this->artworks[$index]["price"];
-        $this->totalPrice -= $price * $count;
-        $this->totalCount -= $count;
         unset($this->artworks[$index]);
 
         if(sizeof($this->artworks) == 0)
@@ -61,14 +50,36 @@ class Cart
     public function removeall()
     {
         $this->artworks = array();
-        $this->totalCount = 0;
-        $this->totalPrice = 0;
         $this->orderId = 0;
     }
 
     public function setOrderId($id)
     {
         $this->orderId = $id;
+    }
+
+    public function getFullPrice()
+    {
+        $price = 0;
+
+        foreach($this->artworks as $artwork)
+        {
+            $price += $artwork["price"] * $artwork["count"];
+        }
+
+        return $price;
+    }
+
+    public function getTotalCount()
+    {
+        $count = 0;
+
+        foreach($this->artworks as $artwork)
+        {
+            $count += $artwork["count"];
+        }
+
+        return $count;
     }
 
 }

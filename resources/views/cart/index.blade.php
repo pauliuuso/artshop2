@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="col-12 col-md-2 text-right">
-                        <p><span class="d-md-none">Price: </span> {{ $artwork["price"] }} €</p>
+                        <p><span class="d-md-none">Price: </span> {{ $artwork["price"] * $artwork["count"] }} €</p>
                     </div>
 
                 </div>
@@ -88,7 +88,7 @@
     </div>
 
     <div class="col-12 text-right mb-5">
-        <p class="main-title-sub">TOTAL PRICE: {{Session::has("cart") ? $totalPrice : '0'}} €</p>
+        <p class="main-title-sub">TOTAL PRICE: {{Session::has("cart") ? $totalPrice : '-'}} €</p>
         <a class="customization-select-option-low" href="/checkoutaddress"><p class="p-0 m-0">CHECKOUT</p></a>
     </div>
 
