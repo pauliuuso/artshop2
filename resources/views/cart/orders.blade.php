@@ -32,7 +32,7 @@
 
                 @endforeach
 
-                <p>Total price: {{$order->cart->totalPrice}} €</p>
+                <p>Total price: {{$order->cart->getFullPrice()}} €</p>
 
             </div>
         @endforeach

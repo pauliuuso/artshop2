@@ -12,7 +12,7 @@
 
                 <div>
                     @if(Session::has("cart"))
-                        {!! Form::open(["action" => "ArtworksController@postcheckoutaddress", "method" => "POST", "id" => "checkout-form"]) !!}
+                        {!! Form::open(["action" => "CheckoutController@postcheckoutaddress", "method" => "POST", "id" => "checkout-form"]) !!}
                 
                         <div class="checkout-1 mt-6">
                             <p>CONTACT INFORMATION:</p>

@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    $('#quantity-input').bind('DOMAttrModified textInput input keypress paste focus', function ()
+    $('#quantity-input').bind('focusout', function ()
     {
         QuantityChanged();
     });
@@ -181,7 +181,6 @@ function QuantityChanged()
 
     var quantity = $("#quantity-input").val();
     $("#quantity").html(quantity);
-    $("#count").val(quantity);
     GetArtworkPrice();
 }
 
@@ -214,7 +213,7 @@ function GetArtistWorks(count, id)
     $.ajax({
         type: "GET",
         url: "/artwork/getart",
-        data: {_token: $('#_token').val(), artowork_count: count, artwork_id: id},
+        data: {_token: $('#_token').val(), artwork_count: count, artwork_id: id},
         success: function(data)
         {
             

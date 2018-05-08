@@ -13,7 +13,7 @@
 
                 <div>
                     @if(Session::has("cart"))
-                    {!! Form::open(["action" => "ArtworksController@completecheckout", "method" => "POST", "id" => "checkout-form", "onsubmit" => "event.preventDefault();", "novalidate" => "novalidate"]) !!}
+                    {!! Form::open(["action" => "CheckoutController@completecheckout", "method" => "POST", "id" => "checkout-form", "onsubmit" => "event.preventDefault();", "novalidate" => "novalidate"]) !!}
 
                         <div class="checkout-2 mt-6">
 

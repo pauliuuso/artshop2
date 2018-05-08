@@ -13,7 +13,7 @@
 
                 <div>
                     @if(Session::has("cart"))
-                    {!! Form::open(["action" => "ArtworksController@completecheckoutpaypal", "method" => "POST", "id" => "checkout-form", "novalidate" => "novalidate"]) !!}
+                    {!! Form::open(["action" => "CheckoutController@completecheckoutpaypal", "method" => "POST", "id" => "checkout-form", "novalidate" => "novalidate"]) !!}
 
                         <div class="checkout-2 mt-6">
 
@@ -38,7 +38,7 @@
                             </a>
 
                             <p class="mt-6">PayPal</p>
-                            <p>Total: {{ Session::get('cart')->totalPrice + 4.99 }}</p>
+                            <p>Total: {{ Session::get('cart') ? Session::get('cart')->getFullPrice() + 4.99 : "-" }}</p>
 
                             {{Form::hidden("payment_type", $type)}}
 
